@@ -39,7 +39,7 @@ public class ItemController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
     ) {
-        List<Item> items = itemService.findAll();
+    	List<Item> items = itemService.findAll();
         model.addAttribute("user", user);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品一覧");

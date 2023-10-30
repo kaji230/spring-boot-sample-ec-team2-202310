@@ -12,6 +12,7 @@ import java.util.List;
 public interface ItemService {
     // 投稿一覧の取得
     List<Item> findAll();
+    
     // ID を指定して投稿を取得
     Optional<Item> findById(long id);
     // 商品情報を更新

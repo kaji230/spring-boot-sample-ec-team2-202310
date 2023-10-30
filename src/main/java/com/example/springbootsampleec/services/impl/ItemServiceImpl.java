@@ -45,6 +45,7 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
+    
 
     @Transactional(readOnly = true)
     @Override
