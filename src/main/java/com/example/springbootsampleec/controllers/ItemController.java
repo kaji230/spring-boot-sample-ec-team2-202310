@@ -2,8 +2,7 @@ package com.example.springbootsampleec.controllers;
  
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
+ 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute; 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,20 +22,16 @@ import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
 import com.example.springbootsampleec.services.ItemService;
-import com.example.springbootsampleec.services.UserService;
  
 @RequestMapping("/items")
 @Controller
 public class ItemController { 
     private final ItemService itemService;
-    private final UserService userService;
     
     public ItemController(
-        ItemService itemService,
-        UserService userService
+        ItemService itemService
     ) {
         this.itemService = itemService;
-        this.userService = userService;
     }
     
     @GetMapping("/")    
@@ -44,9 +39,8 @@ public class ItemController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
     ) {
-    	User refreshedUser = userService.findById(user.getId()).orElseThrow();
         List<Item> items = itemService.findAll();
-        model.addAttribute("user", refreshedUser);
+        model.addAttribute("user", user);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品一覧");
         model.addAttribute("main", "items/index::main");
@@ -116,7 +110,7 @@ public class ItemController {
         itemEditForm.setDescription(item.getDescription());
         model.addAttribute("item", item);
         model.addAttribute("user", user);
-        model.addAttribute("title", "商品情報の編集");
+        model.addAttribute("title", "投稿の編集");
         model.addAttribute("main", "items/edit::main");
         return "layout/logged_in";    
     }
