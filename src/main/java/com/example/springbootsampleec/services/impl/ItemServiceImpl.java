@@ -53,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id);
     }
     
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     @Override
     public void updateItem(long id, String name, int price, int stock, String description) {
         Item item =  findById(id).orElseThrow();
