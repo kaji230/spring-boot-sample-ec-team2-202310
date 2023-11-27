@@ -21,10 +21,14 @@ import lombok.Data;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // id
+    private Long id; // 商品id
+    
+    @Column(name = "stock", nullable = false)
+    private int shop_id; // 店舗id
  
     @Column(name = "name", length = 200, nullable = false)
     private String name; // 商品名
+    
     
     @Column(name = "price", nullable = false)
     private int price; // 金額
