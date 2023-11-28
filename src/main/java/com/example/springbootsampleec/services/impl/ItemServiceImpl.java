@@ -46,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id);
     }
     
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     @Override
     public void updateItem(long id, String name, int price, int stock, String description) {
         Item item =  findById(id).orElseThrow();
@@ -66,17 +66,30 @@ public class ItemServiceImpl implements ItemService {
  
     @Transactional
     @Override
-    public void register(String name, int price, int stock, String description, MultipartFile image) {
+    public void register(int shop_id, String name, int price, int stock, 
+    		 MultipartFile image,
+    		 MultipartFile img_1,
+    		 MultipartFile img_2,
+    		 MultipartFile img_3,
+    		 String description,) {
         if (image.getOriginalFilename().isEmpty()) {
             throw new RuntimeException("ファイルが設定されていません");
         }
         // 拡張子取得
         String extension = FilenameUtils.getExtension(image.getOriginalFilename());
         // ランダムなファイル名を設定
-        String randomFileName = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
-        uploadImage(image, randomFileName);
+        String randomFileName_main = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
+        uploadImage(image, randomFileName_main);
+        String randomFileName_sub1 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
+        uploadImage(img_1, randomFileName_sub1);
+        String randomFileName_sub2 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
+        uploadImage(img_2, randomFileName_sub2);
+        String randomFileName_sub3 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
+        uploadImage(img_3, randomFileName_sub3);
+        
         // Item エンティティの生成
-        Item item = new Item(null, name, price, stock, description, randomFileName, null, null);
+        Item item = new Item(null, null, name, price, stock, randomFileName_main, randomFileName_sub1,
+        		randomFileName_sub2,randomFileName_sub3,null, null, description);
  
         // Item を保存
         itemRepository.saveAndFlush(item);

@@ -38,7 +38,8 @@ public class UserServiceImpl implements UserService {
  
     @Transactional
     @Override
-    public void register(String name, String email, String  password, String[] roles) {
+    //変更
+    public void register(String user_name, String email, String  password, String phone_number, String full_name, String user_address, String[] roles) {
         // 該当のメールアドレスが登録されているかどうかをチェック
         if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("該当のメールアドレスは登録済みです。");
@@ -48,8 +49,8 @@ public class UserServiceImpl implements UserService {
         // ユーザー権限の配列を文字列にコンバート
         String joinedRoles = joinRoles(roles);
  
-        // User エンティティの生成
-        User user = new User(null, name, email, encodedPassword, joinedRoles, Boolean.TRUE);
+        // User エンティティの生成　変更
+        User user = new User(null, user_name, email, encodedPassword, phone_number, full_name, user_address, null, null, joinedRoles, Boolean.TRUE);
  
         // ユーザー登録
         userRepository.saveAndFlush(user);
