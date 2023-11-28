@@ -6,19 +6,19 @@
 		<p>ようこそ、[[ ${user.name} ]]さん。</p>
 		
 		<div class="row">
-			<form class="search col-6" action="/search">
-				<div class="input-group">
-					<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
-					<span class="input-group-append">
-						<input class="btn btn-outline-secondary" type="submit" value="検索" >
-					</span>
-				</div>
-			</form>
+		<form class="search col-6" action="/items/search">
+			<div class="input-group">
+				<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
+				<span class="input-group-append">
+					<input class="btn btn-outline-secondary" type="submit" value="検索" >
+				</span>
+			</div>
+		</form>
 		</div>
 		<div class="row">
 			<div class="col-3">
 				<h2>メニュー</h2>
-				<p>ここに各種メニューを追加してください。</p>
+				<p>メニューメニューメニュー</p>
 			</div>
 			<div class="col-9">
 				<div class="card item" th:each="item : ${items}">
