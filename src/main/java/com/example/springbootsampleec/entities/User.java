@@ -6,20 +6,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
- 
+
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
- 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
+
+
+//userテーブルのカラム設定
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // id
+    
+  //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
+    //このアノテーションを付けない場合フィールド名そのままマッピングされる。
  
     @Column(name = "name", length = 60, nullable = false)
     private String name; // ユーザー名
