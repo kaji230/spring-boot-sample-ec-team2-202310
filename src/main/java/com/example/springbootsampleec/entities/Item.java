@@ -24,8 +24,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//>>>>>>> 2521b75b7534d94418e0fca8d72d4f3fab2420ae
- 
 @Getter
 @Setter
 
@@ -72,13 +70,6 @@ public class Item {
     @Column(name = "description", length = 1000, nullable = false)
     private String description; // 商品説明
  
-//<<<<<<< HEAD
-   // @Column(name = "image", length = 100, nullable = false)
-    //private String image;  // 画像
-    
-    // 作成日時
-    //@Column(name="createAt",nullable = false, updatable = false, insertable = false, 
-//=======
 
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
 //>>>>>>> 2521b75b7534d94418e0fca8d72d4f3fab2420ae
