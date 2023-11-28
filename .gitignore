@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+##pushしたくないファイル##
+src/main/resources/application.properties

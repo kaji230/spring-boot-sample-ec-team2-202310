@@ -12,16 +12,27 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
- 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
+
+
+//userテーブルのカラム設定
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // id
+    
+  //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
+    //このアノテーションを付けない場合フィールド名そのままマッピングされる。
  
     @Column(name = "user_name", length = 60, nullable = false)//name→user_name
     private String user_name; // ユーザー名
