@@ -1,24 +1,23 @@
 package com.example.springbootsampleec.controllers;
  
-import java.util.ArrayList;
 import java.util.List;
- 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute; 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import javax.validation.Valid;
 
-import com.example.springbootsampleec.entities.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
 import com.example.springbootsampleec.services.ItemService;
@@ -149,5 +148,19 @@ public class ItemController {
             "successMessage",
             "商品の削除が完了しました");
         return "redirect:/admin";  
+    }
+    
+    @GetMapping("/search")    
+    public String search(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @RequestParam("keyword") String keyword,
+        Model model
+    ) {
+        List<Item> items = itemService.findByNameContaining(keyword);
+        model.addAttribute("user", user);
+        model.addAttribute("items", items);
+        model.addAttribute("title", "商品検索結果");
+        model.addAttribute("main", "items/index::main");
+        return "layout/logged_in";
     }
 }

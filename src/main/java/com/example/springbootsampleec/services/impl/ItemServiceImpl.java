@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.io.FilenameUtils;
+// gradle で追加
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -104,5 +107,11 @@ public class ItemServiceImpl implements ItemService {
             e.printStackTrace();
         }
     }
+    //検索機能
+    @Override
+	public List<Item> findByNameContaining(String keyword) {
+		// TODO 自動生成されたメソッド・スタブ
+		return itemRepository.findByNameContaining(keyword);
+	}
 
 }
