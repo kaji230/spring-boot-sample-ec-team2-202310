@@ -101,11 +101,5 @@ public class ItemServiceImpl implements ItemService {
             e.printStackTrace();
         }
     }
-    //検索機能
-    @Override
-	public List<Item> findByNameContaining(String keyword) {
-		// TODO 自動生成されたメソッド・スタブ
-		return itemRepository.findByNameContaining(keyword);
-	}
 
 }
