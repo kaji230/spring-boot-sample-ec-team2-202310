@@ -83,7 +83,7 @@ public class Item {
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
 //>>>>>>> 2521b75b7534d94418e0fca8d72d4f3fab2420ae
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private ZonedDateTime createdAt;   // 登録日時
+    private ZonedDateTime createdAt;   // 登録
  
 //<<<<<<< HEAD
     // 更新日時
