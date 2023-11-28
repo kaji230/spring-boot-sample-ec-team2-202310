@@ -10,6 +10,6 @@ public interface UserService {
     List<User> findAll();
     // ユーザーの取得
     Optional<User> findById(long id);
-    // ユーザーの登録
-    void register(String name, String email, String password, String[] roles);
+ // ユーザーの登録　変更
+    void register(String user_name, String email, String password, String phone_number, String full_name, String user_address, String[] roles);
 }

@@ -15,5 +15,11 @@ public class SignUpForm {
     @NotNull
     private String password;
     @NotNull
-    private String name;
+    private String user_name;//name→user_name
+    @NotNull
+    private String phone_number;//追加
+    @NotNull
+    private String full_name;//追加
+    @NotNull
+    private String user_address;//追加 
 }

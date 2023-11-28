@@ -49,10 +49,13 @@ public class UserController {
         Model model){
         String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
         userService.register(
-            signUpForm.getName(),
-            signUpForm.getEmail(),
-            signUpForm.getPassword(),
-            roles);
+        		signUpForm.getUser_name(),//変更
+                signUpForm.getEmail(),
+                signUpForm.getPassword(),
+                signUpForm.getPhone_number(),
+                signUpForm.getFull_name(),
+                signUpForm.getUser_address(),
+                roles);
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "アカウントの登録が完了しました");

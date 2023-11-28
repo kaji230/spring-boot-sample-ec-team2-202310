@@ -1,9 +1,10 @@
+<!--変更-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
 	<div class="container contents">
 		<h1>[[ ${title} ]]</h1>
-		<p>ようこそ、[[ ${user.name} ]]さん。</p>
+		<p>ようこそ、[[ ${user.user_name} ]]さん。</p> <!--変更 name→user_name-->
 		
 		<div class="row">
 			<form class="search col-6">
