@@ -150,4 +150,18 @@ public class ItemController {
             "商品の削除が完了しました");
         return "redirect:/admin";  
     }
+    
+    @GetMapping("/search")    
+    public String search(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @RequestParam("keyword") String keyword,
+        Model model
+    ) {
+        List<Item> items = itemService.findByNameContaining(keyword);
+        model.addAttribute("user", user);
+        model.addAttribute("items", items);
+        model.addAttribute("title", "商品検索結果");
+        model.addAttribute("main", "items/index::main");
+        return "layout/logged_in";
+    }
 }

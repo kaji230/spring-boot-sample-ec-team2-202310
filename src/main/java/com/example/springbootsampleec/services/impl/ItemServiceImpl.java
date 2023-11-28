@@ -1,22 +1,32 @@
 package com.example.springbootsampleec.services.impl;
  
+import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.repositories.ItemRepository;
+import com.example.springbootsampleec.services.ItemService;
+ 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+ 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.Optional;
+ 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
+ 
+// gradle で追加
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.io.FilenameUtils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.example.springbootsampleec.entities.Item;
-import com.example.springbootsampleec.repositories.ItemRepository;
-import com.example.springbootsampleec.services.ItemService;
+import java.util.ArrayList;
 
  
 @Service
@@ -104,5 +114,11 @@ public class ItemServiceImpl implements ItemService {
             e.printStackTrace();
         }
     }
+    //検索機能
+    @Override
+	public List<Item> findByNameContaining(String keyword) {
+		// TODO 自動生成されたメソッド・スタブ
+		return itemRepository.findByNameContaining(keyword);
+	}
 
 }
