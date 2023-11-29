@@ -71,11 +71,16 @@ public class ItemController {
             return create(user, itemCreateForm, model);
         }
         itemService.register(
-            itemCreateForm.getName(),
-            itemCreateForm.getPrice(),
-            itemCreateForm.getStock(),
-            itemCreateForm.getDescription(),
-            itemCreateForm.getImage()
+        		itemCreateForm.getShop_id(),
+                itemCreateForm.getName(),
+                itemCreateForm.getPrice(),
+                itemCreateForm.getStock(),
+                itemCreateForm.getType(),
+                itemCreateForm.getDescription(),
+                itemCreateForm.getImage(),
+                itemCreateForm.getImg_1(),
+                itemCreateForm.getImg_2(),
+                itemCreateForm.getImg_3()
         );
         redirectAttributes.addFlashAttribute(
             "successMessage",
