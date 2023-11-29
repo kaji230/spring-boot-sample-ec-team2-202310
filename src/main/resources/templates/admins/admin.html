@@ -44,33 +44,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr　th:each="item : ${items}">
                             <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
-                            <td>天然由来の手づくり石鹸</td>
-                            <td><span class="text-truncate d-inline-block" style="max-width: 150px;">天然成分100%の、素肌に優しい石鹸です。<br>高知産の文旦なども使用したオリジナルのフレグランスも楽しめます。</span></td>
-                            <td>土佐石鹸工房</td>
-                            <td>1,600円</td>
-                            <td>6</td>
-                            <td><a href="#">編集</a></td>
+                            <td>[[ ${item.name} ]]</td>
+                            <td><span class="text-truncate d-inline-block" style="max-width: 150px;">[[ ${item.description} ]]</span></td>
+                            <td>[[ ${shop.shop_name} ]]</td>
+                            <td>[[ ${item.price} ]]円</td>
+                            <td>[[ ${item.stock} ]]</td>
+                            <td><a th:href="@{/items/edit/{id} (id = ${item.id}) }">編集</a></td>
                         </tr>
-                        <tr>
-                            <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
-                            <td>天然由来の手づくり石鹸</td>
-                            <td><span class="text-truncate d-inline-block" style="max-width: 150px;">天然成分100%の、素肌に優しい石鹸です。<br>高知産の文旦なども使用したオリジナルのフレグランスも楽しめます。</span></td>
-                            <td>土佐石鹸工房</td>
-                            <td>1,600円</td>
-                            <td>6</td>
-                            <td><a href="#">編集</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
-                            <td>天然由来の手づくり石鹸</td>
-                            <td><span class="text-truncate d-inline-block" style="max-width: 150px;">天然成分100%の、素肌に優しい石鹸です。<br>高知産の文旦なども使用したオリジナルのフレグランスも楽しめます。</span></td>
-                            <td>土佐石鹸工房</td>
-                            <td>1,600円</td>
-                            <td>6</td>
-                            <td><a href="#">編集</a></td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -78,7 +61,7 @@
             <!--新規追加ボタン-->
             <div class="row justify-content-end" style="margin-bottom:80px;">
                 <div class="col-3">
-                    <a class="btn btn-warning btn-lg btn-block float-right" href="#">商品の新規追加</a>
+                    <a class="btn btn-warning btn-lg btn-block float-right" href="/items/create">商品の新規追加</a>
                 </div>
             </div>
         </div>
@@ -102,7 +85,7 @@
 <!DOCTYPE html>
 
     <h1>[[ ${title} ]]</h1>
-    <a href="/items/create">新規追加</a>
+    <a >新規追加</a>
 
 	<table class="item_table">
 		<thead>
@@ -132,3 +115,21 @@
 		</tbody>
 	</table>
 
+<tr>
+    <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
+    <td>天然由来の手づくり石鹸</td>
+    <td><span class="text-truncate d-inline-block" style="max-width: 150px;">天然成分100%の、素肌に優しい石鹸です。<br>高知産の文旦なども使用したオリジナルのフレグランスも楽しめます。</span></td>
+    <td>土佐石鹸工房</td>
+    <td>1,600円</td>
+    <td>6</td>
+    <td><a href="#">編集</a></td>
+ </tr>
+    <tr>
+    <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
+    <td>天然由来の手づくり石鹸</td>
+    <td><span class="text-truncate d-inline-block" style="max-width: 150px;">天然成分100%の、素肌に優しい石鹸です。<br>高知産の文旦なども使用したオリジナルのフレグランスも楽しめます。</span></td>
+    <td>土佐石鹸工房</td>
+    <td>[[ ${item.price} ]]</td>
+    <td>[[ ${item.stock} ]]</td>
+    <td><a th:href="@{/items/edit/{id} (id = ${item.id}) }">編集</a></td>
+  </tr>

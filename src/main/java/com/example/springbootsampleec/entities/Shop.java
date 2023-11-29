@@ -35,8 +35,8 @@ public class Shop {
     private Long id; // 店舗id
 	
 	// 1:n の関係を定義（店舗idと商品テーブル）
-    //@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    //private List<Item> photos;
+    @OneToMany(mappedBy="shop", fetch = FetchType.EAGER)
+    private List<Item> items;
     
     @Column(name = "shop_account", length = 60, nullable = false, unique = true)
     private String shop_account; // 店舗アカウント名
