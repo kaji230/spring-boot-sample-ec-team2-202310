@@ -40,7 +40,7 @@ public class User {
   //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。
     
-    //ショッピングカート（中間テーブル作成）
+    //ショッピングカート（中間テーブル定義）------------------
     // ManyToMany, JoinTable を追記（いいね！ボタン使用時に使う。）
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="shopping_cart",
@@ -48,7 +48,8 @@ public class User {
         inverseJoinColumns = @JoinColumn(name="item_id", referencedColumnName="id"))
     //User エンティティと n:m の関係であることを示す。
     //変数shopping_cartを作り、リレーションを設定している。
-    private Set<Item> shopping_cart = new HashSet<Item>();
+    private Set<Item> shopping_items = new HashSet<Item>();
+    //---------------------------------------------------
     
     @Column(name = "user_name", length = 60, nullable = false)//name→user_name
     private String user_name; // ユーザー名

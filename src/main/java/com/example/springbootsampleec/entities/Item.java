@@ -1,14 +1,20 @@
 package com.example.springbootsampleec.entities;
  
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +36,15 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
+    
+    //ショッピングカート（中間テーブル定義）--------------
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="shopping_cart",
+        joinColumns = @JoinColumn(name="item_id", referencedColumnName="id"),
+        inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))
+    private Set<User> shopping_users = new HashSet<User>();
+    //-----------------------------------------
+ 
     
     @Column(name = "shop_id", nullable = false)
     private int shop_id; // 店舗id
