@@ -1,12 +1,15 @@
 package com.example.springbootsampleec.entities;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +33,10 @@ public class Shop {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 店舗id
+	
+	// 1:n の関係を定義（店舗idと商品テーブル）
+    //@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    //private List<Item> photos;
     
     @Column(name = "shop_account", length = 60, nullable = false, unique = true)
     private String shop_account; // 店舗アカウント名
