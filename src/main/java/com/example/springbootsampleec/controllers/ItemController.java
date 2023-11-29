@@ -132,11 +132,15 @@ public class ItemController {
             return edit(user, itemEditForm, id, model);
         }
         itemService.updateItem(
-            id,
-            itemEditForm.getName(),
-            itemEditForm.getPrice(),
-            itemEditForm.getStock(),
-            itemEditForm.getDescription()
+        		id,
+                itemEditForm.getName(),
+                itemEditForm.getPrice(),
+                itemEditForm.getStock(),
+                itemEditForm.getDescription(),
+                itemEditForm.getImage(),
+                itemEditForm.getImg_1(),
+                itemEditForm.getImg_2(),
+                itemEditForm.getImg_3()
         );  
         redirectAttributes.addFlashAttribute(
             "successMessage",
