@@ -37,7 +37,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
     
-    //ショッピングカート（中間テーブル定義）--------------
+    //ショッピングカート（中間テーブル定義：岩井）--------------
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="shopping_cart",
         joinColumns = @JoinColumn(name="item_id", referencedColumnName="id"),

@@ -40,7 +40,7 @@ public class User {
   //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。
     
-    //ショッピングカート（中間テーブル定義）------------------
+    //ショッピングカート（中間テーブル定義）：岩井------------------
     // ManyToMany, JoinTable を追記（いいね！ボタン使用時に使う。）
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="shopping_cart",

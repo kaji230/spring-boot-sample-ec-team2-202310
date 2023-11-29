@@ -109,10 +109,10 @@ public class ItemController {
         @PathVariable("id")  Integer id,
         Model model) {
         Item item = itemService.findById(id).orElseThrow();
-        //itemEditForm.setName(item.getName());
+        itemEditForm.setName(item.getName());
         itemEditForm.setPrice(item.getPrice());
         itemEditForm.setStock(item.getStock());
-        //itemEditForm.setDescription(item.getDescription());
+        itemEditForm.setDescription(item.getDescription());
         model.addAttribute("item", item);
         model.addAttribute("user", user);
         model.addAttribute("title", "投稿の編集");
