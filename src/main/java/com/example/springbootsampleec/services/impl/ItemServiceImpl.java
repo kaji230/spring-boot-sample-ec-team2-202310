@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.MultipartFile;
  
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,12 +56,39 @@ public class ItemServiceImpl implements ItemService {
     
     @Transactional(readOnly = false)
     @Override
-    public void updateItem(long id, String name, int price, int stock, String description) {
+    public void updateItem(long id, String name, int price, int stock, String description,
+    		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3) {
         Item item =  findById(id).orElseThrow();
         item.setName(name);
         item.setPrice(price);
         item.setStock(stock);
         item.setDescription(description);
+        
+        if (image.getOriginalFilename().isEmpty()) {
+            throw new RuntimeException("ファイルが設定されていません");
+        }
+        
+     // 拡張子取得
+        String extension_main = FilenameUtils.getExtension(image.getOriginalFilename());
+        String extension_sub1 = FilenameUtils.getExtension(img_1.getOriginalFilename());
+        String extension_sub2 = FilenameUtils.getExtension(img_2.getOriginalFilename());
+        String extension_sub3 = FilenameUtils.getExtension(img_3.getOriginalFilename());
+        
+        // ランダムなファイル名を設定
+        String randomFileName_main = RandomStringUtils.randomAlphanumeric(20) + "." + extension_main;
+        uploadImage(image, randomFileName_main);
+        String randomFileName_sub1 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub1;
+        uploadImage(img_1, randomFileName_sub1);
+        String randomFileName_sub2 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub2;
+        uploadImage(img_2, randomFileName_sub2);
+        String randomFileName_sub3 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub3;
+        uploadImage(img_3, randomFileName_sub3);
+        
+        item.setImage(randomFileName_main);
+        item.setImg_1(randomFileName_sub1);
+        item.setImg_2(randomFileName_sub2);
+        item.setImg_3(randomFileName_sub3);
+        
         itemRepository.saveAndFlush(item);
     }
     
@@ -73,30 +101,35 @@ public class ItemServiceImpl implements ItemService {
  
     @Transactional
     @Override
-    public void register(int shop_id, String name, int price, int stock, 
-    		 MultipartFile image,
-    		 MultipartFile img_1,
-    		 MultipartFile img_2,
-    		 MultipartFile img_3,
-    		 String description,) {
-        if (image.getOriginalFilename().isEmpty()) {
-            throw new RuntimeException("ファイルが設定されていません");
-        }
-        // 拡張子取得
-        String extension = FilenameUtils.getExtension(image.getOriginalFilename());
-        // ランダムなファイル名を設定
-        String randomFileName_main = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
-        uploadImage(image, randomFileName_main);
-        String randomFileName_sub1 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
-        uploadImage(img_1, randomFileName_sub1);
-        String randomFileName_sub2 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
-        uploadImage(img_2, randomFileName_sub2);
-        String randomFileName_sub3 = RandomStringUtils.randomAlphanumeric(20) + "." + extension;
-        uploadImage(img_3, randomFileName_sub3);
-        
-        // Item エンティティの生成
-        Item item = new Item(null, null, name, price, stock, randomFileName_main, randomFileName_sub1,
-        		randomFileName_sub2,randomFileName_sub3,null, null, description);
+    public void register(int shop_id, String name, int price, int stock, int type, String description,
+   		 MultipartFile image,
+   		 MultipartFile img_1,
+   		 MultipartFile img_2,
+   		 MultipartFile img_3) {
+       if (image.getOriginalFilename().isEmpty()) {
+           throw new RuntimeException("ファイルが設定されていません");
+       }
+       // 拡張子取得
+       String extension_main = FilenameUtils.getExtension(image.getOriginalFilename());
+       String extension_sub1 = FilenameUtils.getExtension(img_1.getOriginalFilename());
+       String extension_sub2 = FilenameUtils.getExtension(img_2.getOriginalFilename());
+       String extension_sub3 = FilenameUtils.getExtension(img_3.getOriginalFilename());
+       
+       // ランダムなファイル名を設定
+       String randomFileName_main = RandomStringUtils.randomAlphanumeric(20) + "." + extension_main;
+       uploadImage(image, randomFileName_main);
+       String randomFileName_sub1 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub1;
+       uploadImage(img_1, randomFileName_sub1);
+       String randomFileName_sub2 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub2;
+       uploadImage(img_2, randomFileName_sub2);
+       String randomFileName_sub3 = RandomStringUtils.randomAlphanumeric(20) + "." + extension_sub3;
+       uploadImage(img_3, randomFileName_sub3);
+       
+       // Item エンティティの生成
+       Item item = new Item(null, shop_id , name, price, stock, type, description,
+       		randomFileName_main, randomFileName_sub1,
+       		randomFileName_sub2, randomFileName_sub3, null, null);
+
  
         // Item を保存
         itemRepository.saveAndFlush(item);

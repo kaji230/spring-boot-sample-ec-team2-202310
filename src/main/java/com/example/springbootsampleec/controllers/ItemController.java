@@ -71,11 +71,16 @@ public class ItemController {
             return create(user, itemCreateForm, model);
         }
         itemService.register(
-            itemCreateForm.getName(),
-            itemCreateForm.getPrice(),
-            itemCreateForm.getStock(),
-            itemCreateForm.getDescription(),
-            itemCreateForm.getImage()
+        		itemCreateForm.getShop_id(),
+                itemCreateForm.getName(),
+                itemCreateForm.getPrice(),
+                itemCreateForm.getStock(),
+                itemCreateForm.getType(),
+                itemCreateForm.getDescription(),
+                itemCreateForm.getImage(),
+                itemCreateForm.getImg_1(),
+                itemCreateForm.getImg_2(),
+                itemCreateForm.getImg_3()
         );
         redirectAttributes.addFlashAttribute(
             "successMessage",
@@ -127,11 +132,15 @@ public class ItemController {
             return edit(user, itemEditForm, id, model);
         }
         itemService.updateItem(
-            id,
-            itemEditForm.getName(),
-            itemEditForm.getPrice(),
-            itemEditForm.getStock(),
-            itemEditForm.getDescription()
+        		id,
+                itemEditForm.getName(),
+                itemEditForm.getPrice(),
+                itemEditForm.getStock(),
+                itemEditForm.getDescription(),
+                itemEditForm.getImage(),
+                itemEditForm.getImg_1(),
+                itemEditForm.getImg_2(),
+                itemEditForm.getImg_3()
         );  
         redirectAttributes.addFlashAttribute(
             "successMessage",

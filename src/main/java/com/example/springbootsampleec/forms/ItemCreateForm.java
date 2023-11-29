@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemCreateForm {
+	@NotNull
+	private int shop_id;
+	
     @NotNull
     @Size(min=1, max=200)
     private String name;
@@ -23,9 +26,18 @@ public class ItemCreateForm {
     private int stock;
     
     @NotNull
+    private int type;
+    
+    @NotNull
     @Size(min=1, max=1000)
     private String description;
     
     @NotNull
     private  MultipartFile image;
+    
+    private  MultipartFile img_1;
+    
+    private  MultipartFile img_2;
+    
+    private  MultipartFile img_3;
 }

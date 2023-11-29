@@ -3,6 +3,8 @@ package com.example.springbootsampleec.forms;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.springframework.web.multipart.MultipartFile;
  
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemEditForm {
-    @NotNull
+	@NotNull
     @Size(min=1, max=200)
     private String name;
     
@@ -24,5 +26,15 @@ public class ItemEditForm {
     @NotNull
     @Size(min=1, max=1000)
     private String description;
+    
+    @NotNull
+    private  MultipartFile image;
+    
+    private  MultipartFile img_1;
+    
+    private  MultipartFile img_2;
+    
+    private  MultipartFile img_3;
+ 
  
 }
