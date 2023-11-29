@@ -12,13 +12,16 @@ import java.util.List;
 public interface ItemService {
     // 投稿一覧の取得
     List<Item> findAll();
-    
+    //nameで検索
+    List<Item> findByNameContaining(String keyword);
     // ID を指定して投稿を取得
     Optional<Item> findById(long id);
     // 商品情報を更新
-    void updateItem(long id, String name, int price, int stock, String description);
+    void updateItem(long id, String name, int price, int stock, String description,
+    		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
     // 削除
     void delete(long id);
-    // 投稿の登録
-    void register(String name, int price, int stock, String description, MultipartFile image);
+    // 商品の登録
+    void register(int shop_id, String name, int price, int stock, int type, String description,
+    		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
 }

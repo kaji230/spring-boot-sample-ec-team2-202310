@@ -1,24 +1,25 @@
+<!--変更-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
 	<div class="container contents">
 		<h1>[[ ${title} ]]</h1>
-		<p>ようこそ、[[ ${user.name} ]]さん。</p>
+		<p>ようこそ、[[ ${user.user_name} ]]さん。</p> <!--変更 name→user_name-->
 		
 		<div class="row">
-			<form class="search col-6">
-				<div class="input-group">
-					<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
-					<span class="input-group-append">
-						<input class="btn btn-outline-secondary" type="submit" value="検索" >
-					</span>
-				</div>
-			</form>
+		<form class="search col-6" action="/items/search">
+			<div class="input-group">
+				<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
+				<span class="input-group-append">
+					<input class="btn btn-outline-secondary" type="submit" value="検索" >
+				</span>
+			</div>
+		</form>
 		</div>
 		<div class="row">
 			<div class="col-3">
 				<h2>メニュー</h2>
-				<p>ここに各種メニューを追加してください。</p>
+				<p>メニューメニューメニュー</p>
 			</div>
 			<div class="col-9">
 				<div class="card item" th:each="item : ${items}">
@@ -27,17 +28,20 @@
 						    <img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
 						</div>
 						<div class="col-6 item_description">
-							<h2 class="item_title">
+							<h2 class="item_title">								
+								<!--商品詳細へリング-->
 							    <a th:href="@{/items/detail/{id} (id=${item.id})}">
                                     [[ ${item.name} ]]: 
                                 </a>
                             </h2>
+                            <!--商品数による一覧表示　0:売り切れ　1以上:価格表示-->
                             <th:block th:if="${item.stock > 0}">
                                 <div>[[ ${item.price} ]]円</div>
                             </th:block>
 							<th:block th:if="${item.stock <= 0}">
                                 <div>売り切れ</div>
                             </th:block>
+                            <!--商品説明-->
 							<div>[[ ${item.description} ]]</div>
 						</div>
 					</div>

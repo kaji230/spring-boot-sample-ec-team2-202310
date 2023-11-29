@@ -1,10 +1,11 @@
+<!--変更-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>
     <dl>
         <dt>ユーザー名</dt>
-        <dd>[[ ${user.name} ]]</dd>
+        <dd>[[ ${user.user_name} ]]</dd> <!--変更 user→user_name-->
     </dl>
 </div>
 </html>
