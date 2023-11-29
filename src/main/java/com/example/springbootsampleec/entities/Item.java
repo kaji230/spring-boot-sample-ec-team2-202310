@@ -27,9 +27,9 @@ import lombok.Setter;
 @Getter
 @Setter
 
-//@Data
+@Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "item")
 @Entity
 
@@ -70,19 +70,11 @@ public class Item {
     @Column(name = "description", length = 1000, nullable = false)
     private String description; // 商品説明
  
-
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
-//>>>>>>> 2521b75b7534d94418e0fca8d72d4f3fab2420ae
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private ZonedDateTime createdAt;   // 登録日時
  
-//<<<<<<< HEAD
-    // 更新日時
-  //  @Column(name="updateAt",nullable = false, updatable = false, insertable = false, 
-//=======
-    
     @Column(name="updatedAt",nullable = false, updatable = false, insertable = false, 
-//>>>>>>> 2521b75b7534d94418e0fca8d72d4f3fab2420ae
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private ZonedDateTime updatedAt;   // 更新日時
  
