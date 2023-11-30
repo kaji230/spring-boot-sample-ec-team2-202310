@@ -126,7 +126,7 @@ public class ItemServiceImpl implements ItemService {
        uploadImage(img_3, randomFileName_sub3);
        
        // Item エンティティの生成
-       Item item = new Item(null, shop_id , name, price, stock, type, description,
+       Item item = new Item(null, null , name, price, stock, type, description,
        		randomFileName_main, randomFileName_sub1,
        		randomFileName_sub2, randomFileName_sub3, null, null);
 
