@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.repositories.ItemRepository;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.UserService;
 
@@ -23,6 +24,7 @@ import com.example.springbootsampleec.services.UserService;
 public class CartController {
 	private final CartService cartService;
 	private final UserService userService;
+	private ItemRepository itemRepo;
 	
 	public  CartController(
 	        CartService cartService,
@@ -41,9 +43,9 @@ public class CartController {
 	        Optional<User> refreshedUser = userService.findById(user.getId());
 	    	List<Cart> carts = cartService.findAll();
 	        model.addAttribute("carts", carts);
-	        //model.addAttribute("items", item);
+	        model.addAttribute("item", itemRepo.findAll());
 	        model.addAttribute("title", "購入商品一覧");
-	        model.addAttribute("main", "cart::main");
+	        //model.addAttribute("main", "cart::main");
 	        return "layout/logged_in";    
 	    }
 	 
