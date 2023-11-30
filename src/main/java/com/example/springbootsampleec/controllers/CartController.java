@@ -3,6 +3,7 @@ package com.example.springbootsampleec.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.User;
-import com.example.springbootsampleec.repositories.ItemRepository;
+import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.UserService;
 
@@ -24,26 +25,32 @@ import com.example.springbootsampleec.services.UserService;
 public class CartController {
 	private final CartService cartService;
 	private final UserService userService;
-	private ItemRepository itemRepo;
+	private CartRepository cartRepo;
 	
-	public  CartController(
+	
+    
+    @Autowired
+	public  CartController(CartRepository  cartRepo,
 	        CartService cartService,
 	        UserService userService
 	    ) {
 	        this.cartService = cartService;
 	        this.userService = userService;
+	        this.cartRepo = cartRepo;
 	    }
 	
 	 @GetMapping("/")    
 	    public String index(
-	        @AuthenticationPrincipal(expression = "user") User user,
-	        Model model
+	    		@AuthenticationPrincipal(expression = "user") User user,
+	    		@AuthenticationPrincipal(expression = "cart") Cart cart,
+	    		Model model
 	    ) {
 		// 最新のユーザー情報を取得
 	        Optional<User> refreshedUser = userService.findById(user.getId());
+	        Optional<Cart> refreshedCart= cartService.findById(cart.getId());
 	    	List<Cart> carts = cartService.findAll();
 	        model.addAttribute("carts", carts);
-	        model.addAttribute("item", itemRepo.findAll());
+	        model.addAttribute("cart", cartRepo.findAll());
 	        model.addAttribute("title", "購入商品一覧");
 	        //model.addAttribute("main", "cart::main");
 	        return "layout/logged_in";    

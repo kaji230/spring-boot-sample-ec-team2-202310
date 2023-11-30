@@ -5,9 +5,9 @@
 	<ul th:each="carts : ${carts}">
 		<li>
 			<!--カートに追加した商品一覧を表示-->
-			[[ ${item.image} ]]
-			[[ ${item.name} ]]
-			[[ ${item.price} ]]
+			[[ ${cart.item_id.image} ]]
+			[[ ${cart.item_id.name} ]]
+			[[ ${cart.item_id.price} ]]
 		</li>
 		<a th:href="@{/cart/delete/{id} (id = ${cart.id}) }">削除</a>
 	</ul>
