@@ -9,6 +9,6 @@ import com.example.springbootsampleec.entities.Cart;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-	List<Cart> findByIdContaining(String keyword);
+	List<Cart> findById(int id);
 	
 }

@@ -1,14 +1,15 @@
 package com.example.springbootsampleec.security;
  
-import com.example.springbootsampleec.entities.User;
- 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
- 
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.example.springbootsampleec.entities.Cart;
+import com.example.springbootsampleec.entities.User;
  
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
  

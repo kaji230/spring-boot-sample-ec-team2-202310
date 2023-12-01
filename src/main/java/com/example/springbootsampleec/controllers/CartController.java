@@ -1,7 +1,6 @@
 package com.example.springbootsampleec.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,35 +23,25 @@ import com.example.springbootsampleec.services.UserService;
 @Controller
 public class CartController {
 	private final CartService cartService;
-	private final UserService userService;
-	private CartRepository cartRepo;
 	
-	
-    
-    @Autowired
-	public  CartController(CartRepository  cartRepo,
-	        CartService cartService,
-	        UserService userService
+   
+	public  CartController(
+	        CartService cartService
 	    ) {
 	        this.cartService = cartService;
-	        this.userService = userService;
-	        this.cartRepo = cartRepo;
 	    }
 	
 	 @GetMapping("/")    
 	    public String index(
 	    		@AuthenticationPrincipal(expression = "user") User user,
-	    		@AuthenticationPrincipal(expression = "cart") Cart cart,
 	    		Model model
 	    ) {
 		// 最新のユーザー情報を取得
-	        Optional<User> refreshedUser = userService.findById(user.getId());
-	        Optional<Cart> refreshedCart= cartService.findById(cart.getId());
 	    	List<Cart> carts = cartService.findAll();
+	    	model.addAttribute("user", user);
 	        model.addAttribute("carts", carts);
-	        model.addAttribute("cart", cartRepo.findAll());
 	        model.addAttribute("title", "購入商品一覧");
-	        //model.addAttribute("main", "cart::main");
+	        model.addAttribute("main", "carts/cart::main");
 	        return "layout/logged_in";    
 	    }
 	 
