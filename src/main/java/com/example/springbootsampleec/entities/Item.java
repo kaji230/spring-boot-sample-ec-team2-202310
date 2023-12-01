@@ -1,6 +1,8 @@
 package com.example.springbootsampleec.entities;
  
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -37,6 +42,12 @@ public class Item {
     
     //@Column(name = "shop_id", nullable = false)
    // private int shop_id; // 店舗id
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="likes",
+    	joinColumns = @JoinColumn(name="item_id", referencedColumnName="id"),
+    	inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))
+    private Set<User> likedUsers = new HashSet<User>();
  
     @Column(name = "name", length = 200, nullable = false)
     private String name; // 商品名
