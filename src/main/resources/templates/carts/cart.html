@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<div th:fragment="main"-->
+<div th:fragment="main">
 	<h1>[[ ${title} ]]</h1>
 	<ul th:each="carts : ${carts}">
 		<li>
 			<!--カートに追加した商品一覧を表示-->
-			[[ ${cart.item_id.image} ]]
-			[[ ${cart.item_id.name} ]]
-			[[ ${cart.item_id.price} ]]
+			<!--[[ ${carts.item.image} ]]-->
+			[[ ${carts.item.name} ]]
+			[[ ${carts.item.price} ]]円
 		</li>
-		<a th:href="@{/cart/delete/{id} (id = ${cart.id}) }">削除</a>
+		<a th:href="@{/cart/delete/{id} (id = ${carts.id}) }">削除</a>
 	</ul>
-	
-<!--</div>-->
+</div>
 </html>

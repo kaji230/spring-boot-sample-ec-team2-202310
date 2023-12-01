@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.springbootsampleec.entities.Cart;
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.services.CartService;
 
@@ -32,7 +34,7 @@ public class CartServiceImpl implements CartService{
     }
     @Transactional
     @Override
-    public void register(int user_id, int item_id, int amount) {
+    public void register(User user_id, Item item_id, int amount) {
     	// Cart エンティティの生成
         Cart cart = new Cart(null,null, null , amount, null, null);
         

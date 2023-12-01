@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.example.springbootsampleec.entities.Cart;
+import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
  
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
@@ -19,10 +19,6 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
         super(user.getEmail(), user.getPassword(), user.getEnable(), true, true,
             true, convertGrantedAuthorities(user.getRoles()));
         this.user = user;
-    }
- 
-    public User getUser() {
-        return user;
     }
  
     // 権限管理用のメソッド

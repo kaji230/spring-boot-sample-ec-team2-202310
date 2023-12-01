@@ -3,10 +3,9 @@ package com.example.springbootsampleec.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.User;
 
 public interface CartService {
 	// カート内商品一覧の取得
@@ -16,6 +15,6 @@ public interface CartService {
  // 削除
     void delete(long id);
  // 商品の登録
-    void register(int user_id, int item_id, int amount);
+    void register(User user, Item item, int amount);
 
 }
