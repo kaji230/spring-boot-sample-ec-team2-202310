@@ -1,85 +1,56 @@
-.header_nav {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-}
-.header_nav li {
-    margin-right: 30px;
+/*デスクトップ向けのスタイル*/
+@media screen and (min-width: 768px) {
+  body{
+    font-size: 16px;
+  }
 }
 
-#logout {
-	display:none;
+/*タブレット向けのスタイル*/
+@media screen and (max-width: 767px) {
+  body{
+    font-size: 14px;
+  }
 }
 
-.item_table {
-	border-collapse: collapse;
-	margin-top: 20px;
+/*スマホ向けのスタイル*/
+@media screen and (max-width: 480px) {
+  body{
+    font-size: 12px;
+  }
 }
 
-.item_table th, .item_table td {
-	border: solid 1px black;
-	padding: 5px;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 画面の高さいっぱいに広がるようにする */
+  }
+
+.content {
+  flex: 1; /* コンテンツが残りの領域を占めるようにする */
+  }
+
+footer {
+  background-color: #e1dccb;
+  height: 92px;
+  /* padding: 20px; 適切なパディングを設定 */
+  margin-top: auto; /* フッターを下に押し下げる */
+  }
+
+/*見出し*/
+.subheading {
+  text-align: center;
+  letter-spacing: 0.2em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #343434;
 }
 
-.item_image {
-	height: 150px;
+/*商品一覧ページ*/
+.items-all img {
+  padding-bottom: 20px;
+}
+/*商品一覧ページ カテゴリリンクの色変更*/
+.category-link a {
+  color: grey;
 }
 
-.navbar-light .navbar-brand.logo {
-	color: #283c63;
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.main_title {
-	color: #283c63;
-}
-
-.contents {
-	padding-top: 30px;
-}
-.search {
-	margin: 20px 0;
-}
-
-.search .btn.btn-outline-secondary {
-	background-color: #f1eaf5;
-}
-.category {
-	padding: 10px;
-}
-
-.nav_title {
-	font-size: 16px;
-	color: #283c63;
-	background-color: #f0b400;
-	padding: 10px 0;
-}
-
-.category_menu a {
-	display: block;
-}
-
-
-.item.card {
-	margin-bottom: 20px;
-	padding: 10px;
-	border: solid 5px #f0b400;
-
-}
-
-.item_row {
-	align-items: center;
-}
-.item_figure {
-	/* padding: 10px; */
-}
-.item_description {
-
-}
-.item_title {
-	font-size: 20px;
-}
-.item_title a {
-	color: #f85f73;
-}
