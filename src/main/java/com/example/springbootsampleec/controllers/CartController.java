@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,19 +33,24 @@ public class CartController {
 	        this.cartService = cartService;
 	    }
 	
-	 @GetMapping("/")    
+	 @PostMapping("/")    
 	    public String index(
+	    		//@PathVariable("id")  Integer id,
+	    		// @RequestParam int amount,
 	    		@AuthenticationPrincipal(expression = "user") User user,
 	    		@AuthenticationPrincipal(expression = "item") Item item,
-	    		int amount,
+	    		//int amount,
 	    		Model model
 	    ) {
+		 int amount=1;
+		 int amountTotal=0;
+		 amountTotal += amount;
 		 cartService.register(
 		            user,
 		            item,
-		            amount
+		            amountTotal
 		        );
-		// 最新のユーザー情報を取得
+		// 最新のカート情報を取得
 	    	List<Cart> carts = cartService.findAll();
 	    	model.addAttribute("user", user);
 	        model.addAttribute("carts", carts);

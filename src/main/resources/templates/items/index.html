@@ -43,7 +43,9 @@
                             </th:block>
                             <!--商品説明-->
 							<div>[[ ${item.description} ]]</div>
-							<a th:href="@{/cart/}">カートへ追加</a>
+							<form method="post" class="cart" th:action="@{/cart/}">
+                			<button type="submit">カートに追加</button>
+            </form>
 						</div>
 					</div>
 				</div>

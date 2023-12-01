@@ -26,7 +26,6 @@ public class CartServiceImpl implements CartService{
         return cartRepository.findAll();
     }
     
-
     @Transactional(readOnly = true)
     @Override
     public Optional<Cart> findById(long id) {
