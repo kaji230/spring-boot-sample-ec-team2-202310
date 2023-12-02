@@ -15,6 +15,7 @@ import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.services.CartService;
+import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.UserService;
 
 
@@ -45,7 +46,7 @@ public class CartController {
 	    ) {
 		 //Optional<User> user_id = userService.findById(user.getId());
 		 int amountSize=1;
-		 int totalPrice=1;
+		 int totalPrice= 1;
 		 cartService.register(
 		            user,
 		            item,

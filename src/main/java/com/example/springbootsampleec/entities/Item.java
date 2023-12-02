@@ -46,12 +46,6 @@ public class Item {
     @Column(name = "price", nullable = false)
     private int price; // 価格
     
-    
-    // ゲッターとセッター
-    public int getPrice() {
-        return this.price = price;
-    }
-    
     @Column(name = "stock", nullable = false)
     private int stock; // 在庫数
     
