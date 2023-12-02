@@ -34,9 +34,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // id
     
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    private List<Cart> cartList;
-    
   //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。
  

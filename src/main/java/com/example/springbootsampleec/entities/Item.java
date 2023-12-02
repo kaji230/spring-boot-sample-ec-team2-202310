@@ -34,9 +34,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
     
-    @OneToMany(mappedBy="item", fetch = FetchType.EAGER)
-    private List<Cart> cartList;
-    
     @ManyToOne(fetch = FetchType.EAGER)
 	private Shop shop; //店舗id
     
