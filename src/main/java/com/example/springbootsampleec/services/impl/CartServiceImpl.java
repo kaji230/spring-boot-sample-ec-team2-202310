@@ -26,6 +26,7 @@ public class CartServiceImpl implements CartService{
         return cartRepository.findAll();
     }
     
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Cart> findById(long id) {
@@ -33,7 +34,7 @@ public class CartServiceImpl implements CartService{
     }
     @Transactional
     @Override
-    public void register(User user_id, Item item_id, int amount) {
+    public void register(User user, Item item, int amount) {
     	// Cart エンティティの生成
         Cart cart = new Cart(null,null, null , amount, null, null);
         

@@ -15,7 +15,10 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
  
     private User user;
     private Item item;
- 
+    
+    /*コンストラクタ親クラスのコンストラクタに必要な情報を渡しています。
+      ユーザーの認証情報（ユーザー名、パスワードなど）や権限情報を設定
+    */
     public SimpleLoginUser(User user) {
         super(user.getEmail(), user.getPassword(), user.getEnable(), true, true,
             true, convertGrantedAuthorities(user.getRoles()));
@@ -27,7 +30,7 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
     }
     
     public Item getItem() {
-        return item;
+       return item;
     }
  
     // 権限管理用のメソッド
