@@ -173,4 +173,17 @@ public class ItemController {
         model.addAttribute("main", "items/index::main");
         return "layout/logged_in";
     }
+    
+    @PostMapping("/toggleLike/{id}")
+    public String toggleLike(
+    	@PathVariable("id") Integer id,
+    	@AuthenticationPrincipal(expression = "user") User user,
+    	Model model) {
+    	itemService.toggleLike(
+    		user,
+    		id
+    	);
+    	return "redirect:/items/";
+    }
+    
 }
