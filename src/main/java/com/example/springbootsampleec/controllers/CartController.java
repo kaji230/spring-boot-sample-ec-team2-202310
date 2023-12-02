@@ -45,10 +45,12 @@ public class CartController {
 	    ) {
 		 //Optional<User> user_id = userService.findById(user.getId());
 		 int amountSize=1;
+		 int totalPrice=1;
 		 cartService.register(
 		            user,
 		            item,
-		            amountSize
+		            amountSize,
+		            totalPrice
 		        );
 		// 最新のカート情報を取得
 	    	List<Cart> carts = cartService.findAll();

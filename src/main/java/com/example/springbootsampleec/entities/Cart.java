@@ -51,6 +51,15 @@ public class Cart {
         return this.amount = amount;
     }
     
+    //小計
+    @Column(name = "price", nullable = true)
+    private int price;
+    
+    // ゲッターとセッター
+    public int getPrice() {
+        return this.price = price;
+    }
+    
     // 登録日時
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
     	    columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

@@ -15,6 +15,6 @@ public interface CartService {
  // 削除
     void delete(long id);
  // 商品の登録
-    void register(User user, Item item, int amount);
+    void register(User user, Item item, int amount, int price);
 
 }
