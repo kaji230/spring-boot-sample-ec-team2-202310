@@ -46,6 +46,11 @@ public class Cart {
     @Column(name = "amount", nullable = true)
     private int amount;
     
+    // ゲッターとセッター
+    public int getAmount() {
+        return this.amount = amount;
+    }
+    
     // 登録日時
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
     	    columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

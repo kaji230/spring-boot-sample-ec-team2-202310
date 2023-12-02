@@ -19,14 +19,13 @@ public class CartServiceImpl implements CartService{
 	public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
-	
+	//カート一覧
 	@Transactional(readOnly = true)
     @Override
     public List<Cart> findAll() {
         return cartRepository.findAll();
     }
-    
-
+    //カートID取得
     @Transactional(readOnly = true)
     @Override
     public Optional<Cart> findById(long id) {

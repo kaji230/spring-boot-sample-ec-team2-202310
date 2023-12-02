@@ -1,7 +1,6 @@
 package com.example.springbootsampleec.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -41,17 +40,15 @@ public class CartController {
 	    		@AuthenticationPrincipal(expression = "user") User user,
 	    		@AuthenticationPrincipal(expression = "item") Item item,
 	    		//int amount,
+	    		Cart cart,
 	    		Model model
 	    ) {
-		 int amount=1;
-		 int amountTotal=0;
-		 amountTotal += amount;
 		 //Optional<User> user_id = userService.findById(user.getId());
-		 
+		 int amountSize=1;
 		 cartService.register(
 		            user,
 		            item,
-		            amountTotal
+		            amountSize
 		        );
 		// 最新のカート情報を取得
 	    	List<Cart> carts = cartService.findAll();
