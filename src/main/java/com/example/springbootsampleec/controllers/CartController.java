@@ -23,39 +23,46 @@ import com.example.springbootsampleec.services.UserService;
 @Controller
 public class CartController {
 	private final CartService cartService;
+	private final ItemService itemService;
 	private final UserService userService;
 	
    
 	public  CartController(
 	        CartService cartService,
+	        ItemService itemService,
 	        UserService userService
 	    ) {
 	        this.cartService = cartService;
+	        this.itemService = itemService;
 	        this.userService = userService;
 	    }
 	
-	 @PostMapping("/")    
-	    public String index(
+	 @PostMapping("/create")    
+	    public String in_cart(
 	    		//@PathVariable("id")  Integer id,
 	    		// @RequestParam int amount,
 	    		@AuthenticationPrincipal(expression = "user") User user,
 	    		@AuthenticationPrincipal(expression = "item") Item item,
-	    		//int amount,
 	    		Cart cart,
 	    		Model model
 	    ) {
 		 //Optional<User> user_id = userService.findById(user.getId());
 		 int amountSize=1;
-		 int totalPrice= 1;
 		 cartService.register(
 		            user,
 		            item,
-		            amountSize,
-		            totalPrice
+		            amountSize		            
 		        );
-		// 最新のカート情報を取得
+		 return "redirect:/cart";
+	 }
+		 
+		 @GetMapping("/")    
+		 public String index(
+				 @AuthenticationPrincipal(expression = "user") User user,
+			        Model model) {
+		 // 最新のカート情報を取得
 	    	List<Cart> carts = cartService.findAll();
-	    	model.addAttribute("user", user);
+	    	//model.addAttribute("user", user);
 	        model.addAttribute("carts", carts);
 	        model.addAttribute("title", "購入商品一覧");
 	        model.addAttribute("main", "carts/cart::main");

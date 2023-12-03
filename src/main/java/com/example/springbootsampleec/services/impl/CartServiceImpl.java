@@ -33,9 +33,9 @@ public class CartServiceImpl implements CartService{
     }
     @Transactional
     @Override
-    public void register(User user, Item item, int amount, int price) {
+    public void register(User user, Item item, int amount) {
     	// Cart エンティティの生成
-        Cart cart = new Cart(null,null, null , amount, price, null, null);
+        Cart cart = new Cart(null,null, null , amount, null, null);
         
          // Cart を保存
          cartRepository.saveAndFlush(cart);
