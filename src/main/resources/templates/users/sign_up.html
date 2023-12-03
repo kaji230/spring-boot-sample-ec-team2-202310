@@ -1,42 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="main">
-    <h1>[[ ${title} ]]</h1>
+<div th:fragment="main">	
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  
+    	<title>新規会員登録</title>
+ 
+    	<!-- Bootstrap CSS -->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
+	</head>
+	
+	<div style="padding-top:163px;">
+	    <header>
+        	<nav class="nav justify-content-center d-flex align-items-center fixed-top" style="background:#e1dccb;height:163px;">
+            	<a class="navbar-brand" href="#"><img src="/images/logo321px.png" alt="TOSAMONロゴマーク"></img></a>
+       		</nav>
+   		</header>
+	</div>
+   		
+ 	<!--要修正箇所ここから下（ブラウザ上に「・エラー」と表示される）-->
     <form th:action="@{/users/sign_up}" th:object="${signUpForm}" method="post">
         <ul>
             <li th:each="error : ${#fields.detailedErrors()}">
                 <span th:text="${error.message}">エラー</span>
             </li>
         </ul>
-        <p>
-            <label for="user_name">ユーザー名: </label>
-            <input type="text" id="user_name" name="user_name" autofocus="autofocus" >
-        </p>
-        <p>
-            <label for="password">パスワード: </label>
-           <input type="password" id="password" name="password" >
-        </p>
-        <p>
-            <label for="email">メールアドレス: </label>
-            <input type="email" id="email" name="email" >
-        </p>
-        <p>
-            <label for="full_name">氏名: </label>
-            <input type="full_name" id="full_name" name="full_name" >
-        </p>
-        <p>
-            <label for="user_address">住所: </label>
-            <input type="user_address" id="user_address" name="user_address" >
-        </p>
-        <p>
-            <label for="phone_number">電話番号: </label>
-            <input type="phone_number" id="phone_number" name="phone_number" >
-        </p>
-        <p><input type="submit" value="登録" /></p>
+
+    <!--要修正箇所オワリ-->
+        
+      <!--新規会員登録フォーム-->
+      <div class="row justify-content-center text-secondary">
+        <div class="col-6">
+          <h4 class="text-center" style="margin:1.6em;">新規会員登録</h4>
+            <!--希望するユーザー名-->
+            <div class="form-group">
+              <label for="user_name">希望するユーザー名</label>
+              <input type="text" class="form-control" id="user_name" name="user_name" autofocus="autofocus">
+            </div>
+            <!--希望するパスワード-->
+            <div class="form-group">
+              <label for="password">希望するパスワード</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+             <!--メールアドレス-->
+            <div class="form-group">
+              <label for="mail">メールアドレス</label>
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="tosamon@email.com">
+            </div>
+            <!--氏名-->
+            <div class="form-group">
+              <label for="full_name">氏名</label>
+              <input type="text" class="form-control" id="full_name" name="full_name" placeholder="山田太郎">
+            </div>
+            <!--住所-->
+            <div class="form-group">
+              <label for="user_address">住所</label>
+              <input type="text" class="form-control" id="user_address" name="user_address" placeholder="東京都港区六本木1−2−3">
+            </div>
+            <!--電話番号-->
+            <div class="form-group">
+              <label for="phone_number">電話番号</label>
+              <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="090-1234-5678">
+            </div>
+            
+            <!--登録する-->
+			<a th:href="@{users/login}"><input type="submit" value="登録する" class="btn btn-warning btn-lg btn-block"></a>
+         　</div>
+      </div>
     </form>
- 
-    <p><a th:href="@{/login}">Login</a></p>
- 
+         
+    <!--ログイン画面に戻る-->
+    <div class="text-center">
+      <a th:href="@{/users/login}" class="btn" style="margin-top: 3em; margin-bottom: 5em; text-decoration: underline;">ログイン画面に戻る</a>
+    </div>     
+      
+    <!--TOSAMON連絡先-->
+    <div class="text-center">
+      <p>TOSAMONで作品を販売してみたい方はご連絡ください。</p>
+      <p class="font-italic font-weight-bold" style="font-size: 1.5em;" >tosamon@mail.com</p>
+    </div>
+    
+    <!--フッター-->
+    <footer class="footer">
+      <nav class="nav justify-content-center d-flex align-items-center" style="background:#e1dccb;height:92px;">
+        <span class="text-muted"><small>&copy;team2</small></span>
+      </nav>
+    </footer>
+
+    
+    
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	</body>
 </div>
 </html>

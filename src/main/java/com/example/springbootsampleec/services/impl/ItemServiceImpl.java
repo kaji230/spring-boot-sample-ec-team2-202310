@@ -126,7 +126,7 @@ public class ItemServiceImpl implements ItemService {
        uploadImage(img_3, randomFileName_sub3);
        
        // Item エンティティの生成
-       Item item = new Item(null, null , name, price, stock, type, description,
+       Item item = new Item(null, null, null, name, price, stock, type, description,
        		randomFileName_main, randomFileName_sub1,
        		randomFileName_sub2, randomFileName_sub3, null, null);
 
@@ -153,5 +153,26 @@ public class ItemServiceImpl implements ItemService {
 		// TODO 自動生成されたメソッド・スタブ
 		return itemRepository.findByNameContaining(keyword);
 	}
+    
+    //いいね処理
+    @Override
+    public  void toggleLike(User user, long item_id) {
+    	Item item = findById(item_id).orElseThrow();
+    	if(item.getLikedUsers().contains(user)) {
+    		dislike(user, item);
+    		return;
+    	}
+    	like(user, item);
+    }
+    
+    private void like(User user, Item item) {
+    	item.getLikedUsers().add(user);
+    	itemRepository.saveAndFlush(item);
+    }
+    
+    private void dislike(User user, Item item) {
+    	item.getLikedUsers().remove(user);
+    	itemRepository.saveAndFlush(item);	
+    }
 
 }
