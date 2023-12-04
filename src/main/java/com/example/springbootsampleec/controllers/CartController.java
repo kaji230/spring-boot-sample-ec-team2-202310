@@ -2,6 +2,8 @@ package com.example.springbootsampleec.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.UserService;
@@ -40,18 +43,20 @@ public class CartController {
 	 @PostMapping("/create")    
 	    public String in_cart(
 	    		//@PathVariable("id")  Integer id,
-	    		// @RequestParam int amount,
+	    		//@RequestParam int amount,
+	    		@Valid AmountForm amountForm,
 	    		@AuthenticationPrincipal(expression = "user") User user,
 	    		@AuthenticationPrincipal(expression = "item") Item item,
 	    		Cart cart,
 	    		Model model
 	    ) {
 		 //Optional<User> user_id = userService.findById(user.getId());
-		 int amountSize=1;
+		 //int amountSize=1;
+		 int amount = amountForm.getAmount_size();
 		 cartService.register(
 		            user,
 		            item,
-		            amountSize		            
+		            amount	            
 		        );
 		 return "redirect:/cart";
 	 }

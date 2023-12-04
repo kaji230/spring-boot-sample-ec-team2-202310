@@ -8,9 +8,17 @@
 			<!--[[ ${carts.item.image} ]]-->
 			[[ ${carts.item.name} ]]
 			[[ ${carts.item.price} ]]円
-			<form>
-			<input type="number" name="value" min="1" max="20">
-			</form>
+			<form th:action="@{/cart/create}" th:object="${amountForm}" method="post">
+        <label for="quantity">Select Quantity:</label>
+        <select id="quantity" name="quantity" th:field="*{quantity}">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <!-- Add more options as needed -->
+        </select>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
 		</li>
 		<a th:href="@{/cart/delete/{id} (id = ${carts.id}) }">削除</a>
 	</ul>
