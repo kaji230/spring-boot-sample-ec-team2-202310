@@ -6,9 +6,15 @@
 		<li>
 			<!--カートに追加した商品一覧を表示-->
 			<!--[[ ${carts.item.image} ]]-->
-			[[ ${carts.item.name} ]]
-			[[ ${carts.item.price} ]]円
-			<form th:action="@{/cart/create}" th:object="${amountForm}" method="post">
+			<!--[[ ${carts.item.name} ]]-->
+			<!--[[ ${carts.item.price} ]]円-->
+			<li th:each="item : ${cartItems}">
+            <span th:text="${item.item.name}"></span>
+            <span th:text="${item.amount}"></span>
+        </li>
+		
+		<!--購入数量入力フォーム-->
+		<form method="post "th:action="@{/cart/amount_size}" th:object="${amountForm}">
         <label for="amountSize">数量を選んでください:</label>
         <select id="amountSize" name="amountSize" th:field="*{amountSize}">
             <option value="1">1</option>
@@ -18,7 +24,8 @@
         </select>
         <br>
         <button type="submit">Submit</button>
-    </form>
+    	</form>
+		
 		</li>
 		<a th:href="@{/cart/delete/{id} (id = ${carts.id}) }">削除</a>
 	</ul>

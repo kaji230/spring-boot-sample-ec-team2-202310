@@ -2,8 +2,7 @@ package com.example.springbootsampleec.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
-import com.example.springbootsampleec.forms.AmountForm;
+import com.example.springbootsampleec.repositories.ItemRepository;
+import com.example.springbootsampleec.repositories.UserRepository;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.UserService;
@@ -28,6 +28,9 @@ public class CartController {
 	private final CartService cartService;
 	private final ItemService itemService;
 	private final UserService userService;
+	@Autowired
+    private ItemRepository itemRepository;
+	private UserRepository userRepository;
 	
    
 	public  CartController(
@@ -39,8 +42,8 @@ public class CartController {
 	        this.itemService = itemService;
 	        this.userService = userService;
 	    }
-	
-	 @PostMapping("/create")    
+	/*
+	 @PostMapping("/amount_size")    
 	    public String in_cart(
 	    		//@PathVariable("id")  Integer id,
 	    		@Valid AmountForm amountForm,
@@ -49,26 +52,34 @@ public class CartController {
 	    		Cart cart,
 	    		Model model
 	    ) {
-		 //Optional<User> user_id = userService.findById(user.getId());
-		 //int amountSize=1;
+		 model.addAttribute("amountForm", amountForm);
 		 int amount = amountForm.getAmount_size();
 		 cartService.register(
+				 	user,
+				 	item,
 		            amount	            
 		        );
 		 return "redirect:/cart";
 	 }
-		 
-		 @GetMapping("/")    
-		 public String index(
-				 @AuthenticationPrincipal(expression = "user") User user,
-			        Model model) {
-		 // 最新のカート情報を取得
-	    	List<Cart> carts = cartService.findAll();
-	    	model.addAttribute("user", user);
-	        model.addAttribute("carts", carts);
-	        model.addAttribute("title", "購入商品一覧");
-	        model.addAttribute("main", "carts/cart::main");
-	        return "layout/logged_in";    
+	 */
+	 @GetMapping("/")
+	    public String index(Model model) {
+	        List<Item> items = itemRepository.findAll();
+	        model.addAttribute("items", items);
+	        return "items";
+	    }
+
+	    @PostMapping("/addToCart")
+	    public String addToCart(
+	    		@RequestParam Long itemId, 
+	    		@RequestParam(required = false) int amountSize,
+	    		@AuthenticationPrincipal(expression = "user") User user
+	    		) {
+	     
+	        // 商品をカートに追加
+	        Item item = itemRepository.findById(itemId).orElse(null);
+	        cartService.register(user, item, amountSize);
+	        return "redirect:/cart";
 	    }
 	 
 	//削除
