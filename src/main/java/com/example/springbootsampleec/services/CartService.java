@@ -14,7 +14,7 @@ public interface CartService {
     Optional<Cart> findById(long id);
  // 削除
     void delete(long id);
- // 商品の登録
-    void register(User user, Item item, int amount);
+ // 購入商品数の登録
+    void register(int amount);
 
 }

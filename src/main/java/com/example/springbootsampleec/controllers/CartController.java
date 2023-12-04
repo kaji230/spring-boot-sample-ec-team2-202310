@@ -43,7 +43,6 @@ public class CartController {
 	 @PostMapping("/create")    
 	    public String in_cart(
 	    		//@PathVariable("id")  Integer id,
-	    		//@RequestParam int amount,
 	    		@Valid AmountForm amountForm,
 	    		@AuthenticationPrincipal(expression = "user") User user,
 	    		@AuthenticationPrincipal(expression = "item") Item item,
@@ -54,8 +53,6 @@ public class CartController {
 		 //int amountSize=1;
 		 int amount = amountForm.getAmount_size();
 		 cartService.register(
-		            user,
-		            item,
 		            amount	            
 		        );
 		 return "redirect:/cart";
@@ -67,7 +64,7 @@ public class CartController {
 			        Model model) {
 		 // 最新のカート情報を取得
 	    	List<Cart> carts = cartService.findAll();
-	    	//model.addAttribute("user", user);
+	    	model.addAttribute("user", user);
 	        model.addAttribute("carts", carts);
 	        model.addAttribute("title", "購入商品一覧");
 	        model.addAttribute("main", "carts/cart::main");

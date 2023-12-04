@@ -33,7 +33,7 @@ public class CartServiceImpl implements CartService{
     }
     @Transactional
     @Override
-    public void register(User user, Item item, int amount) {
+    public void register(int amount) {
     	// Cart エンティティの生成
         Cart cart = new Cart(null,null, null , amount, null, null);
         

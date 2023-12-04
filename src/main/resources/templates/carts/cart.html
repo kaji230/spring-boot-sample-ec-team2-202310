@@ -9,8 +9,8 @@
 			[[ ${carts.item.name} ]]
 			[[ ${carts.item.price} ]]円
 			<form th:action="@{/cart/create}" th:object="${amountForm}" method="post">
-        <label for="quantity">Select Quantity:</label>
-        <select id="quantity" name="quantity" th:field="*{quantity}">
+        <label for="amountSize">数量を選んでください:</label>
+        <select id="amountSize" name="amountSize" th:field="*{amountSize}">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
