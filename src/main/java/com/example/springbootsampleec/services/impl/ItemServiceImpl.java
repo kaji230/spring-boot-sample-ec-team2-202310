@@ -1,33 +1,27 @@
 package com.example.springbootsampleec.services.impl;
  
-import com.example.springbootsampleec.entities.User;
-import com.example.springbootsampleec.entities.Item;
-import com.example.springbootsampleec.repositories.ItemRepository;
-import com.example.springbootsampleec.services.ItemService;
- 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.web.multipart.MultipartFile;
- 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.Optional;
- 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
- 
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.commons.io.FilenameUtils;
 // gradle で追加
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.repositories.ItemRepository;
+import com.example.springbootsampleec.services.ItemService;
 
  
 @Service
@@ -126,7 +120,7 @@ public class ItemServiceImpl implements ItemService {
        uploadImage(img_3, randomFileName_sub3);
        
        // Item エンティティの生成
-       Item item = new Item(null, Shop, name, price, stock, type, description,
+       Item item = new Item(null, shop, name, price, stock, type, description,
        		randomFileName_main, randomFileName_sub1,
        		randomFileName_sub2, randomFileName_sub3, null, null);
 

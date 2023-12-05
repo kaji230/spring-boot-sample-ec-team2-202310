@@ -1,13 +1,13 @@
 package com.example.springbootsampleec.services;
  
-import com.example.springbootsampleec.entities.Item;
-import com.example.springbootsampleec.entities.User;
- 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.web.multipart.MultipartFile;
- 
-import java.util.List;
+
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.User;
  
 public interface ItemService {
     // 投稿一覧の取得

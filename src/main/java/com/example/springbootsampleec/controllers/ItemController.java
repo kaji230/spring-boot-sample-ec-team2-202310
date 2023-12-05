@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
@@ -57,6 +58,9 @@ public class ItemController {
         @ModelAttribute("itemCreateForm") ItemCreateForm itemCreateForm,
         Model model
     ) {
+    	List<Shop> shops = shopRepository.findAll();
+
+    	model.addAttribute("shops", shops);
         model.addAttribute("title", "商品の新規作成");
         model.addAttribute("user", user);
         model.addAttribute("main", "items/create::main");
