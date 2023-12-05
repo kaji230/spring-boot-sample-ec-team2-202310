@@ -22,7 +22,7 @@ public interface ItemService {
     // 削除
     void delete(long id);
     // 商品の登録
-    void register(int shop_id, String name, int price, int stock, int type, String description,
+    void register(Shop shop, String name, int price, int stock, int type, String description,
     		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
     //いいね処理
     void toggleLike(User user, long item_id);
