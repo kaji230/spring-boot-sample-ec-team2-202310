@@ -85,4 +85,8 @@ public class Item {
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private ZonedDateTime updatedAt;   // 更新日時
     
+    public String getShopName() {
+    	return this.shop.getName();
+    }
+    
 }
