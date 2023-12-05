@@ -24,10 +24,28 @@
             <label for="description">商品説明: </label>
             <input type="text" id="description" th:field="*{description}" autofocus="autofocus" >
         </p>
+         <p>
+            <label for="image">メイン画像: </label>
+            <input type="file" id="image" th:field="*{image}"  >
+        </p>
+        <p>
+            <label for="img_1">サブ画像1: </label>
+            <input type="file" id="img_1" th:field="*{img_1}"  >
+        </p>
+        <p>
+            <label for="img_2">サブ画像2: </label>
+            <input type="file" id="img_2" th:field="*{img_2}"  >
+        </p>
+        <p>
+            <label for="img_3">サブ画像3: </label>
+            <input type="file" id="img_3" th:field="*{img_3}"  >
+        </p>
         <p><input type="submit" value="更新" /></p>
     </form>
-    <h2>現在の画像</h2>
-    <p><img class="item" th:src="@{/images/{image} (image=${item.image})}"></p>
+    
     <p><a th:href="@{/items/detail/{id} (id=${item.id})}">戻る</a></p>
 </div>
 </html>
+
+<h2>現在の画像</h2>
+    <p><img class="item" th:src="@{/images/{image} (image=${item.image})}"></p>
