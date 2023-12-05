@@ -38,6 +38,7 @@ public class Item {
     private Long id; // 商品id
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shop_id")
 	private Shop shop; //店舗id
     
     //@Column(name = "shop_id", nullable = false)
