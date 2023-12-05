@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.repositories.ItemRepository;
@@ -42,6 +41,19 @@ public class CartController {
 	        this.itemService = itemService;
 	        this.userService = userService;
 	    }
+	@GetMapping("/")    
+    public String index(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @AuthenticationPrincipal(expression = "item") Item item,
+        Model model
+    ) {
+    	List<Cart> carts = cartService.findAll();
+        model.addAttribute("user", user);
+        model.addAttribute("item", item);
+        model.addAttribute("carts", carts);
+        return "carts/cart";    
+    }
+	
 	/*
 	 @PostMapping("/amount_size")    
 	    public String in_cart(
@@ -62,6 +74,7 @@ public class CartController {
 		 return "redirect:/cart";
 	 }
 	 */
+	/*
 	 @GetMapping("/")
 	    public String index(Model model) {
 	        List<Item> items = itemRepository.findAll();
@@ -72,7 +85,7 @@ public class CartController {
 	    @PostMapping("/addToCart")
 	    public String addToCart(
 	    		@RequestParam Long itemId, 
-	    		@RequestParam(required = false) int amountSize,
+	    		@RequestParam int amountSize,
 	    		@AuthenticationPrincipal(expression = "user") User user
 	    		) {
 	     
@@ -81,6 +94,7 @@ public class CartController {
 	        cartService.register(user, item, amountSize);
 	        return "redirect:/cart";
 	    }
+	    */
 	 
 	//削除
 	    @GetMapping("/delete/{id}")    

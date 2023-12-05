@@ -16,11 +16,9 @@
         <dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
         <!-- 暫定でitemのdescriptionを住所として入力するようにしています -->
         <!--カートに追加ボタン-->
-        <form method="post" th:action="@{/cart/addToCart}">
-			<input type="hidden" name="itemId" th:value="${item.id}">
-            <input type="number" name="amounSize" value="1" min="1">
+        <form action="/cart/">
         <button type="submit">カートに入れる</button>
-        </form>
+       </form>
         <iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${item.description} + '18&t=m&z=15'}"
          width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     </dl>
