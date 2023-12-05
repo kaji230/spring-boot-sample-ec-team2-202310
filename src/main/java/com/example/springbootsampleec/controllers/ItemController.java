@@ -70,8 +70,9 @@ public class ItemController {
         if(bindingResult.hasErrors()){
             return create(user, itemCreateForm, model);
         }
+       
         itemService.register(
-        		itemCreateForm.getShop_id(),
+        		itemCreateForm.getSelectedShop(),
                 itemCreateForm.getName(),
                 itemCreateForm.getPrice(),
                 itemCreateForm.getStock(),
@@ -82,12 +83,14 @@ public class ItemController {
                 itemCreateForm.getImg_2(),
                 itemCreateForm.getImg_3()
         );
+        
+        
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "商品を追加しました");
+        
         return "redirect:/admin";
     }
- 
     @GetMapping("/detail/{id}")    
     public String detail(
         @AuthenticationPrincipal(expression = "user") User user,
