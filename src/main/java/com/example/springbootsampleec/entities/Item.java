@@ -39,9 +39,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
     
-    //カートテーブルとの紐付け
+    // カートと1:n の関係を定義
     @OneToMany(mappedBy="item", fetch = FetchType.EAGER)
-    		 private List<Cart> cartList;
+    private List<Cart> carts;
     
     @ManyToOne(fetch = FetchType.EAGER)
 	private Shop shop; //店舗id

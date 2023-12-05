@@ -39,9 +39,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // id
     
-  //カートテーブルとの紐付け
+    // カートと1:n の関係を定義
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    		 private List<Cart> cartList;
+    private List<Cart> carts;
     
   //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。

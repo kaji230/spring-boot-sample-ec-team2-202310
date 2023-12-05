@@ -16,7 +16,5 @@ public interface CartService {
     void delete(long id);
  // 購入商品数の登録
     void register(User user, Item item, int amount);
- //ユーザーが登録した商品の取得
-    List<Cart>getCartItems(User user);
 
 }
