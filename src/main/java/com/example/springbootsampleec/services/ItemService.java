@@ -16,8 +16,10 @@ public interface ItemService {
     List<Item> findByNameContaining(String keyword);
     // ID を指定して投稿を取得
     Optional<Item> findById(long id);
+    
     // ID を指定して商品のIDを取得
     Item findByItemId(long id);
+    
     // 商品情報を更新
     void updateItem(long id, String name, int price, int stock, String description,
     		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
