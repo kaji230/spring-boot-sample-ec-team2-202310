@@ -13,6 +13,12 @@
             <input type="text" id="name" th:field="*{name}" autofocus="autofocus" >
         </p>
         <p>
+            <label for="shop">店舗:</label>
+        <select th:field="*{selectedShop.id}" id="shop" required>
+            <option th:each="shop : ${shops}" th:value="${shop.id}" th:text="${shop.shop_name}"></option>
+        </select>
+        </p>
+        <p>
             <label for="price">価格: </label>
             <input type="text" id="price" th:field="*{price}" autofocus="autofocus" >
         </p>
@@ -21,15 +27,31 @@
             <input type="text" id="stock" th:field="*{stock}" autofocus="autofocus" >
         </p>
         <p>
+            <label for="type">商品の種類: </label>
+            <input type="text" id="type" th:field="*{type}" autofocus="autofocus" >
+        </p>
+        <p>
             <label for="description">商品説明: </label>
             <input type="text" id="description" th:field="*{description}" autofocus="autofocus" >
         </p>
         <p>
-            <label for="image">画像: </label>
+            <label for="image">メイン画像: </label>
             <input type="file" id="image" th:field="*{image}" >
         </p>
+        <p>
+            <label for="img_1">サブ画像1: </label>
+            <input type="file" id="img_1" th:field="*{img_1}" >
+        </p>
+        <p>
+            <label for="img_2">サブ画像2: </label>
+            <input type="file" id="img_2" th:field="*{img_2}" >
+        </p>
+        <p>
+            <label for="img_3">サブ画像3: </label>
+            <input type="file" id="img_3" th:field="*{img_3}" >
+        </p>
  
-        <p><input type="submit" value="投稿" /></p>
+        <p><input type="submit" value="追加" /></p>
     </form>
 </div>
 </html>
