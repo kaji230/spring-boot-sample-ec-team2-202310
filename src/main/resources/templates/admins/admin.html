@@ -1,4 +1,5 @@
 <!--11/28佐藤追記-->
+<!--11/28佐藤追記-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
@@ -45,10 +46,11 @@
                     </thead>
                     <tbody>
                         <tr　th:each="item : ${items}">
-                            <th scope="row"><img src="./images/top-fade-1.jpg"></img></th>
+                            
+                            <th scope="row"><img th:src="@{/images/{image} (image=${item.image})}"></img></th>
                             <td>[[ ${item.name} ]]</td>
                             <td><span class="text-truncate d-inline-block" style="max-width: 150px;">[[ ${item.description} ]]</span></td>
-                            <td>[[ ${shop.shop_name} ]]</td>
+                            <td>[[ ${item.getShopName()} ]]</td>
                             <td>[[ ${item.price} ]]円</td>
                             <td>[[ ${item.stock} ]]</td>
                             <td><a th:href="@{/items/edit/{id} (id = ${item.id}) }">編集</a></td>

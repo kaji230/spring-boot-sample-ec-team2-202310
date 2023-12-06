@@ -63,4 +63,10 @@ public class Shop {
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private ZonedDateTime update_date;
 
+    public String getName() {
+    	return this.shop_name;
+    }
+    public Long getId() {
+    	return this.id;
+    }
 }

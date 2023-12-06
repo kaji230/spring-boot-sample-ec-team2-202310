@@ -1,19 +1,22 @@
 package com.example.springbootsampleec.forms;
  
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.springbootsampleec.entities.Shop;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
- 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.springframework.web.multipart.MultipartFile;
  
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemCreateForm {
 	@NotNull
-	private int shop_id;
+	private Shop selectedShop;
 	
     @NotNull
     @Size(min=1, max=200)
@@ -40,4 +43,9 @@ public class ItemCreateForm {
     private  MultipartFile img_2;
     
     private  MultipartFile img_3;
+    
+ // selectedShopを取得するメソッド
+    public Shop getSelectedShop() {
+        return selectedShop;
+    }
 }
