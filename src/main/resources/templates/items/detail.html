@@ -17,7 +17,7 @@
         <!-- 暫定でitemのdescriptionを住所として入力するようにしています -->
         <!--カートに追加ボタン-->
         <form method ="post" th:action="@{/cart/}">
-			<input type="hidden" name="itemId" th:value="${item.id}">
+			<input type="hidden" name="id" th:value="${item.id}">
         <button type="submit">カートに入れる</button>
        </form>
         <iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${item.description} + '18&t=m&z=15'}"

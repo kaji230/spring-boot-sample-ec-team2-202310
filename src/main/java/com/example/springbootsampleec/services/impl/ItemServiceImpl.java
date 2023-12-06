@@ -48,11 +48,11 @@ public class ItemServiceImpl implements ItemService {
     }
     
     // ID を指定して商品のIDを取得
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     @Override
     public Item findByItemId(long id) {
     	return itemRepository.findByItemId(id);
-    }
+    }*/
     
     @Transactional(readOnly = false)
     @Override

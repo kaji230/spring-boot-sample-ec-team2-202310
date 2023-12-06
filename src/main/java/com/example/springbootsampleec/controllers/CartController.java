@@ -1,6 +1,6 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -45,12 +45,12 @@ public class CartController {
 	//カートに追加
 	@PostMapping("/")    
     public String addToCart(
-    	@RequestParam("itemId") Long id,
+    	@RequestParam("id") Long id,
         Model model
     ) {
        //どの商品が追加されたのか特定する
-        Item addToItem = itemService.findByItemId(id);
-        model.addAttribute("addtoItem", addToItem);
+        Optional<Item> item = itemService.findById(id);
+        model.addAttribute("addtoItem", item);
         return "carts/cart";    
     }
 	@GetMapping("/amountSize")    
@@ -79,7 +79,7 @@ public class CartController {
 				 item,
 				 amountForm.getAmount_size()
 				 );
-		 return "redirect:/carts/cart";
+		 return "redirect:/cart";
 	 }
 	/*
 	 @GetMapping("/")
@@ -110,7 +110,7 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
 	        cartService.delete(id);
-	        return "redirect:/cart/";  
+	        return "redirect:/cart";  
 	    }
 
 }

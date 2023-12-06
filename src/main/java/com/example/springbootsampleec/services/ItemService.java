@@ -18,7 +18,7 @@ public interface ItemService {
     Optional<Item> findById(long id);
     
     // ID を指定して商品のIDを取得
-    Item findByItemId(long id);
+    //Item findByItemId(long id);
     
     // 商品情報を更新
     void updateItem(long id, String name, int price, int stock, String description,
