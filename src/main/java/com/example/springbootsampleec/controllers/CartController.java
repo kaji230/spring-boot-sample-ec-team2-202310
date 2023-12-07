@@ -59,8 +59,9 @@ public class CartController {
 	
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
-    public String addToCart(
-        BindingResult bindingResult,
+    public String inCart(
+    	//@ModelAttribute User user,
+        //BindingResult bindingResult,
         @PathVariable("itemId")  Long itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
