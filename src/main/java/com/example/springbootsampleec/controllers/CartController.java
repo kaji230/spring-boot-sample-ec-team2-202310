@@ -58,7 +58,7 @@ public class CartController {
     }
 	
 	//カートに入れる
-	@PostMapping("/addToCart/{itemId}")    
+	@PostMapping("/inCart/{itemId}")    
     public String addToCart(
         BindingResult bindingResult,
         @PathVariable("itemId")  Long itemId,
