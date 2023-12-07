@@ -1,26 +1,28 @@
 package com.example.springbootsampleec.controllers;
  
-import java.util.ArrayList;
 import java.util.List;
- 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute; 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import javax.validation.Valid;
 
-import com.example.springbootsampleec.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
+import com.example.springbootsampleec.repositories.ShopRepository;
 import com.example.springbootsampleec.services.ItemService;
  
 @RequestMapping("/items")
@@ -33,6 +35,9 @@ public class ItemController {
     ) {
         this.itemService = itemService;
     }
+    
+    @Autowired
+    private ShopRepository shopRepository;
     
     @GetMapping("/")    
     public String index(
@@ -53,6 +58,9 @@ public class ItemController {
         @ModelAttribute("itemCreateForm") ItemCreateForm itemCreateForm,
         Model model
     ) {
+    	List<Shop> shops = shopRepository.findAll();
+
+    	model.addAttribute("shops", shops);
         model.addAttribute("title", "商品の新規作成");
         model.addAttribute("user", user);
         model.addAttribute("main", "items/create::main");
@@ -70,8 +78,9 @@ public class ItemController {
         if(bindingResult.hasErrors()){
             return create(user, itemCreateForm, model);
         }
+       
         itemService.register(
-        		itemCreateForm.getShop_id(),
+        		itemCreateForm.getSelectedShop(),
                 itemCreateForm.getName(),
                 itemCreateForm.getPrice(),
                 itemCreateForm.getStock(),
@@ -82,12 +91,14 @@ public class ItemController {
                 itemCreateForm.getImg_2(),
                 itemCreateForm.getImg_3()
         );
+        
+        
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "商品を追加しました");
+        
         return "redirect:/admin";
     }
- 
     @GetMapping("/detail/{id}")    
     public String detail(
         @AuthenticationPrincipal(expression = "user") User user,
@@ -183,7 +194,7 @@ public class ItemController {
     		user,
     		id
     	);
-    	return "redirect:/items/";
+    	return "redirect:/items/detail/{id}";
     }
     
 }

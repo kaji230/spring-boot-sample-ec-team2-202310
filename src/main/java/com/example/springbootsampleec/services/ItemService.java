@@ -1,13 +1,13 @@
 package com.example.springbootsampleec.services;
  
-import com.example.springbootsampleec.entities.Item;
-import com.example.springbootsampleec.entities.User;
- 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.web.multipart.MultipartFile;
- 
-import java.util.List;
+
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.User;
  
 public interface ItemService {
     // 投稿一覧の取得
@@ -22,7 +22,7 @@ public interface ItemService {
     // 削除
     void delete(long id);
     // 商品の登録
-    void register(int shop_id, String name, int price, int stock, int type, String description,
+    void register(Shop shop, String name, int price, int stock, int type, String description,
     		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
     //いいね処理
     void toggleLike(User user, long item_id);

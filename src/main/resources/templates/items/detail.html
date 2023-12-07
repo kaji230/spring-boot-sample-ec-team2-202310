@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>
+    <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
+		<button type="submit">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
+	</form>
     <dl>
         <dt>商品名</dt>
         <dd>[[ ${item.name} ]]</dd>

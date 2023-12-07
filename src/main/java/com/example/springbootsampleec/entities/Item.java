@@ -38,6 +38,7 @@ public class Item {
     private Long id; // 商品id
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shop_id")
 	private Shop shop; //店舗id
     
     //@Column(name = "shop_id", nullable = false)
@@ -83,5 +84,9 @@ public class Item {
     @Column(name="updatedAt",nullable = false, updatable = false, insertable = false, 
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private ZonedDateTime updatedAt;   // 更新日時
+    
+    public String getShopName() {
+    	return this.shop.getName();
+    }
     
 }

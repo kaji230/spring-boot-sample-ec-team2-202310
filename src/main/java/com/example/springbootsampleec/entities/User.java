@@ -2,6 +2,7 @@ package com.example.springbootsampleec.entities;
  
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -80,4 +81,22 @@ public class User {
  
     @Column(name = "enable_flag", nullable = false)
     private Boolean enable; // 有効フラグ
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(create_date, other.create_date) && Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(create_date, id);
+	}
+
 }
