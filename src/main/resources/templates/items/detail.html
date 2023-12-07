@@ -2,9 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>
-    <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
-		<button type="submit">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
-	</form>
     <dl>
         <dt>商品名</dt>
         <dd>[[ ${item.name} ]]</dd>
@@ -19,9 +16,9 @@
         <dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
         <!-- 暫定でitemのdescriptionを住所として入力するようにしています -->
         <!--カートに追加ボタン-->
-        <form method="post" class="cart" th:action="@{/cart/}">
+        <form method ="post" th:action="@{/items/inCart/{itemId}(itemId=${item.id})}">
         <button type="submit">カートに入れる</button>
-        </form>
+       </form>
         <iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${item.description} + '18&t=m&z=15'}"
          width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     </dl>
