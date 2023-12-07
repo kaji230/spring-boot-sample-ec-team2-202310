@@ -2,6 +2,7 @@ package com.example.springbootsampleec.entities;
  
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +38,10 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
+    
+ // カートと1:n の関係を定義
+    @OneToMany(mappedBy="item", fetch = FetchType.EAGER)
+    private List<Cart> carts;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
