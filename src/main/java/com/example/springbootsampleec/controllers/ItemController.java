@@ -194,7 +194,7 @@ public class ItemController {
     		user,
     		id
     	);
-    	return "redirect:/items/";
+    	return "redirect:/items/detail/{id}";
     }
     
 }
