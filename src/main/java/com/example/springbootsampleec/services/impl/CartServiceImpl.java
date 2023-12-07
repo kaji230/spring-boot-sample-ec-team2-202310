@@ -1,6 +1,7 @@
 package com.example.springbootsampleec.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -32,11 +33,11 @@ public class CartServiceImpl implements CartService{
 	    }
 	 
 	//IDを指定してカート内商品取得
-		 @Transactional(readOnly = true)
-		    @Override
-		    public List<Cart> findById() {
-		        return cartRepository.findById();
-		    }
+	 @Transactional(readOnly = true)
+	    @Override
+	    public Optional<Cart> findById(long id) {
+	        return cartRepository.findById(id);
+	    }
     
     //カートに登録
     @Transactional(readOnly = false)
