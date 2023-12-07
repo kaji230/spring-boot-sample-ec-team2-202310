@@ -34,19 +34,19 @@
             <div class="col-10 items-all">
                 <div class="row">
                     <div class="col-4">
-						<span th:each="item : ${user.likeItems}">
-						<a th:href="@{/items/detail/{id} (id=${item.id})}">
+						<div th:each="item : ${user.likeItems}">
+							<a th:href="@{/items/detail/{id} (id=${item.id})}">
 							<img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
-						</a>
-                    	</span>
+							</a>
+						</div>
+                    </div>
                     
                     <div class="col-4">
                         <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+               </div>
+        	</div>
+   		</div>
     
     <!--フッター-->
     <footer class="footer justify-content-center d-flex align-items-center">
