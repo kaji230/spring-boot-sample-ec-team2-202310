@@ -56,7 +56,11 @@
                     <div class="row">
 						<div class="col-4">
 							<tr　th:each="newItem : ${newItems}">
-                            	<th scope="row"><img th:src="@{/images/{image} (image=${newItem.image})}"></img></th>
+                            	<th scope="row">
+									<a th:href="@{/items/detail/{id} (id=${newItem.id})}">
+										<img th:src="@{/images/{image} (image=${newItem.image})}"></img>
+									</a>	
+								</th>
                         	</tr>
                         </div>
                     </div>
@@ -73,14 +77,14 @@
             <h3 class="subheading">カテゴリーでさがす</h3>
                 <div class="col-10 mx-auto">
                     <div class="row">
-                        <div class="col-4">
-                            <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル" style="padding:20px;"></img></a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル" style="padding:20px;"></img></a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル" style="padding:20px;"></img></a>
+						<div class="col-4">
+							<tr　th:each="randomItem : ${randomItems}">
+                            	<th scope="row">
+									 <a th:href="@{/items/detail/{id} (id=${randomItem.id})}">
+                                		<img th:src="@{/images/{image} (image=${randomItem.image})}"></img>
+                                	 </a>
+								</th>
+                        	</tr>
                         </div>
                     </div>
                 </div>

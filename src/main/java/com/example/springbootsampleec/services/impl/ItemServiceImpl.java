@@ -176,7 +176,8 @@ public class ItemServiceImpl implements ItemService {
   	}
   	
   	//ランダムに商品を３件検索
-  	@Query(value = "SELECT * FROM your_entity_table ORDER BY RAND() LIMIT 3", nativeQuery = true)
+  	@Override
+  	@Query(value = "SELECT * FROM item ORDER BY RAND() LIMIT 3", nativeQuery = true)
   	public List<Item> findRandom3Records(){
   		return itemRepository.findRandom3Records();
   	}
