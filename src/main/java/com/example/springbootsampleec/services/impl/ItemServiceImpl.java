@@ -13,6 +13,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -168,5 +169,16 @@ public class ItemServiceImpl implements ItemService {
     	item.getLikedUsers().remove(user);
     	itemRepository.saveAndFlush(item);	
     }
+    
+    //登録日時の新しい商品３件を検索
+  	public List<Item> findTop3ByOrderByCreatedAtDesc(){
+  		return itemRepository.findTop3ByOrderByCreatedAtDesc();
+  	}
+  	
+  	//ランダムに商品を３件検索
+  	@Query(value = "SELECT * FROM your_entity_table ORDER BY RAND() LIMIT 3", nativeQuery = true)
+  	public List<Item> findRandom3Records(){
+  		return itemRepository.findRandom3Records();
+  	}
 
 }
