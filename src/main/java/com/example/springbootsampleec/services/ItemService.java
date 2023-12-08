@@ -3,6 +3,7 @@ package com.example.springbootsampleec.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.springbootsampleec.entities.Item;
@@ -26,4 +27,10 @@ public interface ItemService {
     		MultipartFile image, MultipartFile img_1, MultipartFile img_2, MultipartFile img_3);
     //いいね処理
     void toggleLike(User user, long item_id);
+  //登録日時の新しい商品３件を検索
+  	List<Item> findTop3ByOrderByCreatedAtDesc();
+  	
+  	//ランダムに商品を３件検索
+  	@Query(value = "SELECT * FROM your_entity_table ORDER BY RAND() LIMIT 3", nativeQuery = true)
+  	List<Item> findRandom3Records();
 }
