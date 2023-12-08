@@ -41,8 +41,8 @@ public class User {
     private Long id; // id
     
  // カートと1:n の関係を定義
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    private List<Cart> carts;
+   // @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    //private List<Cart> carts;
     
   //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。

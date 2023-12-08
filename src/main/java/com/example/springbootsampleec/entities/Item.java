@@ -39,8 +39,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 商品id
     
- // カートと1:n の関係を定義
-    @OneToMany(mappedBy="item", fetch = FetchType.EAGER)
+    // カートと1:n の関係を定義
+    @OneToMany(mappedBy="item", fetch = FetchType.LAZY)
     private List<Cart> carts;
     
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,14 +1,10 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.repositories.CartRepository;
 //import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.ItemService;
@@ -41,8 +38,11 @@ public class CartController {
 	        this.userService = userService;
 	    }
 	
+	@Autowired
+    private CartRepository cartRepo;
+	
 	//カートの中身一覧表示
-	@GetMapping("/")    
+	/*@GetMapping("/")    
     public String index(
     		// user にはログイン中のユーザーの情報が入っている
     		 @AuthenticationPrincipal(expression = "user") User user,
@@ -51,23 +51,33 @@ public class CartController {
 		// 最新のユーザー情報を取得
         Optional<User> refreshedUser = userService.findById(user.getId());
         model.addAttribute("user", refreshedUser.orElseThrow());
-		List<Cart> carts = cartService.findAll();
+		List<Cart> cart = cartService.findAll();
 		model.addAttribute("user", user);
         //model.addAttribute("cart", carts);
+        return "carts/cart/";    
+    }*/
+	@GetMapping("/")    
+    public String detail(
+        @PathVariable("id")  Long id,
+        //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
+        Model model) {
+        Cart cart = cartService.findById(id).orElseThrow();
+        model.addAttribute("cart", cart);
         return "carts/cart/";    
     }
 	
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
-    	//@ModelAttribute User user,
-        //BindingResult bindingResult,
         @PathVariable("itemId")  Long itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
+        //Cart cart = cartService.findById(itemId).orElseThrow();
+        model.addAttribute("item", item);
+        //model.addAttribute("cart", cart);
         int amount=1;
         cartService.register(
             user,
@@ -76,8 +86,8 @@ public class CartController {
         );
         redirectAttributes.addFlashAttribute(
             "successMessage",
-            "コメントの投稿が完了しました");
-        return "redirect:/carts/cart/" + item.getId();  
+            "カートに商品が追加されました！");
+        return "redirect:/carts/cart/";  
     }
 	/*
 	@GetMapping("/amountSize")    
