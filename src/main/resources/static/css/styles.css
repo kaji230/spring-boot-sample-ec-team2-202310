@@ -68,8 +68,3 @@ footer {
 .flex {
   display: flex;	
 }
-
-.flex > div {
-    /* 例: 幅を50%に設定 */
-    width: 50%;
-}
