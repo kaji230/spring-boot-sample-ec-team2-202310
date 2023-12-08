@@ -46,8 +46,6 @@ public class CartController {
         @PathVariable("id")  Long id,
         //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
         Model model) {
-        //Cart cart = cartService.findById(id).orElseThrow();
-        //model.addAttribute("cart", cart);
         Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
         return "carts/cart/";    
@@ -74,7 +72,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");
-        return "redirect:carts/cart/"; 
+        return "redirect:/carts/cart/"; 
     }
 	/*
 	@GetMapping("/amountSize")    
