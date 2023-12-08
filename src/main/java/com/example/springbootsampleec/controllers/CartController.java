@@ -41,21 +41,6 @@ public class CartController {
 	@Autowired
     private CartRepository cartRepo;
 	
-	//カートの中身一覧表示
-	/*@GetMapping("/")    
-    public String index(
-    		// user にはログイン中のユーザーの情報が入っている
-    		 @AuthenticationPrincipal(expression = "user") User user,
-    	        Model model
-    ) {
-		// 最新のユーザー情報を取得
-        Optional<User> refreshedUser = userService.findById(user.getId());
-        model.addAttribute("user", refreshedUser.orElseThrow());
-		List<Cart> cart = cartService.findAll();
-		model.addAttribute("user", user);
-        //model.addAttribute("cart", carts);
-        return "carts/cart/";    
-    }*/
 	@GetMapping("/")    
     public String detail(
         @PathVariable("id")  Long id,
@@ -65,7 +50,7 @@ public class CartController {
         //model.addAttribute("cart", cart);
         Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
-        return "/carts/cart/";    
+        return "carts/cart/";    
     }
 	
 	//カートに入れる
@@ -89,7 +74,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");
-        return "redirect:/carts/cart/"; 
+        return "redirect:carts/cart/"; 
     }
 	/*
 	@GetMapping("/amountSize")    
