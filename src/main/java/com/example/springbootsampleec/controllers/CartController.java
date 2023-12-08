@@ -40,15 +40,16 @@ public class CartController {
 	
 	@Autowired
     private CartRepository cartRepo;
-	
+	//カート商品表示
 	@GetMapping("/")    
-    public String detail(
+    public String index(
         @PathVariable("id")  Long id,
         //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
         Model model) {
         Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
-        return "carts/cart/";    
+        model.addAttribute("main", "carts/cart::main");
+        return "layout/logged_in";    
     }
 	
 	//カートに入れる
@@ -72,7 +73,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");
-        return "redirect:/carts/cart/"; 
+        return "redirect:/carts/cart/"+ item.getId(); 
     }
 	/*
 	@GetMapping("/amountSize")    
@@ -92,7 +93,7 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
 	        cartService.delete(id);
-	        return "redirect:carts/cart/";  
+	        return "redirect:/carts/cart/";  
 	    }
 
 }
