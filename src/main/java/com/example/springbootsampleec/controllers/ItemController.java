@@ -48,7 +48,7 @@ public class ItemController {
         model.addAttribute("user", user);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品一覧");
-        model.addAttribute("main", "items/index::main");
+        model.addAttribute("main", "items/top::main");
         return "layout/logged_in";    
     }
  
