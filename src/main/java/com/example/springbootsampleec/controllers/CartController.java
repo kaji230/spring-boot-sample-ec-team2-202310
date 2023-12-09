@@ -40,19 +40,20 @@ public class CartController {
 	
 	@Autowired
     private CartRepository cartRepo;
-	//カート商品表示
-	@GetMapping("/")    
+	//カート商品表示（動作確認できず！）
+	@GetMapping("/{id}")    
     public String index(
-        @PathVariable("id")  Long id,
+        @PathVariable("id")  Integer id,
         //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
         Model model) {
+		System.out.println("aaaaaaaaaaaaa");
         Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
-        model.addAttribute("main", "carts/cart::main");
+        model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in";    
     }
 	
-	//カートに入れる
+	//カートに入れる（動作確認済み）
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
         @PathVariable("itemId")  Long itemId,
@@ -73,6 +74,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");
+        System.out.println("bbbbbbbbbb");
         return "redirect:/carts/cart/"+ item.getId(); 
     }
 	/*
