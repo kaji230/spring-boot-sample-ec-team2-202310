@@ -115,14 +115,7 @@
 		<p>ようこそ、[[ ${user.user_name} ]]さん。</p> <!--変更 name→user_name-->
 		
 		<div class="row">
-		<form class="search col-6" action="/items/search">
-			<div class="input-group">
-				<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
-				<span class="input-group-append">
-					<input class="btn btn-outline-secondary" type="submit" value="検索" >
-				</span>
-			</div>
-		</form>
+		
 		</div>
 		<div class="row">
 			<div class="col-3">
@@ -162,3 +155,12 @@
 	</footer>
 </div>
 </html>
+
+<form class="search col-6" action="/items/search">
+			<div class="input-group">
+				<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
+				<span class="input-group-append">
+					<input class="btn btn-outline-secondary" type="submit" value="検索" >
+				</span>
+			</div>
+		</form>
