@@ -44,6 +44,8 @@ public class CartController {
 	@GetMapping("/{id}")    
     public String index(
         @PathVariable("id")  Integer id,
+        //現在ログイン中のユーザー情報を取得
+        @AuthenticationPrincipal(expression = "user") User user,
         //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
         Model model) {
 		System.out.println("aaaaaaaaaaaaa");
@@ -71,11 +73,13 @@ public class CartController {
             item,
             amount
         );
+        System.out.println("bbbbbbbbbb");
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");
-        System.out.println("bbbbbbbbbb");
-        return "redirect:/carts/cart/"+ item.getId(); 
+       
+      //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
+        return "redirect:/cart/"+ item.getId(); 
     }
 	/*
 	@GetMapping("/amountSize")    
@@ -95,7 +99,7 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
 	        cartService.delete(id);
-	        return "redirect:/carts/cart/";  
+	        return "redirect:/cart/";  
 	    }
 
 }
