@@ -7,3 +7,19 @@ INSERT INTO spring_boot_ec_202310.shop (`id`, `shop_account`, `shop_name`, `shop
 (6, 'takuminoyunomi', '和匠の手作り湯呑み屋', '高知県土佐清水市天神町１１−２', '高知県土佐清水市にある、40年の歴史を持つ湯呑み専門店です。この度TOSAMONの出品をはじめました。清水の職人が手がけた様々な湯呑みをお楽しみください。'),
 (7, 'tosawashiumiji', '土佐和紙umiji', '高知県吾川郡いの町幸町１１０−１', 'いの町紙の博物館で販売している商品を出品しています。触り心地・書き心地にこだわったいの町産和紙商品を是非ご覧ください。'),
 (8, 'ks_accesories', 'K''s Accessories', '高知県高知市帯屋町', 'こんにちは。ハンドメイド雑貨をTOSAMONで出品しています。毎週日曜に高知市帯屋町で開催されている「おびさんマルシェ」にも不定期出店しています。');
+
+
+itemのSQL文
+INSERT INTO spring_boot_ec_202310.item (`id`, `shop_id`, `name`, `price`, `stock`, `type`, `description`, `main_img`, `img_1`, `img_2`, `img_3`) VALUES
+(1, 1, '天然由来の手づくり石鹸', 1600, 6, 4, '天然成分100%の、素肌に優しい石鹸です。高知産の文旦なども使用したオリジナルのフレーバーも楽しめます。', 'soap_main.jpeg', 'soap_1.jpeg', 'soap_2.jpeg', 'soap_3.jpeg'),
+(2, 2, '馬路村産・やなせ杉のペン立て', 2500, 7, 2, '魚梁瀬杉を使用したペン立てです。触り心地にもこだわりました。', 'woody_penstand_main.jpg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
+(3, 3, '自家栽培のドライフラワー', 3000, 15, 3, '美しいドライフラワーアレンジメントで、自宅を花で彩りませんか？ギフトにもおすすめです。', 'dried_flower_main.jpeg', 'dried_flower_1.jpeg', 'dried_flower_2.jpeg', 'dried_flower_3.jpeg'),
+(4, 1, '県産ゆずのアロマオイル', 2000, 5, 6, '土佐山のゆずをふんだんに使ったアロマオイルです。お部屋のフレグランスにいかがですか？', 'aroma_oil_main.jpeg', 'aroma_oil_1.jpeg', 'aroma_oil_2.jpeg', 'aroma_oil_3.jpeg'),
+(5, 4, '小鳥の置物', 8000, 3, 5, '小鳥の置物シリーズを数多く手掛ける作家さんの作品です。ひとつひとつ表情が違う、すべてが１点ものです♪', 'doll_main.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
+(6, 5, '土佐あかうしの牛革ビジネスバッグ', 27000, 2, 7, '高知の高級肉牛、土佐あかうしの革をふんだんに使ったビジネスバッグです。', 'leather_bag_main.jpg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
+(7, 6, '職人お手製湯呑み', 3000, 8, 10, '熟練の職人が手作りした贅沢な湯呑み。丁寧な手仕事と伝統の技が融合し、温かみのある美しい陶器で至福のひとときをお楽しみください。', 'yunomi_main.jpeg', 'yunomi_1.jpeg', 'yunomi_2.jpeg', 'yunomi_3.jpeg'),
+(8, 7, '土佐和紙のレターレット', 1000, 15, 10, '風情ある土佐和紙を使用したレターレット。手触りの良さと繊細な和の美が詰まった、特別なメッセージを贈るのにぴったりの手紙セットです。', 'letter_set_main.jpeg', 'letter_set_1.jpeg', 'letter_set_2.jpeg', 'icon_tosamon.jpeg'),
+(9, 8, 'ハンドメイドイヤリング', 1500, 5, 1, '熟練の職人が手作りした、個性豊かなハンドメイドイヤリング。美しいデザインとこだわりの手仕事が融合し、おしゃれなアクセサリーとして華やかな日常を演出します。', 'earrings_main.jpeg', 'earrings_1.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
+(10, 3, '高知で育てたフラワーハーバリウム', 4000, 9, 3, '高知の美しい大自然で育まれた花々を使用したハーバリウム。豊かな色彩と優雅な香りが詰まった、高知の自然を感じる特別な一品です。', 'herbarium_main.jpeg', 'herbarium_1.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
+(11, 2, '高知県産ひのきの積み木', 1000, 4, 9, '高知県産の上質なひのきを使用した積み木セット。自然の香りと木の温かみが詰まった積み木で、子供たちの創造力と想像力を育む遊びが楽しめます。', 'blocks_main.jpeg', 'blocks_1.jpeg', 'blocks_2.jpeg', 'blocks_3.jpeg'),
+(12, 5, '土佐あかうし革財布', 10000, 7, 7, '上質な土佐あかうし牛革を使用した贅沢な財布。洗練されたデザインと高品質な素材が調和し、使い込むほどに風格を増す一品です。', 'wallet_main.jpeg', 'wallet_1.jpg', 'wallet_2.jpg', 'icon_tosamon.jpeg');
