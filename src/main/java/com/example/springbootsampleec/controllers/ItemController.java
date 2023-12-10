@@ -78,6 +78,21 @@ public class ItemController {
         model.addAttribute("main", "items/index::main");
         return "layout/logged_in";    
     }
+    
+    @RequestMapping("/index/{type}")    
+    public String index(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("type")  int type,
+        Model model
+    ) {
+    	List<Item> items = itemService.findByType(type);
+    	
+        model.addAttribute("user", user);
+        model.addAttribute("items", items);
+        model.addAttribute("title", "商品一覧");
+        model.addAttribute("main", "items/index::main");
+        return "layout/logged_in";    
+    }
  
     @GetMapping("/create")    
     public String create(
