@@ -32,7 +32,7 @@
 
     <!--ヘッダー-->
     <header>
-        <nav class="nav justify-content-center d-flex align-items-center fixed-top" style="background:#e01DCCB1; height:163px;">
+        <nav class="nav justify-content-center d-flex align-items-center fixed-top" style="background:#e1dccb; height:163px;>
             <a class="navbar-brand" href="#"><img src="./images/logo321px.png" alt="TOSAMONロゴマーク"></img></a>
         </nav>
     </header>
@@ -66,7 +66,7 @@
                 <td class="text-right align-middle">[[ ${cart.item.price} ]]円</td>
                 <!-- 数量 -->
                 <td class="text-center align-middle">
-                    <!-- <form method="post "th:action="@{/cart/amountSize}" th:object="${amountForm}">
+                   <!--  <form method="post "th:action="@{/cart/amountSize}" th:object="${amountForm}">
         				<label for="amountSize">数量を選んでください:</label>
         				<select id="amountSize" name="amountSize" th:field="*{amountSize}">
             				<option value="1">1</option>
@@ -82,8 +82,7 @@
                 <td class="text-right align-middle">円</td>
                 <!-- 削除ボタン -->
                 <td class="text-center align-middle">
-                    <a th:href="@{/cart/delete/{id} (id = ${carts.id}) }">削除</a>
-
+                    <a th:href="@{/cart/delete/{cartId}(cartId=${cart.id})}">削除</a>
                 </td>
             </tr>
         </tbody>
@@ -122,7 +121,7 @@
     
     <!--フッター-->
     <footer class="footer fixed-bottom">
-      <nav class="nav justify-content-center d-flex align-items-center" style="background:#e01DCCB1; height:92px;">
+      <nav class="nav justify-content-center d-flex align-items-center" style="background:#e1dccb; height:163px;">
         <span class="text-muted"><small>&copy;team2</small></span>
       </nav>
     </footer>
