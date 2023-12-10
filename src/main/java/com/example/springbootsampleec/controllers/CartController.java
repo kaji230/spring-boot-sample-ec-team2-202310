@@ -48,8 +48,9 @@ public class CartController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
 		model.addAttribute("user", user);//ログインユーザの取得
-        Item item = itemService.findById(id).orElseThrow();
-        model.addAttribute("item", item);
+		System.out.println(user.getId());
+		User userId = userService.findById(id).orElseThrow();
+		model.addAttribute("user", userId);
         model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in";    
     }
@@ -74,8 +75,9 @@ public class CartController {
             "successMessage",
             "カートに商品が追加されました！");       
       //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
-        //return "redirect:/cart/"+ item.getId(); 
-        return "redirect:/cart/"+ item.getId();
+        //return "redirect:/cart/"+ item.getId();
+        System.out.println(user.getId());
+        return "redirect:/cart/"+ user.getId();
     }
 	
 	//削除
@@ -87,10 +89,7 @@ public class CartController {
 	        Model model) {
 	    	model.addAttribute("user", user);//ログインユーザの取得
 	        cartService.delete(id);
-	        System.out.println("aaaaaaaaaaaaaaaaaaaa");
-	        Item item = itemService.findById(id).orElseThrow();
-	        model.addAttribute("item", item);
-	        return "redirect:/cart/"+ item.getId(); 
+	        return "redirect:/cart/"+ user.getId(); 
 	    }
 	    
 	    /*
