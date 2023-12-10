@@ -60,24 +60,21 @@
                 <td class="align-middle">                    
                    <!-- カートに入れた商品-->
                     <img th:src="@{/images/{image} (image=${cart.item.image})}">
-                    <!--[[ ${cart.item.image} ]]-->
 					[[ ${cart.item.name} ]]
                 </td>
                 <!-- 販売価格 -->
                 <td class="text-right align-middle">[[ ${cart.item.price} ]]円</td>
                 <!-- 数量 -->
                 <td class="text-center align-middle">
-                   <!--  <form method="post "th:action="@{/cart/amountSize}" th:object="${amountForm}">
-        				<label for="amountSize">数量を選んでください:</label>
+                   <form method="post "th:action="@{/cart/amountSize}" th:object="${amountForm}">
         				<select id="amountSize" name="amountSize" th:field="*{amountSize}">
             				<option value="1">1</option>
             				<option value="2">2</option>
             				<option value="3">3</option>
             				<!-- Add more options as needed -->
-        				<!--</select>-->
-        			<!--<br>
-       				 <button type="submit">Submit</button>
-    				</form>-->
+        				</select>
+        			<br>
+    				</form>
                 </td>
                 <!-- 小計 -->
                 <td class="text-right align-middle">円</td>
