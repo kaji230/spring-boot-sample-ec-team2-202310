@@ -48,7 +48,6 @@ public class CartController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
 		model.addAttribute("user", user);//ログインユーザの取得
-		System.out.println(user.getId());
 		User userId = userService.findById(id).orElseThrow();
 		model.addAttribute("user", userId);
         model.addAttribute("main", "carts/cart::main");        
@@ -76,7 +75,6 @@ public class CartController {
             "カートに商品が追加されました！");       
       //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
         //return "redirect:/cart/"+ item.getId();
-        System.out.println(user.getId());
         return "redirect:/cart/"+ user.getId();
     }
 	
