@@ -36,26 +36,25 @@ public class CartController {
 	        this.cartService = cartService;
 	        this.itemService = itemService;
 	        this.userService = userService;
-	    }
-	
+	    }	
 	@Autowired
     private CartRepository cartRepo;
-	//カート商品表示（動作確認できず！）
-	@GetMapping("/{id}")    
+
+	//カート商品一覧
+	@GetMapping("/{id}")
     public String index(
         @PathVariable("id")  Integer id,
         //現在ログイン中のユーザー情報を取得
         @AuthenticationPrincipal(expression = "user") User user,
-        //@ModelAttribute("commentCreateForm") CommentCreateForm commentCreateForm,
         Model model) {
-		System.out.println("aaaaaaaaaaaaa");
+		model.addAttribute("user", user);//ログインユーザの取得
         Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
         model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in";    
     }
 	
-	//カートに入れる（動作確認済み）
+	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
         @PathVariable("itemId")  Long itemId,
@@ -64,42 +63,46 @@ public class CartController {
         Model model
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
-        //Cart cart = cartService.findById(itemId).orElseThrow();
         model.addAttribute("item", item);
-        //model.addAttribute("cart", cart);
         int amount=1;
         cartService.register(
             user,
             item,
             amount
         );
-        System.out.println("bbbbbbbbbb");
         redirectAttributes.addFlashAttribute(
             "successMessage",
-            "カートに商品が追加されました！");
-       
+            "カートに商品が追加されました！");       
       //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
-        return "redirect:/cart/"+ item.getId(); 
+        //return "redirect:/cart/"+ item.getId(); 
+        return "redirect:/cart/"+ item.getId();
     }
-	/*
-	@GetMapping("/amountSize")    
-    public String amountSize(
-        @ModelAttribute("amountForm") AmountForm amountForm,
-        Model model
-        ) {
-        model.addAttribute("amount", "amountForm");
-        return "carts/cart/";    
-    }
-    */
-		 
+	
 	//削除
-	    @GetMapping("/delete/{id}")    
-	    public String delete(
-	        @PathVariable("id")  Integer id,
+	    @GetMapping("/delete/{cartId}")    
+	    public String delete(	    		
+	        @PathVariable("cartId")  Integer id,
+	        @AuthenticationPrincipal(expression = "user") User user,
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
+	    	model.addAttribute("user", user);//ログインユーザの取得
 	        cartService.delete(id);
-	        return "redirect:/cart/";  
+	        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+	        Item item = itemService.findById(id).orElseThrow();
+	        model.addAttribute("item", item);
+	        return "redirect:/cart/"+ item.getId(); 
 	    }
+	    
+	    /*
+		@GetMapping("/amountSize")    
+	    public String amountSize(
+	        @ModelAttribute("amountForm") AmountForm amountForm,
+	        Model model
+	        ) {
+	        model.addAttribute("amount", "amountForm");
+	        return "carts/cart/";    
+	    }
+	    */
+			 
 
 }
