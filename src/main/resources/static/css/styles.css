@@ -12,6 +12,13 @@
   }
 }
 
+@media (max-width: 576px) {
+  /*ヘッダーの検索フォームのスタイル*/
+  .custom-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 /*スマホ向けのスタイル*/
 @media screen and (max-width: 480px) {
   body{
@@ -45,6 +52,18 @@ footer {
   color: #343434;
 }
 
+/*ヘッダーのボタン各種スタイル*/
+.custom-button {
+  font-size: 12px;
+  padding: 6px 12px;
+  min-height: 20px;
+  white-space: nowrap;
+}
+svg {
+  color: #575756;
+  margin-right: 15px;
+}
+
 /*商品一覧ページ*/
 .items-all img {
   padding-bottom: 20px;
@@ -54,3 +73,24 @@ footer {
   color: grey;
 }
 
+/*サムネイルへのオーバーレイブラックと白抜き文字*/
+.overlay-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  overflow: hidden;
+}
+
+/*一覧のフレックス*/
+.flex {
+  display: flex;	
+}
+
+.overlay-text {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  top: 81%;
+  padding: 0 10px;
+  color: white;
+}

@@ -40,11 +40,29 @@ public class ItemController {
     private ShopRepository shopRepository;
     
     @GetMapping("/")    
+    public String top(
+        @AuthenticationPrincipal(expression = "user") User user,
+        Model model
+    ) {
+    	List<Item> items = itemService.findAll();
+    	List<Item> newItems = itemService.findTop3ByOrderByCreatedAtDesc();
+    	List<Item> randomItems = itemService.findRandom3Records();
+        model.addAttribute("user", user);
+        model.addAttribute("items", items);
+        model.addAttribute("newItems", newItems);
+        model.addAttribute("randomItems", randomItems);
+        model.addAttribute("title", "商品一覧");
+        model.addAttribute("main", "items/top::main");
+        return "layout/logged_in";    
+    }
+    
+    @GetMapping("/index")    
     public String index(
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
     ) {
     	List<Item> items = itemService.findAll();
+    	
         model.addAttribute("user", user);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品一覧");
