@@ -18,22 +18,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Review;
 import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
 import com.example.springbootsampleec.repositories.ShopRepository;
 import com.example.springbootsampleec.services.ItemService;
+import com.example.springbootsampleec.services.ReviewService;
+import com.example.springbootsampleec.services.ShopService;
  
 @RequestMapping("/items")
 @Controller
 public class ItemController { 
     private final ItemService itemService;
+	private final ReviewService reviewService;
+	private final ShopService shopService;
     
     public ItemController(
-        ItemService itemService
+        ItemService itemService,
+        ReviewService reviewService,
+        ShopService shopService
     ) {
         this.itemService = itemService;
+        this.reviewService = reviewService;
+        this.shopService = shopService;
     }
     
     @Autowired
@@ -62,6 +71,21 @@ public class ItemController {
         Model model
     ) {
     	List<Item> items = itemService.findAll();
+    	
+        model.addAttribute("user", user);
+        model.addAttribute("items", items);
+        model.addAttribute("title", "商品一覧");
+        model.addAttribute("main", "items/index::main");
+        return "layout/logged_in";    
+    }
+    
+    @RequestMapping("/index/{type}")    
+    public String index(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("type")  int type,
+        Model model
+    ) {
+    	List<Item> items = itemService.findByType(type);
     	
         model.addAttribute("user", user);
         model.addAttribute("items", items);
@@ -123,11 +147,22 @@ public class ItemController {
         @PathVariable("id")  Long id,
         Model model
     ) {
-        Item item = itemService.findById(id).orElseThrow();
+    	Item item = itemService.findById(id).orElseThrow();
         model.addAttribute("item", item);
         model.addAttribute("user", user);
         model.addAttribute("title", "商品の詳細");
         model.addAttribute("main", "items/detail::main");
+        
+        //店を取得
+        Long shopId = item.getShopId();
+        Shop shop = shopService.findById(shopId);
+
+        // レビューを取得
+        List<Review> reviews = reviewService.findByItemIdOrderByCreatedAtDesc(id);
+        model.addAttribute("reviews", reviews);
+        
+        
+
         return "layout/logged_in";    
     }
  

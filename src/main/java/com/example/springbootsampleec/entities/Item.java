@@ -95,4 +95,8 @@ public class Item {
     	return this.shop.getName();
     }
     
+    public Long getShopId() {
+    	return this.shop.getId();
+    }
+    
 }
