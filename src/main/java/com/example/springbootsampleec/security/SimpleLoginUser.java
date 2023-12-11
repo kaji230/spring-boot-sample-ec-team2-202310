@@ -1,19 +1,24 @@
 package com.example.springbootsampleec.security;
  
-import com.example.springbootsampleec.entities.User;
- 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
- 
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.User;
  
 public class SimpleLoginUser extends org.springframework.security.core.userdetails.User {
  
     private User user;
- 
+    private Item item;
+    
+    /*コンストラクタ親クラスのコンストラクタに必要な情報を渡しています。
+      ユーザーの認証情報（ユーザー名、パスワードなど）や権限情報を設定
+    */
     public SimpleLoginUser(User user) {
         super(user.getEmail(), user.getPassword(), user.getEnable(), true, true,
             true, convertGrantedAuthorities(user.getRoles()));
@@ -22,6 +27,10 @@ public class SimpleLoginUser extends org.springframework.security.core.userdetai
  
     public User getUser() {
         return user;
+    }
+    
+    public Item getItem() {
+       return item;
     }
  
     // 権限管理用のメソッド
