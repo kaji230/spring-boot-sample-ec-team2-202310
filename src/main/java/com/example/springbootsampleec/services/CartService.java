@@ -12,9 +12,14 @@ public interface CartService {
     	List<Cart> findAll();
     //IDを指定してカート内商品を取得
     	Optional<Cart> findById(long id);
-    // 削除
+    
+    	//カート内商品数を取得
+    	int getAmountSize(long id);
+
+    	// 削除
     	void delete(long id);
     // 商品の登録
     	void register(User user, Item item, int amount);
+    	
 
 }
