@@ -52,4 +52,8 @@ public class Review {
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private ZonedDateTime updatedAt;   // 更新日時
     
+    public String getUserName() {
+    	return this.user.getName();
+    }
+    
 }

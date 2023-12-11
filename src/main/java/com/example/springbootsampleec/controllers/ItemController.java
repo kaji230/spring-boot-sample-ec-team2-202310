@@ -141,13 +141,12 @@ public class ItemController {
         //店を取得
         Long shopId = item.getShopId();
         Shop shop = shopService.findById(shopId);
+        model.addAttribute("shop", shop);
 
         // レビューを取得
         List<Review> reviews = reviewService.findByItemIdOrderByCreatedAtDesc(id);
         model.addAttribute("reviews", reviews);
         
-        
-
         return "layout/logged_in";    
     }
  

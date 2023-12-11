@@ -5,26 +5,36 @@
     <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
 		<button type="submit" class="box">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
 	</form>
-    <dl>
-        <dt>商品名</dt>
-        <dd>[[ ${item.name} ]]</dd>
-        <dt>価格</dt>
-        <dd>[[ ${item.price} ]]円</dd>
-        <dt>商品説明</dt>
-        <dd>[[ ${item.description} ]]</dd>
-        <dt>商品画像</dt>
-        <dd><img class="item" th:src="@{/images/{image} (image=${item.image})}"></dd>
-        <dd><img class="item" th:src="@{/images/{image} (image=${item.img_1})}"></dd>
-        <dd><img class="item" th:src="@{/images/{image} (image=${item.img_2})}"></dd>
-        <dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
-        <!-- 暫定でitemのdescriptionを住所として入力するようにしています -->
-        <iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${item.description} + '18&t=m&z=15'}"
-         width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-         <div th:each="eachReview : ${reviews}">
+	<dl>
+		<dd>[[ ${item.getShopName} ]]</dd>
+		<dt>商品名</dt>
+		<dd>[[ ${item.name} ]]</dd>
+		<dt>価格</dt>
+		<dd>[[ ${item.price} ]]円</dd>
+		<dt>商品説明</dt>
+		<dd>[[ ${item.description} ]]</dd>
+		<dt>商品画像</dt>
+		<dd><img class="item" th:src="@{/images/{image} (image=${item.image})}"></dd>
+		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_1})}"></dd>
+		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_2})}"></dd>
+		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
+		<div><img class="shop" th:src="@{/images/{image} (image=${shop.shop_icon})}"></div>
+		<p>[[ ${shop.shop_name} ]]</p>
+		<p>[[ ${shop.shop_description} ]]</p>
+		<h2>ショップの場所</h2>
+		<iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${shop.shop_address} + '18&t=m&z=15'}"
+		 width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+		<h2>レビュー</h2>
+		<div th:each="eachReview : ${reviews}">
+			<p>[[ ${eachReview.getUserName} ]] さん</p>
 			<p>[[ ${eachReview.star} ]]</p>
-        	<p>[[ ${eachReview.comment} ]]</p>
-         </div>
-    </div>
-    </dl>
+			<div th:each="starNumber : ${#numbers.sequence(1, eachReview.star)}">
+				<img th:src="@{/images/kusa.png}"width="20" height="20">
+			</div>
+			<p>[[ ${eachReview.comment} ]]</p>
+			<p>[[ ${eachReview.createdAt} ]]</p>
+		</div>
+	</div>
+	</dl>
 </div>
 </html>

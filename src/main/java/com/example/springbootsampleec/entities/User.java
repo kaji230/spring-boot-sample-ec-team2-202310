@@ -98,5 +98,9 @@ public class User {
 	public int hashCode() {
 		return Objects.hash(create_date, id);
 	}
+	
+	public String getName() {
+    	return this.user_name;
+    }
 
 }
