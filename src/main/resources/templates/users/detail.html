@@ -32,8 +32,8 @@
 		                    <img class="thumbnail-trim" th:src="@{/images/{image} (image=${item.image})}">
 		                    <div class="overlay"></div>
 		                    <div class="overlay-text">
-		                        <h6 class="text-center">商名品商品名商品名</h6>
-		                        <p class="text-right">￥0,000</p>
+		                        <h6 class="text-center">[[ ${item.name} ]]</h6>
+		                        <p class="text-right">￥[[ ${item.price} ]]</p>
 		                    </div>
 		                </div>
 		            </a>

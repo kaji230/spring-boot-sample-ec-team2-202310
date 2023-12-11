@@ -6,7 +6,7 @@
     <div style="padding-top:163px;"></div>
     
     <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
-		<button type="submit" class="box">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
+		<button type="submit" class="like-button">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
 	</form>
     <dl>
         <dt>商品名</dt>
