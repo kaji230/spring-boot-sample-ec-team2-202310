@@ -66,15 +66,14 @@
                 <td class="text-right align-middle">[[ ${cart.item.price} ]]円</td>
                 <!-- 数量 -->
                 <td class="text-center align-middle">
-                   <form method="post "th:action="@{/cart/amountSize}" th:object="${amountForm}">
-        				<select id="amountSize" name="amountSize" th:field="*{amountSize}">
+					<label for="cart.amount">商品数: </label>
+					<input type="text" id="amount" th:field="*{cart.amount}" autofocus="autofocus" >
+        				 <!--<select id="amountSize" name="amountSize" th:field="*{amount}" autofocus="autofocus">
             				<option value="1">1</option>
             				<option value="2">2</option>
             				<option value="3">3</option>
-            				<!-- Add more options as needed -->
-        				</select>
-        			<br>
-    				</form>
+        				</select>-->
+        			<br>    				
                 </td>
                 <!-- 小計 -->
                 <td class="text-right align-middle">円</td>

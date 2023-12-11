@@ -1,18 +1,21 @@
 package com.example.springbootsampleec.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.repositories.CartRepository;
 //import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.services.CartService;
@@ -57,6 +60,7 @@ public class CartController {
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
+    	@Valid AmountForm amountForm,//数量追記
         @PathVariable("itemId")  Long itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
@@ -64,12 +68,18 @@ public class CartController {
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
         model.addAttribute("item", item);
-        int amount=1;
+       /* int amount=1;
         cartService.register(
             user,
             item,
             amount
         );
+        */
+        cartService.register(
+                user,
+                item,
+                amountForm.getAmountSize()
+            );
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");       
@@ -90,16 +100,18 @@ public class CartController {
 	        return "redirect:/cart/"+ user.getId(); 
 	    }
 	    
-	    /*
-		@GetMapping("/amountSize")    
+	    //商品数選択
+		/*@PostMapping("/amountSize")    
 	    public String amountSize(
 	        @ModelAttribute("amountForm") AmountForm amountForm,
+	        @AuthenticationPrincipal(expression = "user") User user,
+	        RedirectAttributes redirectAttributes,
 	        Model model
 	        ) {
-	        model.addAttribute("amount", "amountForm");
-	        return "carts/cart/";    
-	    }
-	    */
+			model.addAttribute("user", user);//ログインユーザの取得
+			
+			return "redirect:/cart/"+ user.getId();   
+	    }*/
 			 
 
 }
