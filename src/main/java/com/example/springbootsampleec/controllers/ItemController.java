@@ -79,7 +79,7 @@ public class ItemController {
         return "layout/logged_in";    
     }
     
-    @RequestMapping("/index/{type}")    
+    @GetMapping("/index/{type}")    
     public String index(
         @AuthenticationPrincipal(expression = "user") User user,
         @PathVariable("type")  int type,

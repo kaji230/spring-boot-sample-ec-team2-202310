@@ -62,8 +62,8 @@
 										<img class="thumbnail-trim" th:src="@{/images/{image} (image=${newItem.image})}"></img>
 										<div class="overlay"></div>
 										<div class="overlay-text">
-			                                <h6>商名品商品名商品名</h6>
-			                                <p class="text-right">￥0,000</p>
+			                                <h6>[[ ${newItem.name} ]]</h6>
+			                                <p class="text-right">￥[[ ${newItem.price} ]]</p>
 			                            </div>
 									</div>
 								</a>	
@@ -85,12 +85,43 @@
 						<div class="row">
 							<tr　th:each="randomItem : ${randomItems}">
                             	<th scope="row">
-									 <a th:href="@{/items/detail/{id} (id=${randomItem.id})}">
+									 <a th:href="@{/items/index/{type} (type=${randomItem.type})}">
 										<div class="overlay-container top-custom-img">
 	                                		<img class="thumbnail-trim" th:src="@{/images/{image} (image=${randomItem.image})}"></img>
 	                                		<div class="overlay"></div>
 											<div class="overlay-text">
-				                                <h6 class="text-center">カテゴリー名</h6>
+												<th:block th:switch="${randomItem.type}">
+													<th:block th:case="1">
+				                                		<h6 class="text-center">アクセサリー</h6>
+				                                	</th:block>
+				                                	<th:block th:case="2">
+				                                		<h6 class="text-center">木工品</h6>
+				                                	</th:block>
+				                                	<th:block th:case="3">
+				                                		<h6 class="text-center">植物・花</h6>
+				                                	</th:block>
+				                                	<th:block th:case="4">
+				                                		<h6 class="text-center">美容・コスメ</h6>
+				                                	</th:block>
+				                                	<th:block th:case="5">
+				                                		<h6 class="text-center">手芸品</h6>
+				                                	</th:block>
+				                                	<th:block th:case="6">
+				                                		<h6 class="text-center">アロマ</h6>
+				                                	</th:block>
+				                                	<th:block th:case="7">
+				                                		<h6 class="text-center">レザークラフト</h6>
+				                                	</th:block>
+				                                	<th:block th:case="8">
+				                                		<h6 class="text-center">布製品</h6>
+				                                	</th:block>
+				                                	<th:block th:case="9">
+				                                		<h6 class="text-center">おもちゃ</h6>
+				                                	</th:block>
+				                                	<th:block th:case="10">
+				                                		<h6 class="text-center">その他</h6>
+				                                	</th:block>
+				                                </th:block>
 				                            </div>
 										</div>
                                 	 </a>
