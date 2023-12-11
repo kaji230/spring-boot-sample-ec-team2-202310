@@ -187,5 +187,11 @@ public class ItemServiceImpl implements ItemService {
   	public List<Item> findRandom3Records(){
   		return itemRepository.findRandom3Records();
   	}
+  	
+    //商品の種類の同じ商品の一覧を検索
+  	@Override
+  	public List<Item> findByType(int type){
+  		return itemRepository.findByType(type);
+  	}
 
 }

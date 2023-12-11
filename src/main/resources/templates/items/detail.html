@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
-    <h1>[[ ${title} ]]</h1>
-
+    <h1>[[ ${title} ]]</h1>    
+    <div style="padding-top:163px;"></div>
+    
     <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
 		<button type="submit" class="box">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
 	</form>
@@ -25,6 +26,11 @@
        </form>
         <iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${item.description} + '18&t=m&z=15'}"
          width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+         <div th:each="eachReview : ${reviews}">
+			<p>[[ ${eachReview.star} ]]</p>
+        	<p>[[ ${eachReview.comment} ]]</p>
+         </div>
+    </div>
     </dl>
 </div>
 </html>

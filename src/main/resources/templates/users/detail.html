@@ -23,31 +23,23 @@
             
         </dl>
         
-        <div class="container text-secondary">
-            <div class="row">
-                <div class="col text-center">
-                    <h4 style="letter-spacing:0.2em; padding-top:20px; padding-bottom:20px;">お気に入り作品</h4>
-                </div>
-            </div>
-            
-            <div class="row d-flex justify-content-center" style="padding-bottom:50px;">
-                <div class="col-10 items-all">
-                    <div class="row">
-                        <div class="col-4">
-							<div class="flex">
-    							<div th:each="item : ${user.likeItems}">
-    						    	<a th:href="@{/items/detail/{id} (id=${item.id})}"><img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}"></a>
-    							</div>
-    						</div>
-    						<!--↓不要っぽいのでいったんコメントアウトしました（佐藤）-->
-                            <!--<div class="col-4">-->
-                            <!--    <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="container">
+		    <h3 class="subheading">お気に入り作品</h3>
+		    <div class="row">
+		        <div th:each="item : ${user.likeItems}" class="col-md-3">
+		            <a th:href="@{/items/detail/{id} (id=${item.id})}">
+		                <div class="overlay-container" style="margin:10px 20px;">
+		                    <img class="thumbnail-trim" th:src="@{/images/{image} (image=${item.image})}">
+		                    <div class="overlay"></div>
+		                    <div class="overlay-text">
+		                        <h6 class="text-center">商名品商品名商品名</h6>
+		                        <p class="text-right">￥0,000</p>
+		                    </div>
+		                </div>
+		            </a>
+		        </div>
+		    </div>
+		</div>
         
         <!--フッター-->
         <footer class="footer justify-content-center d-flex align-items-center">

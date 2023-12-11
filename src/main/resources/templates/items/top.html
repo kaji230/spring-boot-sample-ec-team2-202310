@@ -1,3 +1,4 @@
+<!--あとでtop.htmlにさしかえ-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"　lang="ja">
 <div th:fragment="main">
@@ -9,7 +10,7 @@
  
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
     <style>
     </style>
  
@@ -28,16 +29,16 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-            <a href="#"><img class="d-block w-100" src="/images/top-fade-1.jpg" alt="カルーセル1"></img></a>
+            <a href="#"><img class="d-block w-100" src="/images/carousel-slide1.jpg" alt="カルーセル1"></img></a>
         </div>
         <div class="carousel-item">
-            <a href="#"><img class="d-block w-100" src="/images/top-fade-2.jpg" alt="カルーセル2"></img></a>
+            <a href="#"><img class="d-block w-100" src="/images/carousel-slide2.jpg" alt="カルーセル2"></img></a>
         </div>
         <div class="carousel-item">
-            <a href="#"><img class="d-block w-100" src="/images/top-fade-3.jpg" alt="カルーセル3"></img></a>
+            <a href="#"><img class="d-block w-100" src="/images/carousel-slide3.jpg" alt="カルーセル3"></img></a>
         </div>
         <div class="carousel-item">
-            <a href="#"><img class="d-block w-100" src="/images/carousel-test.png" alt="カルーセル4"></img></a>
+            <a href="#"><img class="d-block w-100" src="/images/carousel-slide4.jpg" alt="カルーセル4"></img></a>
         </div>
       </div>
       <a class="carousel-control-prev" href="#cl" data-slide="prev">
@@ -52,17 +53,22 @@
     <div class="container-fluid" style="background:#fdf7ef; padding-top:20px; padding-bottom:20px;">
         <div class="text-center">
             <h3 class="subheading">新着アイテム</h3>
-                <div class="col-10 mx-auto">
-                    <div class="row">
-						<div class="col-4">
-							<tr　th:each="newItem : ${newItems}">
-                            	<th scope="row">
-									<a th:href="@{/items/detail/{id} (id=${newItem.id})}">
-										<img th:src="@{/images/{image} (image=${newItem.image})}"></img>
-									</a>	
-								</th>
-                        	</tr>
-                        </div>
+                <div class="row d-flex justify-content-center">
+					<div class="row">
+						<tr　th:each="newItem : ${newItems}">
+                        	<th scope="row">
+								<a th:href="@{/items/detail/{id} (id=${newItem.id})}">
+									<div class="overlay-container top-custom-img">
+										<img class="thumbnail-trim" th:src="@{/images/{image} (image=${newItem.image})}"></img>
+										<div class="overlay"></div>
+										<div class="overlay-text">
+			                                <h6>商名品商品名商品名</h6>
+			                                <p class="text-right">￥0,000</p>
+			                            </div>
+									</div>
+								</a>	
+							</th>
+                    	</tr>
                     </div>
                 </div>
             <div class="col-12 text-center" style="padding-top:10px; padding-bottom:10px;">
@@ -73,21 +79,25 @@
     
     <!--カテゴリーで探す-->
     <div class="container-fluid" style="background:#efe7ce; padding-top:20px; padding-bottom:20px;">
-        <div class="text-center">
+        <div class="">
             <h3 class="subheading">カテゴリーでさがす</h3>
-                <div class="col-10 mx-auto">
-                    <div class="row">
-						<div class="col-4">
+                    <div class="d-flex justify-content-center">
+						<div class="row">
 							<tr　th:each="randomItem : ${randomItems}">
                             	<th scope="row">
 									 <a th:href="@{/items/detail/{id} (id=${randomItem.id})}">
-                                		<img th:src="@{/images/{image} (image=${randomItem.image})}"></img>
+										<div class="overlay-container top-custom-img">
+	                                		<img class="thumbnail-trim" th:src="@{/images/{image} (image=${randomItem.image})}"></img>
+	                                		<div class="overlay"></div>
+											<div class="overlay-text">
+				                                <h6 class="text-center">カテゴリー名</h6>
+				                            </div>
+										</div>
                                 	 </a>
 								</th>
                         	</tr>
                         </div>
                     </div>
-                </div>
             <div class="col-12 text-center" style="padding-top:10px; padding-bottom:10px;">
                 <a href="/items/index/" class="btn btn-lg btn-outline-secondary">もっと見る</a>
             </div>
