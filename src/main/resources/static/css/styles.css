@@ -107,3 +107,26 @@ svg {
 .top-custom-img {
 	margin: 1em;
 }
+
+/*商品の詳細ページの画像トリミング*/
+.main-img {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+}
+.sub-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+/*詳細ページのハートボタン*/
+.heart {
+  cursor: pointer;
+  font-size: 2em;
+  color: gray;
+  transition: color 0.3s ease-in-out;
+}
+
+.heart.clicked {
+  color: red;
+}
