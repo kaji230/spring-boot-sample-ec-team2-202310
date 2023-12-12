@@ -223,7 +223,7 @@ public class ItemController {
         return "redirect:/admin";  
     }
     
-    @GetMapping("/search")    
+    @GetMapping("/search/{keyword}")    
     public String search(
         @AuthenticationPrincipal(expression = "user") User user,
         @RequestParam("keyword") String keyword,
