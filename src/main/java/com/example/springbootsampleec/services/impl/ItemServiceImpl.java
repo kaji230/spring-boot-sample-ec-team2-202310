@@ -187,5 +187,11 @@ public class ItemServiceImpl implements ItemService {
   	public List<Item> findByType(int type){
   		return itemRepository.findByType(type);
   	}
+  	
+    //名前でひとつの商品を検索
+  	@Override
+  	public Item findFirst1ByNameContaining(String keyword) {
+  		return itemRepository.findFirst1ByNameContaining(keyword);
+  	}
 
 }
