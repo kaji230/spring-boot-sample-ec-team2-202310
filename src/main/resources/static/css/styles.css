@@ -107,3 +107,13 @@ svg {
 .top-custom-img {
 	margin: 1em;
 }
+
+/*お気に入りボタン*/
+.like-button {
+	width: 50px;
+  	height: 50px;
+  	background: #e2e2e2;
+  	border-radius: 50%;
+  	font-size: 28px;
+  	border: none;
+}
