@@ -49,33 +49,37 @@
             <div class="col-10">
                 <div class="row">
 	            	<div class="col-md-4" >
-	                    <div class="overlay-container" style="margin-bottom:20px;">
-	                        <a th:href="@{/items/detail/{id} (id=${pickup_1.id})}">
+	                	<div class="overlay-container" style="margin-bottom:20px;">
+	                    	<a th:href="@{/items/detail/{id} (id=${pickup_1.id})}">
 								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_1.image})}" alt="サムネイル"></img></a>
-		                    	<div class="overlay"></div>
-								<div class="overlay-text">
-		                            <h6 class="text-center">[[ ${pickup_1.name} ]]</h6>
-		                            <p class="text-right">￥[[ ${pickup_1.price} ]]</p>
-		                        </div>
+		                    <div class="overlay"></div>
+							<div class="overlay-text">
+		                    	<h6 class="text-center">[[ ${pickup_1.name} ]]</h6>
+		                    	<p class="text-right">￥[[ ${pickup_1.price} ]]</p>
+		                    </div>
 	                    </div>
-	                    <div class="overlay-container" style="margin-bottom:20px;">
-	                     <a th:href="@{/items/detail/{id} (id=${pickup_2.id})}">
+	            	</div>
+	            	<div class="col-md-4" >
+	                	<div class="overlay-container" style="margin-bottom:20px;">
+	                		<a th:href="@{/items/detail/{id} (id=${pickup_2.id})}">
 								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_2.image})}" alt="サムネイル"></img></a>
-		                    	<div class="overlay"></div>
-								<div class="overlay-text">
-		                            <h6 class="text-center">[[ ${pickup_2.name} ]]</h6>
-		                            <p class="text-right">￥[[ ${pickup_2.price} ]]</p>
-		                        </div>
-		                 </div>
-		                 <div class="overlay-container" style="margin-bottom:20px;">
-		                    <a th:href="@{/items/detail/{id} (id=${pickup_3.id})}">
+		                    <div class="overlay"></div>
+							<div class="overlay-text">
+		                        <h6 class="text-center">[[ ${pickup_2.name} ]]</h6>
+		                        <p class="text-right">￥[[ ${pickup_2.price} ]]</p>
+		                 	</div>
+		            	</div>
+	            	</div>
+	            	<div class="col-md-4" >
+		            	<div class="overlay-container" style="margin-bottom:20px;">
+		                	<a th:href="@{/items/detail/{id} (id=${pickup_3.id})}">
 								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_3.image})}" alt="サムネイル"></img></a>
-		                    	<div class="overlay"></div>
-								<div class="overlay-text">
-		                            <h6 class="text-center">[[ ${pickup_3.name} ]]</h6>
-		                            <p class="text-right">￥[[ ${pickup_3.price} ]]</p>
-		                        </div>
-		                  </div>
+		                    <div class="overlay"></div>
+							<div class="overlay-text">
+		                    	<h6 class="text-center">[[ ${pickup_3.name} ]]</h6>
+		                    	<p class="text-right">￥[[ ${pickup_3.price} ]]</p>
+		                    </div>
+		           		</div>
 	                </div>
             	</div>
             </div>
