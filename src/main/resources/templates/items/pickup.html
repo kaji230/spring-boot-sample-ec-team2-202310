@@ -1,4 +1,3 @@
-<!--12/2 佐藤追記ここから-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <div th:fragment="main">
@@ -6,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  
-    <title>商品一覧</title>
+    <title>ピックアップアイテム</title>
  
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -25,8 +24,8 @@
             
             <!--上段右カラム-->
             <div class="col-10">
-                <p><a href="/items/" class="text-secondary">TOSAMONホーム</a> > 商品一覧</p>
-                <h4 style="letter-spacing:0.2em; padding-top:20px; padding-bottom:20px;">商品一覧</h4>
+                <p><a href="/items/" class="text-secondary">TOSAMONホーム > </a>[[ ${title} ]]</p>
+                <h4 style="letter-spacing:0.2em; padding-top:20px; padding-bottom:20px;">[[ ${title} ]]</h4>
             </div>
         </div>
         
@@ -49,16 +48,34 @@
             <!--下段右カラム 画像一覧-->
             <div class="col-10">
                 <div class="row">
-	            	<div class="col-md-4" th:each="item : ${items}">
+	            	<div class="col-md-4" >
 	                    <div class="overlay-container" style="margin-bottom:20px;">
-	                        <a th:href="@{/items/detail/{id} (id=${item.id})}">
-								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${item.image})}" alt="サムネイル"></img></a>
+	                        <a th:href="@{/items/detail/{id} (id=${pickup_1.id})}">
+								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_1.image})}" alt="サムネイル"></img></a>
 		                    	<div class="overlay"></div>
 								<div class="overlay-text">
-		                            <h6 class="text-center">[[ ${item.name} ]]</h6>
-		                            <p class="text-right">￥[[ ${item.price} ]]</p>
+		                            <h6 class="text-center">[[ ${pickup_1.name} ]]</h6>
+		                            <p class="text-right">￥[[ ${pickup_1.price} ]]</p>
 		                        </div>
 	                    </div>
+	                    <div class="overlay-container" style="margin-bottom:20px;">
+	                     <a th:href="@{/items/detail/{id} (id=${pickup_2.id})}">
+								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_2.image})}" alt="サムネイル"></img></a>
+		                    	<div class="overlay"></div>
+								<div class="overlay-text">
+		                            <h6 class="text-center">[[ ${pickup_2.name} ]]</h6>
+		                            <p class="text-right">￥[[ ${pickup_2.price} ]]</p>
+		                        </div>
+		                 </div>
+		                 <div class="overlay-container" style="margin-bottom:20px;">
+		                    <a th:href="@{/items/detail/{id} (id=${pickup_3.id})}">
+								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${pickup_3.image})}" alt="サムネイル"></img></a>
+		                    	<div class="overlay"></div>
+								<div class="overlay-text">
+		                            <h6 class="text-center">[[ ${pickup_3.name} ]]</h6>
+		                            <p class="text-right">￥[[ ${pickup_3.price} ]]</p>
+		                        </div>
+		                  </div>
 	                </div>
             	</div>
             </div>

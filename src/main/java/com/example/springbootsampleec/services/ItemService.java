@@ -37,4 +37,7 @@ public interface ItemService {
   	
   //商品の種類の同じ商品の一覧を検索
   	List<Item> findByType(int type);
+  	
+    //名前でひとつの商品を検索
+  	Item findFirst1ByNameContaining(String keyword);
 }
