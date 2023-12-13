@@ -12,17 +12,11 @@
 
 </head>
     <body>
-        <nav class="nav fixed-top" style="background:#e1dccb; height:163px;">
+        <!--<nav class="nav fixed-top" style="background:#e1dccb; height:163px;">
             <p>共通のヘッダーが入ります</p>
-        </nav>
+        </nav>-->
         <!--ナビゲーションで隠れる部分の押し出し-->
         <div style="padding-top:260px;"></div>
-        <dl>
-            <dt>ユーザー名</dt>
-            <dd>[[ ${user.user_name} ]]</dd> <!--変更 user→user_name-->
-            
-        </dl>
-        
         <div class="container">
 		    <h3 class="subheading">お気に入り作品</h3>
 		    <div class="row">
@@ -32,8 +26,8 @@
 		                    <img class="thumbnail-trim" th:src="@{/images/{image} (image=${item.image})}">
 		                    <div class="overlay"></div>
 		                    <div class="overlay-text">
-		                        <h6 class="text-center">商名品商品名商品名</h6>
-		                        <p class="text-right">￥0,000</p>
+		                        <h6 class="text-center">[[ ${item.name} ]]</h6>
+		                        <p class="text-right">￥[[ ${item.price} ]]</p>
 		                    </div>
 		                </div>
 		            </a>

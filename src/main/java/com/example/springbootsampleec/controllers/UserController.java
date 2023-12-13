@@ -77,7 +77,7 @@ public class UserController {
     ) {
         User user = userService.findById(id).orElseThrow();
         model.addAttribute("user", user);
-        model.addAttribute("title", "ユーザープロフィール");
+        model.addAttribute("title", "お気に入り一覧");
         model.addAttribute("main", "users/detail::main");
         return "layout/logged_in";    
     }
