@@ -93,6 +93,29 @@ public class ItemController {
         model.addAttribute("main", "items/index::main");
         return "layout/logged_in";    
     }
+    
+    @GetMapping("/pickup")    
+    public String picup(
+        @AuthenticationPrincipal(expression = "user") User user,
+        Model model
+    ) {
+    	Item pickup_1 = itemService.findFirst1ByNameContaining("石鹸");
+    	Item pickup_2 = itemService.findFirst1ByNameContaining("小鳥");
+    	Item pickup_3 = itemService.findFirst1ByNameContaining("ペン立て");
+    	
+    	System.out.println("ここからログ------------------------------");
+    	System.out.println(pickup_1.getId());
+    	System.out.println(pickup_2.getId());
+    	System.out.println(pickup_3.getId());
+    	
+        model.addAttribute("user", user);
+        model.addAttribute("pickup_1", pickup_1);
+        model.addAttribute("pickup_2", pickup_2);
+        model.addAttribute("pickup_3", pickup_3);
+        model.addAttribute("title", "ピックアップアイテム");
+        model.addAttribute("main", "items/pickup::main");
+        return "layout/logged_in";    
+    }
  
     @GetMapping("/create")    
     public String create(
@@ -223,7 +246,7 @@ public class ItemController {
         return "redirect:/admin";  
     }
     
-    @GetMapping("/search")    
+    @GetMapping("/search/{keyword}")    
     public String search(
         @AuthenticationPrincipal(expression = "user") User user,
         @RequestParam("keyword") String keyword,
