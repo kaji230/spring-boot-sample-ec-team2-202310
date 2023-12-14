@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService{
 	    @Override
 	    public List<Cart> findAll() {
 	        return cartRepository.findAll();
-	    }
+	 }
 	 
 	//IDを指定してカート内商品取得
 	 @Transactional(readOnly = true)
@@ -40,11 +40,11 @@ public class CartServiceImpl implements CartService{
 	    }
 	 
 	//カート内商品数量
-		 @Transactional(readOnly = true)
+		 /*@Transactional(readOnly = true)
 		 @Override
-		  public int getAmount(long id) {
-			 return cartRepository.getAmount(id);
-		  }
+		  public int getAmount() {
+			 return cartRepository.getAmount();
+		  }*/
     
     //カートに登録
     @Transactional(readOnly = false)

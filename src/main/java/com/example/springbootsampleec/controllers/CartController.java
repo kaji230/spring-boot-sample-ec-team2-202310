@@ -1,8 +1,5 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +7,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,28 +67,30 @@ public class CartController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
         ) {
-        Item item = itemService.findById(itemId).orElseThrow();
+        Item itemid = itemService.findById(itemId).orElseThrow();
         //long checkItem = item.getId(); 
-        model.addAttribute("item", item);        
+        model.addAttribute("item", itemid);        
         //選択した商品がすでにカートにあるかをみる
-        List<Cart> cartList = new ArrayList<>(cartService.findAll());
-        for(Cart cart : cartList) {
-        if(item!= null) {//カート内に商品がすでにあれば数量＋１する。
-        	int amountSize = cartService.getAmount(item)+1;
+        //List<Cart> cartList = new ArrayList<>(cartService.findAll());
+        //for(Cart cart : cartList) {
+        Cart cart = new Cart();
+        if(itemid == cart.getItem()) {//カート内に商品がすでにあれば数量＋１する。
+        	int amountSize = cart.getAmount()+1;
+        	System.out.println(amountSize);
         	cartService.register(
         			user,
-        			item,
+        			itemid,
         			amountSize
         			);        	
         }else {
         	int amount=1;//商品がカート内になければカートボタンを押した時点で数量１が必ず入る。
         	cartService.register(
         			user,
-        			item,
+        			itemid,
         			amount
         			);
         	}
-        }
+        //}
         /*
         cartService.register(
                 user,
@@ -120,7 +118,7 @@ public class CartController {
 	    }
 	    
 	    //商品数選択
-		@PostMapping("/amountSize/{cartId}")    
+		/*@PostMapping("/amountSize/{cartId}")    
 	    public String amountSize(
 	        @ModelAttribute("amountForm") AmountForm amountForm,
 	        @PathVariable("cartId")  Integer id,
@@ -138,8 +136,8 @@ public class CartController {
 		        );*/
 		        
 			//int total = itemService.getPrice(id)*amountSize;
-			return "redirect:/cart/"+ user.getId();   
-	    }
+			//return "redirect:/cart/"+ user.getId();   
+	    //d}
 			 
 
 }

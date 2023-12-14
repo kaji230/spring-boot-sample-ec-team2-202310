@@ -67,12 +67,12 @@
                 <!-- 数量 -->
                 <td class="text-center align-middle">
 					[[ ${cart.amount} ]]
-					<form method="post" th:action="@{/cart/amountSize/{cartId}}(cartId=${cart.id})}" th:object="${amountForm}">"
+					<!--<form method="post" th:action="@{/cart/amountSize/{cartId}}(cartId=${cart.id})}" th:object="${amountForm}">"
 					<select id="amount" th:field="*{amount}">
       					<option value="1">1</option>
       					<option value="2">2</option>
       					<option value="3">3</option>
-    				</select>
+    				</select>-->
 					<!--<label for="cart.amount">商品数: </label>
 					<input type="text" id="amount" th:field="*{cart.amount}" autofocus="autofocus" >
         				 <!--<select id="amountSize" name="amountSize" th:field="*{amount}" autofocus="autofocus">
