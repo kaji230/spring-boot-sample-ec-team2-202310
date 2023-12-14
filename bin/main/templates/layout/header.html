@@ -1,0 +1,119 @@
+<!--12/8更新 佐藤作成ヘッダー-->
+<!--管理者用ヘッダーここから-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="loggedInHeader">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <title>TOSAMON 高知の手づくり品をさがせるサイト</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
+</head>
+<body>
+    <nav class="nav fixed-top" style="background:#e1dccb;height:163px;">
+        <div class="container justify-content-center d-flex align-items-center">
+            
+            <!--ロゴマーク-->
+            <div class>
+                <a class="navbar-brand" href="/items/"><img class="img-fluid" src="/images/logo321px.png" alt="TOSAMONロゴマーク"></img></a>
+            </div>
+            
+            <!--検索フォーム-->
+            <div class="col-6 d-flex justify-content-center">
+                <form th:action="@{/items/search/{keyword}}" method="get" class="custom-form form-inline">
+                    <div class="form-group">
+                      <input type="text" name="keyword" placeholder="何をお探しですか？">
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary">検索</button>
+                </form>
+            </div>
+            
+            <!--ログイン情報-->
+            <div class="col-3">
+                <small class="text-right font-weight-bold text-nowrap">ようこそ、[[ ${user.user_name} ]]さん</small>
+                <div class="d-flex flex-row">
+                    <!--ハートマーク-->
+                    <a th:href="@{/users/detail/{id}(id=${user.id})}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                        <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                        </svg>
+                    </a>
+                    <!--カートマーク-->
+                    <a th:href="@{/cart/{userId}(userId=${user.id})}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                    </a>
+                    <th:block th:if="${user.email == 'admin@admin.com'}">
+                    	<a href="/admin" class="btn btn-danger custom-button">管理者ページ</a>
+                    </th:block>
+                    <a th:href="@{/users/login}" method="post" class="btn btn-secondary custom-button" style="">ログアウト</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</div>
+</html>
+
+<!--管理者用ヘッダーここまで-->
+
+<!DOCTYPE html>
+<html >
+ 
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <a class="navbar-brand logo" href="/items/">トップ</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#header_nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="header_nav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/detail/{id} (id=${user.id})}">自分のプロフィール</a>
+                    </li>
+                    <th:block th:if="${user.email == 'admin@admin.com'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">管理ページ</a>
+                        </li>
+                    </th:block>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post">
+                            <label class="nav-link" for="logout">ログアウト</label>
+                            <input id="logout" type="submit" value="ログアウト">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+ 
+<div th:fragment="notLoggedInHeader">
+    <!--<header>
+        <ul class="header_nav">
+            <li>
+            <a href="/users/sign_up">
+                サインアップ
+            </a>
+        </li>
+        <li>
+            <a href="/users/login">
+                ログイン
+            </a>
+        </li>
+        </ul>
+    </header>-->
+</div>
+ 
+</html>
