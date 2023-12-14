@@ -41,10 +41,10 @@ public class CartServiceImpl implements CartService{
 	 
 	//IDを指定してカート内商品数量
 		 @Transactional(readOnly = true)
-		    @Override
-		    public int getAmountSize(long id) {
-		        return cartRepository.getAmountSize(id);
-		    }
+		 @Override
+		  public int getAmountSize() {
+			 return cartRepository.getAmountSize();
+		  }
     
     //カートに登録
     @Transactional(readOnly = false)

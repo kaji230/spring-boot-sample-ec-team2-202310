@@ -11,6 +11,6 @@ import com.example.springbootsampleec.entities.Cart;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 	List<Cart> findByItemIdIn(List<Long> ids);
-	int getAmountSize(long id);
+	int getAmountSize();
 
 }

@@ -1,5 +1,7 @@
 package com.example.springbootsampleec.controllers;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,13 +70,19 @@ public class CartController {
         Model model
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
+        long checkItem = item.getId(); 
         model.addAttribute("item", item);
-       int amount=1;//カートボタンを押した時点で数量１が必ずcartテーブルに入る。
-        cartService.register(
-            user,
-            item,
-            amount
-        );
+        //選択した商品がすでにカートにあるかをみる
+        if(Objects.nonNull(checkItem)) {
+        	int amount=1;//カートボタンを押した時点で数量１が必ずcartテーブルに入る。
+        	cartService.register(
+        			user,
+        			item,
+        			amount
+        			);
+        }else {
+        	int amountSize = cartService.getAmountSize()+1;
+        }
         /*
         cartService.register(
                 user,
@@ -111,15 +119,15 @@ public class CartController {
 	        Model model
 	        ) {
 			model.addAttribute("user", user);//ログインユーザの取得
-			int amountSize = cartService.getAmountSize(id);
-			System.out.println(amountSize);
+			//int amountSize = cartService.getAmountSize(id);
+			//System.out.println(amountSize);
 			/*cartService.register(
 		            user,
 		            item,
 		            amountSize
 		        );*/
 		        
-			int total = itemService.getPrice(id)*amountSize;
+			//int total = itemService.getPrice(id)*amountSize;
 			return "redirect:/cart/"+ user.getId();   
 	    }
 			 

@@ -9,17 +9,19 @@ import com.example.springbootsampleec.entities.User;
 
 public interface CartService {
 	// カート内商品一覧の取得
-    	List<Cart> findAll();
-    //IDを指定してカート内商品を取得
-    	Optional<Cart> findById(long id);
+    List<Cart> findAll();
     
-    	//カート内商品数を取得
-    	int getAmountSize(long id);
+    //IDを指定してカート内商品を取得
+    Optional<Cart> findById(long id);
+    
+    //カート内商品数を取得
+    int getAmountSize();
 
-    	// 削除
-    	void delete(long id);
+    // 削除
+    void delete(long id);
+    
     // 商品の登録
-    	void register(User user, Item item, int amount);
+    void register(User user, Item item, int amount);
     	
 
 }
