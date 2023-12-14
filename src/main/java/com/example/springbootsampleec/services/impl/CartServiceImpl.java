@@ -38,6 +38,13 @@ public class CartServiceImpl implements CartService{
 	    public Optional<Cart> findById(long id) {
 	        return cartRepository.findById(id);
 	    }
+	 
+	//IDを指定してカート内商品数量
+		 @Transactional(readOnly = true)
+		    @Override
+		    public int getAmountSize(long id) {
+		        return cartRepository.getAmountSize(id);
+		    }
     
     //カートに登録
     @Transactional(readOnly = false)
