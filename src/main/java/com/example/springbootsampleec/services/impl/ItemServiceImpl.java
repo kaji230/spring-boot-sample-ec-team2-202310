@@ -39,7 +39,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     @Override
     public int getPrice(long id) {
-        return itemRepository.getPrice(id);
+        //return itemRepository.getPrice(id);
     }
     
     @Transactional(readOnly = true)
