@@ -21,6 +21,10 @@
 		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_2})}"></dd>
 		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
 		<div><img class="shop" th:src="@{/images/{image} (image=${shop.shop_icon})}"></div>
+		 <!--カートに追加ボタン-->
+        <form method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">
+        <button type="submit">カートに入れる</button>
+       </form>
 		<p>[[ ${shop.shop_name} ]]</p>
 		<p>[[ ${shop.shop_description} ]]</p>
 		<h2>ショップの場所</h2>
