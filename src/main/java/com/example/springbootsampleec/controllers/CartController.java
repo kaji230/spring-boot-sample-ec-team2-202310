@@ -1,6 +1,7 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.AmountForm;
@@ -70,18 +72,26 @@ public class CartController {
         Model model
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
-        long checkItem = item.getId(); 
-        model.addAttribute("item", item);
+        //long checkItem = item.getId(); 
+        model.addAttribute("item", item);        
         //選択した商品がすでにカートにあるかをみる
-        if(Objects.nonNull(checkItem)) {
-        	int amount=1;//カートボタンを押した時点で数量１が必ずcartテーブルに入る。
+        List<Cart> cartList = new ArrayList<>(cartService.findAll());
+        for(Cart cart : cartList) {
+        if(item!= null) {//カート内に商品がすでにあれば数量＋１する。
+        	int amountSize = cartService.getAmount(item)+1;
+        	cartService.register(
+        			user,
+        			item,
+        			amountSize
+        			);        	
+        }else {
+        	int amount=1;//商品がカート内になければカートボタンを押した時点で数量１が必ず入る。
         	cartService.register(
         			user,
         			item,
         			amount
         			);
-        }else {
-        	int amountSize = cartService.getAmountSize()+1;
+        	}
         }
         /*
         cartService.register(
@@ -92,7 +102,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");       
-      //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
+        //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
         //return "redirect:/cart/"+ item.getId();
         return "redirect:/cart/"+ user.getId();
     }

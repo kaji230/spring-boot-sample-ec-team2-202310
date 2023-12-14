@@ -15,7 +15,7 @@ public interface CartService {
     Optional<Cart> findById(long id);
     
     //カート内商品数を取得
-    int getAmountSize();
+    int getAmount(long id);
 
     // 削除
     void delete(long id);
