@@ -35,14 +35,19 @@ public class ItemServiceImpl implements ItemService {
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
- 
+    //商品値段の取得
+    /*@Transactional(readOnly = true)
+    @Override
+    public int getPrice(long id) {
+        return itemRepository.getPrice(id);
+    }*/
+    
     @Transactional(readOnly = true)
     @Override
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
     
-
     @Transactional(readOnly = true)
     @Override
     public Optional<Item> findById(long id) {
@@ -63,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException("ファイルが設定されていません");
         }
         
-     // 拡張子取得
+        // 拡張子取得
         String extension_main = FilenameUtils.getExtension(image.getOriginalFilename());
         String extension_sub1 = FilenameUtils.getExtension(img_1.getOriginalFilename());
         String extension_sub2 = FilenameUtils.getExtension(img_2.getOriginalFilename());

@@ -7,47 +7,7 @@
 <body>
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>    
-    <div style="padding-top:163px;"></div>
-<<<<<<< HEAD
-    
-    <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
-		<button type="submit" class="like-button">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
-	</form>
-	<dl>
-		<dd>[[ ${item.getShopName} ]]</dd>
-		<dt>商品名</dt>
-		<dd>[[ ${item.name} ]]</dd>
-		<dt>価格</dt>
-		<dd>[[ ${item.price} ]]円</dd>
-		<dt>商品説明</dt>
-		<dd>[[ ${item.description} ]]</dd>
-		<dt>商品画像</dt>
-		<dd><img class="item" th:src="@{/images/{image} (image=${item.image})}"></dd>
-		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_1})}"></dd>
-		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_2})}"></dd>
-		<dd><img class="item" th:src="@{/images/{image} (image=${item.img_3})}"></dd>
-		<div><img class="shop" th:src="@{/images/{image} (image=${shop.shop_icon})}"></div>
-		 <!--カートに追加ボタン-->
-        <form method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">
-        <button type="submit">カートに入れる</button>
-       </form>
-		<p>[[ ${shop.shop_name} ]]</p>
-		<p>[[ ${shop.shop_description} ]]</p>
-		<h2>ショップの場所</h2>
-		<iframe th:src="@{'https://www.google.com/maps/?output=embed&q=' + ${shop.shop_address} + '18&t=m&z=15'}"
-		 width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-		<h2>レビュー</h2>
-		<div th:each="eachReview : ${reviews}">
-			<p>[[ ${eachReview.getUserName} ]] さん</p>
-			<p>[[ ${eachReview.star} ]]</p>
-			<div th:each="starNumber : ${#numbers.sequence(1, eachReview.star)}">
-				<img th:src="@{/images/kusa.png}"width="20" height="20">
-			</div>
-			<p>[[ ${eachReview.comment} ]]</p>
-			<p>[[ ${eachReview.createdAt} ]]</p>
-		</div>
-=======
-	    
+    <div style="padding-top:163px;"></div> 
     <div class="container text-secondary pb-5">
         <div class="row">
 	        <!--左カラム-->
@@ -76,10 +36,12 @@
 						<p>クリックでお気に入りに登録</p>
 					</div>
 				</div>
-
-                <button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
+				<!--カートに追加ボタン-->
+        		<form method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">      
+                <button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
                   カートに入れる
                 </button>
+                 </form>
                 <h5>[[ ${shop.shop_name} ]]</h5>
 	            <p>[[ ${shop.shop_description} ]]</p>
                 
@@ -172,7 +134,6 @@
                 </div>
             </div>
         </div>
->>>>>>> fef32ce78d044e17db453e8655bc723c6e4b5785
 	</div>
 </div>
 <script src="/src/main/resources/static/JS/script.js"></script>
