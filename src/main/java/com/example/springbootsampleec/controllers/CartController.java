@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
-import com.example.springbootsampleec.forms.AmountForm;
+//import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.ItemService;
@@ -48,7 +48,7 @@ public class CartController {
 	@GetMapping("/{id}")
     public String index(
         @PathVariable("id")  Integer id,
-        @Valid AmountForm amountForm,//数量追記
+        //@Valid AmountForm amountForm,//数量追記
         //現在ログイン中のユーザー情報を取得
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
