@@ -1,8 +1,7 @@
 package com.example.springbootsampleec.controllers;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -52,9 +51,17 @@ public class CartController {
         //現在ログイン中のユーザー情報を取得
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
-		model.addAttribute("user", user);//ログインユーザの取得
+		model.addAttribute("user", user);//ログインユーザの取得		
 		//ログインユーザーのカート情報を取得して表示
 		User userId = userService.findById(id).orElseThrow();
+		//カート内の商品合計
+		int subtotal = 0;
+		int total = 0;
+		for(Cart cartItem : userId.getCarts()) {
+		subtotal = (cartItem.getItem().getPrice() * cartItem.getAmount());
+		total += subtotal;
+		}
+		model.addAttribute("total", total);		
 		model.addAttribute("user", userId);
         model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in";    
