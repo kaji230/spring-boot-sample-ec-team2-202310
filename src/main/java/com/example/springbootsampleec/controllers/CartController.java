@@ -51,7 +51,7 @@ public class CartController {
 		User userId = userService.findById(id).orElseThrow();
 		model.addAttribute("user", userId);
         model.addAttribute("main", "carts/cart::main");        
-        return "layout/logged_in";    
+        return "layout/logged_in_simple";    
     }
 	
 	//カートに入れる
