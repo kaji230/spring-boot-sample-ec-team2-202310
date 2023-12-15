@@ -7,8 +7,7 @@
 <body>
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>    
-    <div style="padding-top:163px;"></div>
-	    
+    <div style="padding-top:163px;"></div> 
     <div class="container text-secondary pb-5">
         <div class="row">
 	        <!--左カラム-->
@@ -37,10 +36,12 @@
 						<p>クリックでお気に入りに登録</p>
 					</div>
 				</div>
-
-                <button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
+				<!--カートに追加ボタン-->
+        		<form method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">      
+                <button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
                   カートに入れる
                 </button>
+                 </form>
                 <h5>[[ ${shop.shop_name} ]]</h5>
 	            <p>[[ ${shop.shop_description} ]]</p>
                 

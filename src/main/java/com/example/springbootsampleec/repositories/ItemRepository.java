@@ -12,6 +12,9 @@ import com.example.springbootsampleec.entities.Item;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	List<Item> findByNameContaining(String keyword);
 	
+	//商品値段の取得
+	//List<Item> getPrice(long id);
+	
 	//登録日時の新しい商品３件を検索
 	List<Item> findTop3ByOrderByCreatedAtDesc();
 	
