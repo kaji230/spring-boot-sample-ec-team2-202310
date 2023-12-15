@@ -83,7 +83,9 @@
         			<br>    				
                 </td>
                 <!-- 小計 -->
-                <td class="text-right align-middle">円</td>
+                <td class="text-right align-middle">
+					<span th:text="${cart.amount * cart.item.price} + '円'"></span>
+					</td>
                 <!-- 削除ボタン -->
                 <td class="text-center align-middle">
                     <a th:href="@{/cart/delete/{cartId}(cartId=${cart.id})}">削除</a>
