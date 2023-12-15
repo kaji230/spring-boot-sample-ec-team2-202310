@@ -1,5 +1,7 @@
 package com.example.springbootsampleec.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,36 +69,24 @@ public class CartController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
         ) {
-        Item itemid = itemService.findById(itemId).orElseThrow();
-        //long checkItem = item.getId(); 
-        model.addAttribute("item", itemid);        
+        Item item = itemService.findById(itemId).orElseThrow();
+        model.addAttribute("item", item);        
         //選択した商品がすでにカートにあるかをみる
-        //List<Cart> cartList = new ArrayList<>(cartService.findAll());
-        //for(Cart cart : cartList) {
-        Cart cart = new Cart();
-        if(itemid == cart.getItem()) {//カート内に商品がすでにあれば数量＋１する。
-        	int amountSize = cart.getAmount()+1;
-        	System.out.println(amountSize);
+        Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
+        if (checkItems.isPresent()) {
+        	// 既存のエントリが存在する場合は数量を更新
+        	Cart cart = checkItems.get();
+        	cart.setAmount(cart.getAmount() + 1);
+        	cartRepo.saveAndFlush(cart);
+        	} else {
+        	// 既存のエントリが存在しない場合は新しくエントリを作成
+        		int amount=1;
         	cartService.register(
         			user,
-        			itemid,
-        			amountSize
-        			);        	
-        }else {
-        	int amount=1;//商品がカート内になければカートボタンを押した時点で数量１が必ず入る。
-        	cartService.register(
-        			user,
-        			itemid,
+        			item,
         			amount
         			);
         	}
-        //}
-        /*
-        cartService.register(
-                user,
-                item,
-                amountForm.getAmountSize()
-            );*/
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "カートに商品が追加されました！");       

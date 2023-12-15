@@ -14,8 +14,8 @@ public interface CartService {
     //IDを指定してカート内商品を取得
     Optional<Cart> findById(long id);
     
-    //カート内商品数を取得
-   // int getAmount();
+    //選択した商品がすでにカートにあるかをみる
+    Optional<Cart> findByUserAndItem(User user, Item item);
 
     // 削除
     void delete(long id);
