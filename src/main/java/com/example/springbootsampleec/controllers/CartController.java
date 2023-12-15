@@ -79,7 +79,7 @@ public class CartController {
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);
         	} else {
-        	// 既存のエントリが存在しない場合は新しくエントリを作成
+        	// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;
         	cartService.register(
         			user,
