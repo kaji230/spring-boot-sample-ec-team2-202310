@@ -91,7 +91,6 @@ public class CartController {
             "successMessage",
             "カートに商品が追加されました！");       
         //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
-        //return "redirect:/cart/"+ item.getId();
         return "redirect:/cart/"+ user.getId();
     }
 	
