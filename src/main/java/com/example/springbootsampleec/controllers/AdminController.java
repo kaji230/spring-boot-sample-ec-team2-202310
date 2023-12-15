@@ -43,6 +43,6 @@ public class AdminController {
         model.addAttribute("items", items);
         model.addAttribute("title", "管理ページ");
         model.addAttribute("main", "admins/admin::main");
-        return "layout/logged_in";    
+        return "layout/logged_in_simple";    
     }
 }
