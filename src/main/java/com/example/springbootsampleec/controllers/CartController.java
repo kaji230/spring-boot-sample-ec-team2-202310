@@ -107,8 +107,9 @@ public class CartController {
 	        return "redirect:/cart/"+ user.getId(); 
 	    }
 	    
-	    //商品数選択
-		/*@PostMapping("/amountSize/{cartId}")    
+	    //商品数選択(余力があればカートページからプルダウンで数量変更ができるようにしたい！！岩井)
+		
+	    /*@PostMapping("/amountSize/{cartId}")    
 	    public String amountSize(
 	        @ModelAttribute("amountForm") AmountForm amountForm,
 	        @PathVariable("cartId")  Integer id,
@@ -117,17 +118,16 @@ public class CartController {
 	        Model model
 	        ) {
 			model.addAttribute("user", user);//ログインユーザの取得
-			//int amountSize = cartService.getAmountSize(id);
-			//System.out.println(amountSize);
-			/*cartService.register(
+			int amountSize = cartService.getAmountSize(id);
+			System.out.println(amountSize);
+			cartService.register(
 		            user,
 		            item,
 		            amountSize
-		        );*/
-		        
-			//int total = itemService.getPrice(id)*amountSize;
-			//return "redirect:/cart/"+ user.getId();   
-	    //d}
+		        );		        
+			int total = itemService.getPrice(id)*amountSize;
+			return "redirect:/cart/"+ user.getId();   
+	    }*/
 			 
 
 }
