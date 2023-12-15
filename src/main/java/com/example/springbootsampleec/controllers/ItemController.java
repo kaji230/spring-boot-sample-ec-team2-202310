@@ -129,7 +129,7 @@ public class ItemController {
         model.addAttribute("title", "商品の新規作成");
         model.addAttribute("user", user);
         model.addAttribute("main", "items/create::main");
-        return "layout/logged_in";    
+        return "layout/logged_in_simple";    
     }
     
     @PostMapping("/create")    
@@ -203,7 +203,7 @@ public class ItemController {
         model.addAttribute("user", user);
         model.addAttribute("title", "投稿の編集");
         model.addAttribute("main", "items/edit::main");
-        return "layout/logged_in";    
+        return "layout/logged_in_simple";    
     }
     
     @PostMapping("/update/{id}")    
