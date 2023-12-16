@@ -129,6 +129,24 @@ public class CartController {
 	        return "redirect:/cart/"+ user.getId(); 
 	    }
 	    
+	  //購入完了
+	    @PostMapping("/purchased/{userId}")
+	    public String purchased(
+	    		@PathVariable("userId")  Integer id,
+	    		//現在ログイン中のユーザー情報を取得
+	    		@AuthenticationPrincipal(expression = "user") User user,
+	    		Model model	) {
+	    	model.addAttribute("user", user);//ログインユーザの取得
+	    	//ログインユーザーのカート情報を取得して表示
+			User userId = userService.findById(id).orElseThrow();
+	        for(Cart cartItem : userId.getCarts()) {
+	        	cartService.delete(cartItem.getId());
+	        	}
+	        model.addAttribute("user", user);
+	        return "carts/purchased";  	    	
+	    }
+	    
+	    
 	    //商品数選択(余力があればカートページからプルダウンで数量変更ができるようにしたい！！岩井)
 		
 	    /*@PostMapping("/amountSize/{cartId}")    
