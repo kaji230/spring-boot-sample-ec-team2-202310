@@ -82,24 +82,23 @@ public class CartController {
         model.addAttribute("item", item);        
         //ログインユーザーが選択した商品がすでにカートにあるかをみる
         Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
-        if (checkItems.isPresent()) {
+        int ItemSize = item.getStock();
+        //ログインユーザーが選択した商品がすでにカートにあり、且つ在庫がある時
+        if (checkItems.isPresent() && ItemSize > 0) {
         	//既存のエントリが存在する場合は数量+1する       	
         	Cart cart = checkItems.get();
         	cart.setAmount(cart.getAmount() + 1);
-        	cartRepo.saveAndFlush(cart);
+        	cartRepo.saveAndFlush(cart);        	
         	//商品テーブルの商品ストックから-1する
-        	int ItemSize = item.getStock();
-        	System.out.println(ItemSize);
-        	if(ItemSize > 0) {
-        		int newItemSize = ItemSize - 1;
-        		item.setStock(newItemSize);
-        		itemRepo.saveAndFlush(item);
-        		}else {
-        			redirectAttributes.addFlashAttribute(
-        					"You don't buy a item. Sorry...",
-        	        		"在庫がありません。");
-        		}
-        	} else {
+        	int newItemSize = ItemSize - 1;
+    		item.setStock(newItemSize);
+    		itemRepo.saveAndFlush(item);
+    	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
+        } else if (checkItems.isPresent() && ItemSize == 0) {
+        	redirectAttributes.addFlashAttribute(
+					"You don't buy a item. Sorry...",
+	        		"在庫がありません。");
+        } else {
         		// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;
         		cartService.register(
@@ -107,6 +106,9 @@ public class CartController {
         				item,
         				amount
         				);
+        		int newItemSize = ItemSize - 1;
+        		item.setStock(newItemSize);
+        		itemRepo.saveAndFlush(item);
         	}
         redirectAttributes.addFlashAttribute(
         		"successMessage",
