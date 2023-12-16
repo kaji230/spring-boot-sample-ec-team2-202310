@@ -89,9 +89,16 @@ public class CartController {
         	cartRepo.saveAndFlush(cart);
         	//商品テーブルの商品ストックから-1する
         	int ItemSize = item.getStock();
-        	int newItemSize = ItemSize - 1;
-        	item.setStock(newItemSize);
-        	itemRepo.saveAndFlush(item);
+        	System.out.println(ItemSize);
+        	if(ItemSize > 0) {
+        		int newItemSize = ItemSize - 1;
+        		item.setStock(newItemSize);
+        		itemRepo.saveAndFlush(item);
+        		}else {
+        			redirectAttributes.addFlashAttribute(
+        					"You don't buy a item. Sorry...",
+        	        		"在庫がありません。");
+        		}
         	} else {
         		// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;
