@@ -125,6 +125,7 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
 	    	model.addAttribute("user", user);//ログインユーザの取得
+	    	//カートから商品が削除されたら、商品ストックに増やされる
 	        cartService.delete(id);
 	        return "redirect:/cart/"+ user.getId(); 
 	    }
