@@ -78,28 +78,28 @@ public class CartController {
         ) {
         Item item = itemService.findById(itemId).orElseThrow();
         model.addAttribute("item", item);        
-        //選択した商品がすでにカートにあるかをみる
+        //ログインユーザーが選択した商品がすでにカートにあるかをみる
         Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
         if (checkItems.isPresent()) {
-        	// 既存のエントリが存在する場合は数量を更新
+        	// 既存のエントリが存在する場合は数量を更新        	
         	Cart cart = checkItems.get();
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);
         	} else {
-        	// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
+        		// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;
-        	cartService.register(
-        			user,
-        			item,
-        			amount
-        			);
-        	}
+        		cartService.register(
+        				user,
+        				item,
+        				amount
+        				);
+        		}
         redirectAttributes.addFlashAttribute(
-            "successMessage",
-            "カートに商品が追加されました！");       
+        		"successMessage",
+        		"カートに商品が追加されました！");
         //redirect(ルーティング)の場合はURLを記述する、そうでない場合はtemplateの場所を記述する
         return "redirect:/cart/"+ user.getId();
-    }
+        }
 	
 	//削除
 	    @GetMapping("/delete/{cartId}")    
