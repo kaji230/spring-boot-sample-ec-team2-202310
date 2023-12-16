@@ -35,12 +35,13 @@ public class ItemServiceImpl implements ItemService {
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
-    //商品値段の取得
-    /*@Transactional(readOnly = true)
+    
+    //idを指定して商品ストックの取得
+    @Transactional(readOnly = true)
     @Override
-    public int getPrice(long id) {
-        return itemRepository.getPrice(id);
-    }*/
+    public Optional<Item> findByStock(long id) {
+        return itemRepository.findByStock(id);
+    }
     
     @Transactional(readOnly = true)
     @Override

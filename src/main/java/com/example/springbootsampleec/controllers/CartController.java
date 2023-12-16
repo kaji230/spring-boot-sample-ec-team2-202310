@@ -1,6 +1,5 @@
 package com.example.springbootsampleec.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
 //import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.repositories.CartRepository;
+import com.example.springbootsampleec.repositories.ItemRepository;
 import com.example.springbootsampleec.services.CartService;
 import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.UserService;
@@ -42,6 +42,7 @@ public class CartController {
 	    }	
 	@Autowired
     private CartRepository cartRepo;
+	private ItemRepository itemRepo;
 
 	//カート商品一覧
 	@GetMapping("/{id}")
@@ -81,10 +82,19 @@ public class CartController {
         //ログインユーザーが選択した商品がすでにカートにあるかをみる
         Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
         if (checkItems.isPresent()) {
-        	// 既存のエントリが存在する場合は数量を更新        	
+        	//既存のエントリが存在する場合は数量+1して更新        	
         	Cart cart = checkItems.get();
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);
+        	//商品テーブルの商品ストックが空でないか確認し、ストックがあれば-1する(if文)
+        	Optional<Item> ItemSize = itemRepo.findByStock(itemId);
+        	//System.out.println(ItemSize);
+        	if(ItemSize.isPresent()) {//itemテーブル内商品ストックの有無を判断
+        		Item newItemSize = ItemSize.get();
+        		System.out.println(newItemSize);
+        		newItemSize.setStock(newItemSize.getStock() - 1);
+        		itemRepo.saveAndFlush(newItemSize);
+        		}
         	} else {
         		// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;
@@ -93,7 +103,7 @@ public class CartController {
         				item,
         				amount
         				);
-        		}
+        	}
         redirectAttributes.addFlashAttribute(
         		"successMessage",
         		"カートに商品が追加されました！");
@@ -134,6 +144,4 @@ public class CartController {
 			int total = itemService.getPrice(id)*amountSize;
 			return "redirect:/cart/"+ user.getId();   
 	    }*/
-			 
-
 }
