@@ -1,19 +1,19 @@
 package com.example.springbootsampleec.repositories;
  
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.User;
  
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	List<Item> findByNameContaining(String keyword);
-	
-	//商品値段の取得
-	//List<Item> getPrice(long id);
 	
 	//登録日時の新しい商品３件を検索
 	List<Item> findTop3ByOrderByCreatedAtDesc();
