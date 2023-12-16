@@ -42,6 +42,7 @@ public class CartController {
 	    }	
 	@Autowired
     private CartRepository cartRepo;
+	@Autowired
 	private ItemRepository itemRepo;
 
 	//カート商品一覧
@@ -72,7 +73,7 @@ public class CartController {
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
     	//@Valid AmountForm amountForm,//数量追記
-        @PathVariable("itemId")  Long itemId,
+        @PathVariable("itemId") long itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
@@ -86,15 +87,11 @@ public class CartController {
         	Cart cart = checkItems.get();
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);
-        	//商品テーブルの商品ストックが空でないか確認し、ストックがあれば-1する(if文)
-        	Optional<Item> ItemSize = itemRepo.findByStock(itemId);
-        	//System.out.println(ItemSize);
-        	if(ItemSize.isPresent()) {//itemテーブル内商品ストックの有無を判断
-        		Item newItemSize = ItemSize.get();
-        		System.out.println(newItemSize);
-        		newItemSize.setStock(newItemSize.getStock() - 1);
-        		itemRepo.saveAndFlush(newItemSize);
-        		}
+        	//商品テーブルの商品ストックから-1する
+        	int ItemSize = item.getStock();
+        	int newItemSize = ItemSize - 1;
+        	item.setStock(newItemSize);
+        	itemRepo.saveAndFlush(item);
         	} else {
         		// 既存のエントリが存在しない場合は新しくcartテーブルにエントリを作成
         		int amount=1;

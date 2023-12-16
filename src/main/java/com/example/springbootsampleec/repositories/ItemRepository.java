@@ -15,9 +15,6 @@ import com.example.springbootsampleec.entities.User;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	List<Item> findByNameContaining(String keyword);
 	
-	//idを指定して商品ストックの取得
-	Optional<Item> findByStock(long id);
-	
 	//登録日時の新しい商品３件を検索
 	List<Item> findTop3ByOrderByCreatedAtDesc();
 	

@@ -36,13 +36,6 @@ public class ItemServiceImpl implements ItemService {
         this.itemRepository = itemRepository;
     }
     
-    //idを指定して商品ストックの取得
-    @Transactional(readOnly = true)
-    @Override
-    public Optional<Item> findByStock(long id) {
-        return itemRepository.findByStock(id);
-    }
-    
     @Transactional(readOnly = true)
     @Override
     public List<Item> findAll() {

@@ -11,9 +11,6 @@ import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
  
 public interface ItemService {
-	//idを指定して商品ストックの取得
-	Optional<Item> findByStock(long id);
-		
     // 投稿一覧の取得
     List<Item> findAll();
     
