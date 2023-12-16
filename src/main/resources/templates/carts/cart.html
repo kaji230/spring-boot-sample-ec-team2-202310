@@ -30,7 +30,8 @@
 
 <body style="padding-top:163px; margin-bottom: 92px;">
 
-  
+
+
     <div class="row justify-content-center text-secondary">
     <div class="col-10">
 
@@ -53,7 +54,7 @@
                 <!-- 商品名 -->
                 <td class="align-middle">                    
                    <!-- カートに入れた商品-->
-                    <img th:src="@{/images/{image} (image=${cart.item.image})}">
+                    <img th:src="@{/images/{image} (image=${cart.item.image})}" style="width: 100px; height:100px;">
 					[[ ${cart.item.name} ]]
                 </td>
                 <!-- 販売価格 -->
@@ -103,7 +104,7 @@
         <!--お届け先-->
         <div style="border-bottom: 1px solid #ccc; margin-bottom: 30px;">
         <h5>1.お届け先</h5>
-            <p style="text-indent: 3em;"><strong>※要修正※</strong>購入者の情報</p>
+            <p style="text-indent: 3em;"><strong>[[ ${user.full_name} ]]&nbsp;&nbsp;様</strong>&nbsp;&nbsp;&nbsp;&nbsp;[[ ${user.user_address} ]]</p>
         </div>
         <!--お支払方法-->
         <div style="border-bottom: 1px solid #ccc;">
