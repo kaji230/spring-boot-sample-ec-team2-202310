@@ -83,7 +83,7 @@ public class CartController {
         //ログインユーザーが選択した商品がすでにカートにあるかをみる
         Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
         if (checkItems.isPresent()) {
-        	//既存のエントリが存在する場合は数量+1して更新        	
+        	//既存のエントリが存在する場合は数量+1する       	
         	Cart cart = checkItems.get();
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);
