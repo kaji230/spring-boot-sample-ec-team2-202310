@@ -35,16 +35,17 @@ public class Cart {
 	// userエンティティとの関連を追加
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;//ユーザーid
     
     // Itemエンティティとの関連を追加
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
-    private Item item;
+    private Item item;//商品id
     
     //購入予定商品数
     @Column(name = "amount", nullable = true)
-    private int amount;
+    private int amount;//注文数
+    
     
     // 登録日時
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 

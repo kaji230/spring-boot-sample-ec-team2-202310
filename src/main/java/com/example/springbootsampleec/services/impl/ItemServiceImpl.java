@@ -35,14 +35,13 @@ public class ItemServiceImpl implements ItemService {
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
- 
+    
     @Transactional(readOnly = true)
     @Override
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
     
-
     @Transactional(readOnly = true)
     @Override
     public Optional<Item> findById(long id) {
@@ -63,7 +62,7 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException("ファイルが設定されていません");
         }
         
-     // 拡張子取得
+        // 拡張子取得
         String extension_main = FilenameUtils.getExtension(image.getOriginalFilename());
         String extension_sub1 = FilenameUtils.getExtension(img_1.getOriginalFilename());
         String extension_sub2 = FilenameUtils.getExtension(img_2.getOriginalFilename());
@@ -121,7 +120,7 @@ public class ItemServiceImpl implements ItemService {
        uploadImage(img_3, randomFileName_sub3);
        
        // Item エンティティの生成
-       Item item = new Item(null, shop , null,  name, price, stock, type, description,
+       Item item = new Item(null,null, shop , null,  name, price, stock, type, description,
           		randomFileName_main, randomFileName_sub1,
           		randomFileName_sub2, randomFileName_sub3, null, null);
 
@@ -180,6 +179,18 @@ public class ItemServiceImpl implements ItemService {
   	@Query(value = "SELECT * FROM item ORDER BY RAND() LIMIT 3", nativeQuery = true)
   	public List<Item> findRandom3Records(){
   		return itemRepository.findRandom3Records();
+  	}
+  	
+    //商品の種類の同じ商品の一覧を検索
+  	@Override
+  	public List<Item> findByType(int type){
+  		return itemRepository.findByType(type);
+  	}
+  	
+    //名前でひとつの商品を検索
+  	@Override
+  	public Item findFirst1ByNameContaining(String keyword) {
+  		return itemRepository.findFirst1ByNameContaining(keyword);
   	}
 
 }

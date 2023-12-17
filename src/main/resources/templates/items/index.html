@@ -1,6 +1,7 @@
 <!--12/2 佐藤追記ここから-->
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<div th:fragment="main">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,24 +10,22 @@
  
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
 
   </head>
   <body>
-    <nav class="nav fixed-top" style="background:#e1dccb; height:163px;">
-        <p>共通のヘッダーが入ります</p>
-    </nav>
+    
     <!--ナビゲーションで隠れる部分の押し出し-->
     <div style="padding-top:260px;"></div>
     
     <div class="container text-secondary">
         <div class="row">
             <!--上段左カラム（空白）-->
-            <div class="col-3"></div>
+            <div class="col-2"></div>
             
             <!--上段右カラム-->
-            <div class="col-9">
-                <p><a href="#" class="text-secondary">TOSAMONホーム</a> > 商品一覧</p>
+            <div class="col-10">
+                <p><a href="/items/" class="text-secondary">TOSAMONホーム</a> > 商品一覧</p>
                 <h4 style="letter-spacing:0.2em; padding-top:20px; padding-bottom:20px;">商品一覧</h4>
             </div>
         </div>
@@ -34,59 +33,34 @@
         <div class="row" style="padding-bottom:50px;">
             
             <!--下段左カラム カテゴリリンク一覧-->
-            <div class="col-3 category-link">
-                <p><a href="#">アクセサリー</a></p>
-                <p><a href="#">木工品</a></p>
-                <p><a href="#">植物・花</a></p>
-                <p><a href="#">美容・コスメ</a></p>
-                <p><a href="#">手芸品</a></p>
-                <p><a href="#">アロマ</a></p>
-                <p><a href="#">レザークラフト</a></p>
-                <p><a href="#">布製品</a></p>
-                <p><a href="#">おもちゃ</a></p>
-                <p><a href="#">その他</a></p>
+            <div class="col-2 category-link">
+                <p><a th:href="@{/items/index/1}">アクセサリー</a></p>
+                <p><a th:href="@{/items/index/2}">木工品</a></p>
+                <p><a th:href="@{/items/index/3}">植物・花</a></p>
+                <p><a th:href="@{/items/index/4}">美容・コスメ</a></p>
+                <p><a th:href="@{/items/index/5}">手芸品</a></p>
+                <p><a th:href="@{/items/index/6}">アロマ</a></p>
+                <p><a th:href="@{/items/index/7}">レザークラフト</a></p>
+                <p><a th:href="@{/items/index/8}">布製品</a></p>
+                <p><a th:href="@{/items/index/9}">おもちゃ</a></p>
+                <p><a th:href="@{/items/index/10}">その他</a></p>
             </div>
             
             <!--下段右カラム 画像一覧-->
-            <div class="col-9 items-all">
+            <div class="col-10">
                 <div class="row">
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#"><img class="img-fluid" src="./images/imgtest280px.png" alt="サムネイル"></img></a>
-                    </div>
-                </div>
+	            	<div class="col-md-4" th:each="item : ${items}">
+	                    <div class="overlay-container" style="margin-bottom:20px;">
+	                        <a th:href="@{/items/detail/{id} (id=${item.id})}">
+								<img class="thumbnail-trim" th:src="@{/images/{image} (image=${item.image})}" alt="サムネイル"></img></a>
+		                    	<div class="overlay"></div>
+								<div class="overlay-text">
+		                            <h6 class="text-center">[[ ${item.name} ]]</h6>
+		                            <p class="text-right">￥[[ ${item.price} ]]</p>
+		                        </div>
+	                    </div>
+	                </div>
+            	</div>
             </div>
         </div>
     </div>
@@ -103,64 +77,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
  
   </body>
-</html>
-<!--12/2 佐藤追記ここまで-->
-
-<!--変更-->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="main">
-	<div class="container contents">
-		<h1>[[ ${title} ]]</h1>
-		<p>ようこそ、[[ ${user.user_name} ]]さん。</p> <!--変更 name→user_name-->
-		
-		<div class="row">
-		
-		</div>
-		<div class="row">
-			<div class="col-3">
-				<h2>メニュー</h2>
-				<p>メニューメニューメニュー</p>
-			</div>
-			<div class="col-9">
-				<div class="card item" th:each="item : ${items}">
-					<div class="row item_row">
-						<div class="col-6 item_figure">
-						    <img class="img-fluid" th:src="@{/images/{image} (image=${item.image})}">
-						</div>
-						<div class="col-6 item_description">
-							<h2 class="item_title">								
-								<!--商品詳細へリング-->
-							    <a th:href="@{/items/detail/{id} (id=${item.id})}">
-                                    [[ ${item.name} ]]: 
-                                </a>
-                            </h2>
-                            <!--商品数による一覧表示　0:売り切れ　1以上:価格表示-->
-                            <th:block th:if="${item.stock > 0}">
-                                <div>[[ ${item.price} ]]円</div>
-                            </th:block>
-							<th:block th:if="${item.stock <= 0}">
-                                <div>売り切れ</div>
-                            </th:block>
-                            <!--商品説明-->
-							<div>[[ ${item.description} ]]</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<footer class="text-center">
-		<p><small>&copy;CodeCamp All Rights Reserved.</small></p>
-	</footer>
 </div>
 </html>
-
-<form class="search col-6" action="/items/search">
-			<div class="input-group">
-				<input class="form-control" type="text" name="keyword" placeholder="商品名の一部を入れて検索">
-				<span class="input-group-append">
-					<input class="btn btn-outline-secondary" type="submit" value="検索" >
-				</span>
-			</div>
-		</form>

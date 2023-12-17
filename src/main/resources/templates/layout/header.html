@@ -1,4 +1,15 @@
-<!--12/8更新 佐藤作成ヘッダー-->
+<!--シンプルヘッダーここから-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="loggedInSimpleHeader">
+<header>
+    <nav class="nav justify-content-center d-flex align-items-center fixed-top" style="background:#e1dccb;height:163px;">
+        <a class="navbar-brand" href="/items/"><img src="/images/logo321px.png" alt="TOSAMONロゴマーク"></img></a>
+    </nav>
+</header>
+</div>
+</html>
+<!--シンプルヘッダーここまで-->
+
 <!--管理者用ヘッダーここから-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
@@ -24,24 +35,9 @@
             
             <!--検索フォーム-->
             <div class="col-6 d-flex justify-content-center">
-                <form class="custom-form form-inline">
+                <form th:action="@{/items/search/{keyword}}" method="get" class="custom-form form-inline">
                     <div class="form-group">
-                      <select class="form-control" id="category">
-                        <option value="all">すべてのカテゴリー</option>
-                        <option value="accesary">アクセサリー</option>
-                        <option value="wood">木工品</option>
-                        <option value="plant">植物・花</option>
-                        <option value="cosme">美容・コスメ</option>
-                        <option value="handicraft">手芸品</option>
-                        <option value="aroma">アロマ</option>
-                        <option value="leather">レザークラフト</option>
-                        <option value="fabric">布製品</option>
-                        <option value="toy">おもちゃ</option>
-                        <option value="others">その他</option>
-                      </select>
-                    </div>
-                    <div class="form-group" action="/items/search">
-                      <input type=type="text" name="keyword" placeholder="何をお探しですか？">
+                      <input type="text" name="keyword" placeholder="何をお探しですか？">
                     </div>
                     <button type="submit" class="btn btn-outline-secondary">検索</button>
                 </form>
@@ -49,16 +45,16 @@
             
             <!--ログイン情報-->
             <div class="col-3">
-                <small class="text-right font-weight-bold text-nowrap">ようこそ、adminさん</small>
+                <small class="text-right font-weight-bold text-nowrap">ようこそ、[[ ${user.user_name} ]]さん</small>
                 <div class="d-flex flex-row">
                     <!--ハートマーク-->
-                    <a href="#">
+                    <a th:href="@{/users/detail/{id}(id=${user.id})}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
                         <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
                         </svg>
                     </a>
                     <!--カートマーク-->
-                    <a href="#">
+                    <a th:href="@{/cart/{userId}(userId=${user.id})}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </svg>
@@ -66,7 +62,7 @@
                     <th:block th:if="${user.email == 'admin@admin.com'}">
                     	<a href="/admin" class="btn btn-danger custom-button">管理者ページ</a>
                     </th:block>
-                    <a href="#" class="btn btn-secondary custom-button" style="">ログアウト</a>
+                    <a th:href="@{/users/login}" method="post" class="btn btn-secondary custom-button" style="">ログアウト</a>
                 </div>
             </div>
         </div>
