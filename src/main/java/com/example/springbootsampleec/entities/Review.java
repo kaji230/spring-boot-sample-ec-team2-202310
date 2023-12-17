@@ -35,14 +35,14 @@ public class Review {
     private Item item; // 商品id
     
     @ManyToOne
-    private User user; // 商品id
+    private User user; // ユーザーid
     
     //コメント、評価を追加する
     @Column(name = "comment", length = 1000, nullable = true)
     private String comment; //レビュー本文
     
     @Column(name = "star", length = 1000, nullable = false)
-    private int star; //星の数
+    private String star; //星の数
    
     @Column(name="createdAt",nullable = false, updatable = false, insertable = false, 
     columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -55,5 +55,9 @@ public class Review {
     public String getUserName() {
     	return this.user.getName();
     }
+    
+//    public Long getItemId() {
+//    	return this.item.getId();
+//    }
     
 }

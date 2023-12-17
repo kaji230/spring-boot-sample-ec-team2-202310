@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="main">
+	<div style="padding-top:163px;"></div>
     <h1>[[ ${title} ]]</h1>
     <form method="post" class="like" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
 		<button type="submit" class="box">[[ ${item.likedUsers.contains(user) ? '♥' : '♡'} ]]</button>
 	</form>
+	
 	<dl>
 		<dd>[[ ${item.getShopName} ]]</dd>
 		<dt>商品名</dt>
@@ -28,11 +30,8 @@
 		<div th:each="eachReview : ${reviews}">
 			<p>[[ ${eachReview.getUserName} ]] さん</p>
 			<p>[[ ${eachReview.star} ]]</p>
-			<div th:each="starNumber : ${#numbers.sequence(1, eachReview.star)}">
-				<img th:src="@{/images/kusa.png}"width="20" height="20">
-			</div>
 			<p>[[ ${eachReview.comment} ]]</p>
-			<p>[[ ${eachReview.createdAt} ]]</p>
+			<p>[[${#temporals.format(eachReview.createdAt, 'yyyy年M月d日')}]]</p>
 		</div>
 	</div>
 	</dl>

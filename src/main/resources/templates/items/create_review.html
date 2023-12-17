@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+	<div style="padding-top:163px;"></div>
+    <h1>[[ ${title} ]]</h1>
+	
+	<dl>
+		<dd>[[ ${item.name} ]] のレビューを投稿する</dd>
+	</dl>
+	<form method="post" th:action="@{/items/detail/{id}/create_review(id=${item.id})}" th:object="${reviewCreateForm}">
+		<div>
+			<label>評価</label>
+			<select name="star">
+				  <option value=⭐⭐⭐⭐⭐>⭐⭐⭐⭐⭐</option>
+				  <option value=⭐⭐⭐⭐>⭐⭐⭐⭐</option>
+				  <option value=⭐⭐⭐>⭐⭐⭐</option>
+				  <option value=⭐⭐>⭐⭐</option>
+				  <option value=⭐>⭐</option>
+			</select>
+		</div>
+		<div>
+			<label>レビュー本文</label>
+			<textarea name="comment" maxlength="1000"></textarea><!--maxlengthで長さ制限-->
+		</div>
+		<div>
+			<input type="submit" value="投稿する">
+		</div>
+	</form>
+</div>
+</html>
