@@ -68,6 +68,7 @@ public class CartController {
         model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in_simple";    
     }
+
 	
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    

@@ -26,6 +26,8 @@
                 <h4>[[ ${item.name} ]]</h4>
                 <p>[[ ${item.description} ]]</p>
                 <h3>[[ ${item.price} ]]円</h3>
+                <!--Sold Outの表示-->
+                
                 <div class="row d-flex align-items-center ml-1">
 	                <!--ハートマーク-->
 	                <form method="post" class="like mt-3" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
