@@ -23,6 +23,7 @@ import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.UserService;
 
 
+
 @RequestMapping("/cart")
 @Controller
 public class CartController {
@@ -68,7 +69,6 @@ public class CartController {
         model.addAttribute("main", "carts/cart::main");        
         return "layout/logged_in_simple";    
     }
-
 	
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
