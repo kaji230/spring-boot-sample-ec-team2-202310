@@ -125,7 +125,14 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
 	    	model.addAttribute("user", user);//ログインユーザの取得
-	        cartService.delete(id);
+	    	
+	    	//カートから商品が削除されたら、商品ストックに増やされる	    	
+	    	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
+	    	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
+	    	Item itemId = cart.getItem();
+	    	int checkStock = itemId.getStock();//現在の商品在庫数
+	    	itemId.setStock(checkStock+presentAmountSize);//カートから商品が削除されたら在庫が増える
+	    	cartService.delete(id);
 	        return "redirect:/cart/"+ user.getId(); 
 	    }
 	    
