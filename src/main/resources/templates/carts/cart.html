@@ -115,12 +115,13 @@
     <!--注文完了する-->
     <div class="text-center mt-5 mb-5">
 		<form method="post" th:action="@{/cart/purchased/{userId}(userId=${user.id})}">
-        <input type="submit" value="注文を完了させる" class="btn btn-warning btn-lg" style="width: 35%;">
+        <input type="submit" value="注文を完了させる" class="btn btn-warning btn-lg" style="width: 35%;" th:disabled="${user.carts.isEmpty()}">
         </form>
     </div>
     </div>
     </div>
-          
+      
+    
     <!--フッター-->
     <footer class="footer fixed-bottom">
       <nav class="nav justify-content-center d-flex align-items-center" style="background:#e1dccb; height:163px;">
