@@ -27,7 +27,7 @@
                 <p>[[ ${item.description} ]]</p>
                 <h3>[[ ${item.price} ]]円</h3>
                 <!--Sold Outの表示-->
-                <div th:if="${item.stock == 0}">
+                <div th:if="${item.stock == 0} "th:style="${'color: red; font-weight: bold;'}">
 					SOLD OUT
 				</div>
                 <div class="row d-flex align-items-center ml-1">
