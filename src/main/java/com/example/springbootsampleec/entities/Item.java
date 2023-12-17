@@ -99,4 +99,8 @@ public class Item {
     	return this.shop.getId();
     }
     
+    public Long getId() {
+        return this.id;
+    }
+    
 }

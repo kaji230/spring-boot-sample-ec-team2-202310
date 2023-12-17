@@ -23,6 +23,7 @@ import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.forms.ItemCreateForm;
 import com.example.springbootsampleec.forms.ItemEditForm;
+import com.example.springbootsampleec.forms.ReviewCreateForm;
 import com.example.springbootsampleec.repositories.ShopRepository;
 import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.ReviewService;
@@ -117,7 +118,7 @@ public class ItemController {
         return "layout/logged_in";    
     }
  
-    @GetMapping("/create")    
+    @GetMapping("/create")
     public String create(
         @AuthenticationPrincipal(expression = "user") User user,
         @ModelAttribute("itemCreateForm") ItemCreateForm itemCreateForm,
@@ -157,13 +158,54 @@ public class ItemController {
                 itemCreateForm.getImg_3()
         );
         
-        
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "商品を追加しました");
         
         return "redirect:/admin";
     }
+    
+    @RequestMapping("/detail/{id}/create_review")
+    public String create_review(
+    	@AuthenticationPrincipal(expression = "user") User user,
+    	@PathVariable("id")  Long id,
+    	@ModelAttribute ReviewCreateForm reviewCreateForm,
+    	Model model
+	) {
+    	Item item = itemService.findById(id).orElseThrow();
+    	
+    	
+    	model.addAttribute("item", item);
+    	model.addAttribute("user", user);
+    	model.addAttribute("reviewCreateForm", reviewCreateForm);
+    	model.addAttribute("main", "items/create_review::main");
+    	return "layout/logged_in";
+    }
+    
+    @PostMapping("/detail/{id}/create_review")
+    public String reviewProcess(
+    	@AuthenticationPrincipal(expression = "user") User user,
+    	@PathVariable("id")  Long id,
+    	@ModelAttribute ReviewCreateForm reviewCreateForm,
+    	Model model
+	) {
+    	Item item = itemService.findById(id).orElseThrow();
+    	Long itemId = item.getId();
+    	Long userId = user.getId();
+    	reviewService.register(
+    			reviewCreateForm.getComment(),
+    			reviewCreateForm.getStar(),
+    			item,
+    			user
+    			);
+    	
+    	model.addAttribute("item", item);
+    	model.addAttribute("user", user);
+    	model.addAttribute("reviewCreateForm", reviewCreateForm);
+    	model.addAttribute("main", "items/create_review::main");
+    	return "layout/logged_in";
+    }
+    
     @GetMapping("/detail/{id}")    
     public String detail(
         @AuthenticationPrincipal(expression = "user") User user,
@@ -186,6 +228,23 @@ public class ItemController {
         model.addAttribute("reviews", reviews);
         
         return "layout/logged_in";    
+    }
+    
+    
+    
+    @GetMapping("/detail/{id}/created_review")
+    public String created_review(
+    	@AuthenticationPrincipal(expression = "user") User user,
+    	@PathVariable("id")  Long id,
+    	Model model
+	) {
+    	Item item = itemService.findById(id).orElseThrow();
+    	model.addAttribute("item", item);
+    	model.addAttribute("user", user);
+    	
+    	
+    	model.addAttribute("main", "items/created_review::main");
+    	return "layout/logged_in";
     }
  
     @GetMapping("/edit/{id}")    

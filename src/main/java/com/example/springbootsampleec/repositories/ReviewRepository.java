@@ -11,4 +11,6 @@ import com.example.springbootsampleec.entities.Review;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 	//レビューをすべて取得、作成日順に並び替え
 	List<Review> findByItemIdOrderByCreatedAtDesc(Long itemId);
+	
+	
 }
