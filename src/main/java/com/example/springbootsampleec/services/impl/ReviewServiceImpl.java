@@ -7,7 +7,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.Review;
+import com.example.springbootsampleec.entities.User;
 import com.example.springbootsampleec.repositories.ReviewRepository;
 import com.example.springbootsampleec.services.ReviewService;
 
@@ -36,6 +38,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Transactional
     @Override
-    public void register(int id, String comment, int star) {
+    public void register(String comment, String star, Item item, User user) {
+    	Review review = new Review(null, item, user, comment, star, null, null);
+    	reviewRepository.save(review);
     }
 }
