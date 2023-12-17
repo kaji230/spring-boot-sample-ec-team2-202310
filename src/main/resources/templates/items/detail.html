@@ -27,7 +27,9 @@
                 <p>[[ ${item.description} ]]</p>
                 <h3>[[ ${item.price} ]]円</h3>
                 <!--Sold Outの表示-->
-                
+                <div th:if="${item.stock == 0}">
+					SOLD OUT
+				</div>
                 <div class="row d-flex align-items-center ml-1">
 	                <!--ハートマーク-->
 	                <form method="post" class="like mt-3" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
@@ -40,11 +42,11 @@
 				</div>
 				<!--カートに追加ボタン-->
         		<form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">      
-                <!--<button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">-->
-                  <button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" onclick="addToCart(event)">
+                <button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
+                  <!--<button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" onclick="addToCart(event)">-->
                   カートに入れる
                 </button>
-                 </form>                 
+                 <!--</form>                 
                  <script>
 					 // ボタンがクリックされたときに呼ばれるJavaScript関数
 					  function addToCart(event) {
@@ -59,7 +61,7 @@
 							  $('#cart-in-modal').modal('hide');
 							  }, 5000);
 						  }			  
-				</script>
+				</script>-->
 				
                 <h5>[[ ${shop.shop_name} ]]</h5>
 	            <p>[[ ${shop.shop_description} ]]</p>
