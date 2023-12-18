@@ -3,6 +3,8 @@ package com.example.springbootsampleec.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,4 +47,7 @@ public interface ItemService {
   	
     //名前でひとつの商品を検索
   	Item findFirst1ByNameContaining(String keyword);
+  	
+  	//ページネーション
+  	Page<Item> getAllItem(Pageable pageable); 
 }
