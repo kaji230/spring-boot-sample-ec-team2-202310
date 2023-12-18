@@ -2,6 +2,8 @@ package com.example.springbootsampleec.controllers;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
-//import com.example.springbootsampleec.forms.AmountForm;
+import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.repositories.ItemRepository;
 import com.example.springbootsampleec.services.CartService;
@@ -73,7 +75,6 @@ public class CartController {
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
-    	//@Valid AmountForm amountForm,//数量追記
         @PathVariable("itemId") Integer itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,

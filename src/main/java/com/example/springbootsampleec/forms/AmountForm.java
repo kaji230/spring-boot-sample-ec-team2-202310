@@ -1,10 +1,11 @@
 package com.example.springbootsampleec.forms;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.Cart;
+import com.example.springbootsampleec.repositories.CartRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AmountForm {
-	@NotNull
-    private int amount;
-	
-	//選択された商品数を取得する
-    public int getAmountSize() {
-        return amount;
+	@Autowired
+    private CartRepository cartRepo;
+   
+    public List<Cart> getAmount() {
+        return cartRepo.findAll();
     }
 
 }
