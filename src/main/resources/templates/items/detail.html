@@ -4,6 +4,17 @@
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnEnW16j7tj70" crossorigin="anonymous">
 </head>
+
+<style>
+    /* モーダル内で表示される商品画像のCSS */
+    .cart-in-img-trim {
+        width: 100%; /* 画像の幅を100%に設定 */
+        height: 0; /* 高さを0に設定 */
+        padding-top: 100%; /* 上部の余白を100%に設定（これにより正方形になります） */
+        object-fit: cover; /* 画像が枠に収まるように調整 */
+    }
+</style>
+
 <body>
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>    
@@ -14,10 +25,11 @@
             <div class="col-6">
                 <img class="main-img" th:src="@{/images/{image} (image=${item.image})}"></img>
                 <div class="d-flex justify-content-between pt-3" style="max-width:450px;">
+	           		<!--メイン画像を4枚の小さい画像一番左に表示-->
+	           		<img class="sub-img" th:src="@{/images/{image} (image=${item.image})}"></img>
 	                <img class="sub-img" th:src="@{/images/{image} (image=${item.img_1})}"></img>
 	                <img class="sub-img" th:src="@{/images/{image} (image=${item.img_2})}"></img>
 	                <img class="sub-img" th:src="@{/images/{image} (image=${item.img_3})}"></img>
-	                <img class="sub-img" th:src="@{/images/{image} (image=${shop.shop_icon})}"></img>
                 </div>
             </div>
             
@@ -25,7 +37,14 @@
             <div class="col-6">
                 <h4>[[ ${item.name} ]]</h4>
                 <p>[[ ${item.description} ]]</p>
-                <h3>[[ ${item.price} ]]円</h3>
+                <div class="d-flex align-items-center">
+			    <h3 class="mr-2">[[ ${item.price} ]]円</h3>
+			    <!--在庫0になったらSOLDOUT表示させる-->
+			    <div th:if="${item.stock == 0}" th:style="${'color: red; font-weight: bold; font-size: x-large;'}" class="ml-4">
+			        SOLD OUT
+			    </div>
+			</div>
+			
                 <div class="row d-flex align-items-center ml-1">
 	                <!--ハートマーク-->
 	                <form method="post" class="like mt-3" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
@@ -36,13 +55,26 @@
 						<p>クリックでお気に入りに登録</p>
 					</div>
 				</div>
-				<!--カートに追加ボタン-->
-        		<form method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">      
-                <button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
-                  カートに入れる
-                </button>
-                 </form>
-                <h5>[[ ${shop.shop_name} ]]</h5>
+				
+        		<!--カートに入れるボタン-->
+				<form method="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}" data-toggle="modal" data-target="#cart-in-modal">      
+				    <button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" 
+				    		th:classappend="${item.stock == 0} ? 'btn-secondary disabled' : 'btn-warning'"
+				    		th:disabled="${item.stock == 0}">
+				        カートに入れる
+				    </button>
+				    <!--SOLD OUT時のボタンのCSS-->
+				    <style>.disabled-btn { background-color: #ccc; color: #fff; }</style>
+				</form>
+				
+				<!--ショップアイコンとショップ名-->
+				<div class="d-flex align-items-center">
+				    <!--ショップアイコン-->
+				    <img class="sub-img rounded-circle mr-2" th:src="@{/images/{image} (image=${shop.shop_icon})}" style="width: 50px; height: 50px;" />
+				    <!--ショップ名-->
+				    <h5>[[ ${shop.shop_name} ]]</h5>
+				</div>
+                <!--ショップ紹介文-->
 	            <p>[[ ${shop.shop_description} ]]</p>
                 
                 <!--モーダル-->
@@ -51,23 +83,23 @@
                         <div class="modal-content">
                             
                             <!--モーダル上段-->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-laber="close">
+                            <div class="modal-header" style="border-bottom: none;">
+                                <button type="submit" class="close" data-dismiss="modal" aria-laber="close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             
                             <!--モーダル中段-->
                             <div class="modal-body">
-                                <div class="row d-flex justify-content-center">
+                                <div class="row">
                                     <div class="col-12">
-                                        <h5 class="text-center font-weight-bold" id="cart-in-modal-label">商品がカートに追加されました</h5>
+                                        <h5 class="text-center font-weight-bold" id="cart-in-modal-label">この商品をカートに入れますか？</h5>
                                     </div>
                                     <div class="container pt-5">
                                         <div class="row">
                                             <div class="col-3">
                                                 <!--商品のアイコン-->
-                                                <img th:src="@{/images/{image} (image=${item.image})}" class="img-fluid cart-in-img-trim">
+                                                <img th:src="@{/images/{image} (image=${item.image})}" class="img-fluid cart-in-img-trim" style="width: 100px; height:100px;">
                                             </div>
                                             <div class="col-9">
                                                 <!--商品名と価格-->
@@ -80,10 +112,11 @@
                             </div>
                             
                             <!--モーダル下段-->
-                            <div class="modal-footer my-3">
-                                <a th:href="@{/cart/{userId}(userId=${user.id})}" class="text-decoration-none">
-								  <button type="button" class="btn btn-warning btn-lg btn-block">カートの中身を見る</button>
-								</a>
+                            <div class="modal-footer my-3 d-flex justify-content-center" style="border-top: none; margin-bottom: 80px;">
+								<!--カートに入れるボタン-->
+                                <form method="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">
+									<button type="submit" class="btn btn-lg" style="background-color: #e1dccb; color: #000;">カートに入れる</button>
+								</form>
                             </div>
                         </div>
                     </div>
@@ -135,5 +168,6 @@
 	</div>
 </div>
 <script src="/src/main/resources/static/JS/script.js"></script>
+
 </body>
 </html>
