@@ -42,28 +42,34 @@
 					</div>
 				</div>
 				<!--カートに追加ボタン-->
-        		<form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">      
-                <button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
-                  <!--<button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" onclick="addToCart(event)">-->
+        		 <!--<form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}"></form>-->    
+                <!--<button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">-->
+                 <button type="button" id="AddToCart" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
                   カートに入れる
                 </button>
-                 <!--</form>                 
-                 <script>
-					 // ボタンがクリックされたときに呼ばれるJavaScript関数
-					  function addToCart(event) {
-						  // フォームを送信
-						  document.getElementById('addCart').submit();							  
-						  // イベントの伝播を停止
-						  event.stopPropagation();				
-						  // モーダルを手動で表示
-						  $('#cart-in-modal').modal('show');
-						  // 5秒後にモーダルを非表示にする
-						  setTimeout(function () {
-							  $('#cart-in-modal').modal('hide');
-							  }, 5000);
-						  }			  
-				</script>-->
-				
+                <!--</form>-->
+                <!--カートに追加ボタンが押された時のJavaScriptの処理-->
+                <script th:inline="javascript">
+					function postItem() {
+						$("#AddToCart").click(addToCart()); {
+							const baselink = /*[[@{/cart/inCart/}]]*/'';
+							//const link = baselink + "?itemId=" + item.id;
+							//const itemId = item.id;
+							const itemId = parseInt(item.id, 10);  // 整数に変換
+							const link = baselink + "/" + itemId;
+							$.ajax({
+								url: link,
+								type: "POST",
+								timeout: 1000,
+								})
+								.done(function(data) {
+									console.log(data); // サーバーサイドからのレスポンスをコンソールに表示
+									$("#cart-in-modal").modal('show');
+								});
+						});									
+					}
+				</script>                 				
+                
                 <h5>[[ ${shop.shop_name} ]]</h5>
 	            <p>[[ ${shop.shop_description} ]]</p>
                 
@@ -103,9 +109,11 @@
                             
                             <!--モーダル下段-->
                             <div class="modal-footer my-3">
+								<!--<form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">-->
                                 <a th:href="@{/cart/{userId}(userId=${user.id})}" class="text-decoration-none">
-								  <button type="button" class="btn btn-warning btn-lg btn-block">カートの中身を見る</button>
+								  <button type="submit" class="btn btn-warning btn-lg btn-block">カートの中身を見る</button>
 								</a>
+								<!--</form>-->
                             </div>
                         </div>
                     </div>
