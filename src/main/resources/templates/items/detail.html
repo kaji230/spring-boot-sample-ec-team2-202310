@@ -51,15 +51,16 @@
                 <script th:inline="javascript">
 					function addToCart() {
 					$("#AddToCart").click(function(){
-							const baselink = /*[[@{/cart/inCart/}]]*/'';
+						
+							//const baselink = /*[[@{/cart/inCart/}]]*/'';
 							//const itemId = item.id;
 							//const itemId = parseInt(item.id, 10);  // 整数に変換
 							//const itemId = parseInt(/*[[${item.id}]]*/);  // 整数に変換
 							//const link = baselink + "/" + itemId;
-							$.ajax({
-								url: link,
-								type: "POST",
-								timeout: 1000,
+							//$.ajax({
+							//	url: link,
+							//	type: "POST",
+							//	timeout: 1000,
 								})
 								.done(function(data) {
 									console.log(data); // サーバーサイドからのレスポンスをコンソールに表示
