@@ -121,17 +121,15 @@
                             <div class="col-3 border-right">
 								<p>[[ ${eachReview.getUserName} ]] さん</p>
 								<p>[[ ${eachReview.star} ]]</p>
-								<div th:each="starNumber : ${#numbers.sequence(1, eachReview.star)}">
-									<img th:src="@{/images/kusa.png}"width="20" height="20">
-								</div>
-							</div>
-                            <div class="col-9">	                               
 								<p>[[ ${eachReview.comment} ]]</p>
-								<p>[[ ${eachReview.createdAt} ]]</p>
+								<p>[[${#temporals.format(eachReview.createdAt, 'yyyy年M月d日')}]]</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div>
+					<a th:href="@{/items/detail/{id}/create_review(id=${item.id})}">レビューを投稿する</a>
+				</div>
             </div>
         </div>
 	</div>

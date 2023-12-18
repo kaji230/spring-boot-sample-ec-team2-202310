@@ -25,6 +25,9 @@
 		<div>
 			<input type="submit" value="投稿する">
 		</div>
+		<div>
+			<a th:href="@{/items/detail/{id}(id=${item.id})}">商品詳細ページに戻る</a>
+		</div>
 	</form>
 </div>
 </html>
