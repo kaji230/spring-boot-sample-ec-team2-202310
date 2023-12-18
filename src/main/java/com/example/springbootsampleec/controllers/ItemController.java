@@ -54,6 +54,7 @@ public class ItemController {
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
     ) {
+    	
     	List<Item> items = itemService.findAll();
     	List<Item> newItems = itemService.findTop3ByOrderByCreatedAtDesc();
     	List<Item> randomItems = itemService.findRandom3Records();
