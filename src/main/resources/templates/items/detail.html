@@ -42,23 +42,20 @@
 					</div>
 				</div>
 				<!--カートに追加ボタン-->
-        		 <form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">  
-                <!--<button type="submit" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">-->
+        		 <form id="addCart" method ="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">
                  <button type="button" id="AddToCart" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" data-toggle="modal" data-target="#cart-in-modal" onclick="addToCart()">
                   カートに入れる
                 </button>
         		 </form>
-                <!--</form>-->
                 <!--カートに追加ボタンが押された時のJavaScriptの処理-->
-                <!--<script th:inline="javascript">
+                <script th:inline="javascript">
 					function addToCart() {
 					$("#AddToCart").click(function(){
 							const baselink = /*[[@{/cart/inCart/}]]*/'';
-							const itemId = item.id;
+							//const itemId = item.id;
 							//const itemId = parseInt(item.id, 10);  // 整数に変換
 							//const itemId = parseInt(/*[[${item.id}]]*/);  // 整数に変換
-							//const itemId = /*[[${#numbers.formatInteger(item.id)}]]*/;// 整数に変換
-							const link = baselink + "/" + itemId;
+							//const link = baselink + "/" + itemId;
 							$.ajax({
 								url: link,
 								type: "POST",
@@ -70,7 +67,7 @@
 								});
 						　});					
 					}
-				</script>-->                 				
+				</script>               				
                 
                 <h5>[[ ${shop.shop_name} ]]</h5>
 	            <p>[[ ${shop.shop_description} ]]</p>

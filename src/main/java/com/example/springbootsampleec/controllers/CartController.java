@@ -74,7 +74,7 @@ public class CartController {
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
     	//@Valid AmountForm amountForm,//数量追記
-        @PathVariable("itemId") long itemId,
+        @PathVariable("itemId") Integer itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
