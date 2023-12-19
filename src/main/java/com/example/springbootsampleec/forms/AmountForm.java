@@ -22,5 +22,4 @@ public class AmountForm {
 	public int getItemStock() {
 		return item.getStock();
 	}
-
 }
