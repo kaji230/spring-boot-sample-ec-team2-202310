@@ -60,6 +60,9 @@
 		                        </div>
 	                    </div>
 	                </div>
+	                <th:block th:if="${#lists.isEmpty(items)}">
+                    	<p>[[ ${zeroItemMessage} ]]</p>
+                   	</th:block>
             	</div>
             </div>
         </div>

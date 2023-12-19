@@ -312,10 +312,15 @@ public class ItemController {
         @RequestParam("keyword") String keyword,
         Model model
     ) {
+    	String zeroItemMessage = null;
         List<Item> items = itemService.findByNameContaining(keyword);
+        if(items.size() == 0) {
+        	zeroItemMessage = "検索結果は０件です。";
+        }
         model.addAttribute("user", user);
         model.addAttribute("items", items);
         model.addAttribute("title", "商品検索結果");
+        model.addAttribute("zeroItemMessage", zeroItemMessage);
         model.addAttribute("main", "items/index::main");
         return "layout/logged_in";
     }
