@@ -5,6 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,12 +72,14 @@ public class ItemController {
     @GetMapping("/index")    
     public String index(
         @AuthenticationPrincipal(expression = "user") User user,
+        @PageableDefault(page = 0, size = 12)Pageable pageable,
         Model model
     ) {
-    	List<Item> items = itemService.findAll();
-    	
+    	//List<Item> items = itemService.findAll();
+    	Page<Item> itemPage = itemService.getAllItem(pageable);
         model.addAttribute("user", user);
-        model.addAttribute("items", items);
+        model.addAttribute("page", itemPage);
+        model.addAttribute("items", itemPage.getContent());
         model.addAttribute("title", "商品一覧");
         model.addAttribute("main", "items/index::main");
         return "layout/logged_in";    
