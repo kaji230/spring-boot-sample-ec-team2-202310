@@ -62,8 +62,8 @@
                 <!-- 数量 -->
                 <td class="text-center align-middle">
 					[[ ${cart.amount} ]]
-					<form method="post" th:action="@{/cart/{itemId}(itemId=${item.id}/amountForm" th:object="${amountForm}">
-					<select name="amountSize">
+					<form method="post" th:action="@{/cart/{itemId}/amountForm(itemId=${item.id})}" th:object="${amountForm}">
+					<select name="amountSize"　th:field="*{amountSize}">
 						<option value=1>1</option>
 				  		<option value=2>2</option>
 				  		<option value=3>3</option>
@@ -74,6 +74,7 @@
 				  		<option value=8>8</option>
 				  		<option value=9>9</option>
 				  		<option value=10>10</option>
+				  		<button type="submit">Submit</button>
 					</select>
 					</form>
 					<!--<label for="cart.amount">商品数: </label>

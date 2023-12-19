@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,9 +78,13 @@ public class CartController {
 	        RedirectAttributes redirectAttributes,
 	        @AuthenticationPrincipal(expression = "user") User user,
 	        @ModelAttribute AmountForm amountForm,
+	        BindingResult result,
 	        Model model
 	        ) {
 		model.addAttribute("amountForm", amountForm);
+		 // amountForm.getAmountSize() を使用して選択された数値を取得
+        int selectedAmount = amountForm.getAmountSize();
+		
 		//購入数を決める商品idを取得する
         Item item = itemService.findById(itemId).orElseThrow();
         model.addAttribute("item", item);   
@@ -90,10 +95,11 @@ public class CartController {
         if (ItemSize > 0) {
         	//既存のエントリが存在する場合は数量+1する       	
         	Cart cart = checkItems.get();
-        	cart.setAmount(cart.getAmount() + amountForm.getGetAmountSize());
+        	cart.setAmount(cart.getAmount() + selectedAmount);
+        	System.out.println(cart.getAmount() + selectedAmount);
         	cartRepo.saveAndFlush(cart);        	
         	//商品テーブルの商品ストックから-1する
-        	int newItemSize = ItemSize - amountForm.getGetAmountSize();
+        	int newItemSize = ItemSize - selectedAmount;
     		item.setStock(newItemSize);
     		itemRepo.saveAndFlush(item);
     	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
