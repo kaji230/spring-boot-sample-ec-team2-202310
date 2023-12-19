@@ -197,3 +197,25 @@ svg {
     height: 100px;
     object-fit: cover;
 }
+
+/*レビュー表示画面*/
+.review-cell {
+	max-width: 900px;
+	min-height: 100px;
+	border-radius: 5px;
+	overflow: hidden;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.review-post-btn {
+	background-color: #7d83a8;
+	color: white;
+	width: 400px;
+	margin: auto;
+	display: block;
+}
+.review-post-btn:hover {
+	text-decoration: none;
+	color: white;
+	background-color: #74778b
+}
