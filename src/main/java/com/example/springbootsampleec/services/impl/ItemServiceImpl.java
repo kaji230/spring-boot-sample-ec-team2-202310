@@ -13,6 +13,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -191,6 +193,12 @@ public class ItemServiceImpl implements ItemService {
   	@Override
   	public Item findFirst1ByNameContaining(String keyword) {
   		return itemRepository.findFirst1ByNameContaining(keyword);
+  	}
+  	
+  	//ページネーション
+  	@Override
+  	public Page<Item> getAllItem(Pageable pageable) {
+        return itemRepository.findAll(pageable);
   	}
 
 }

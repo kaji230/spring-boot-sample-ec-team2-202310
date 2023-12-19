@@ -197,3 +197,11 @@ svg {
     height: 100px;
     object-fit: cover;
 }
+
+/*ページネーション中央ぞろえ*/
+#box-pagination{
+	width:200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
