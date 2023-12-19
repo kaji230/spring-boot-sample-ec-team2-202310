@@ -2,13 +2,12 @@ package com.example.springbootsampleec.controllers;
 
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +70,42 @@ public class CartController {
         return "layout/logged_in_simple";    
     }
 	
+	//プルダウンから購入商品数選択
+	@PostMapping("/{itemId}/amountForm")
+	public String chooseAmountSize(
+	        @PathVariable("itemId") Integer itemId,
+	        RedirectAttributes redirectAttributes,
+	        @AuthenticationPrincipal(expression = "user") User user,
+	        @ModelAttribute AmountForm amountForm,
+	        Model model
+	        ) {
+		model.addAttribute("amountForm", amountForm);
+		//購入数を決める商品idを取得する
+        Item item = itemService.findById(itemId).orElseThrow();
+        model.addAttribute("item", item);   
+        int ItemSize = item.getStock();
+        //ログインユーザーが選択した商品がすでにカートにあるかをみる
+        Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
+        //ログインユーザーが選択した商品がすでにカートにあり、且つ在庫がある時
+        if (ItemSize > 0) {
+        	//既存のエントリが存在する場合は数量+1する       	
+        	Cart cart = checkItems.get();
+        	cart.setAmount(cart.getAmount() + amountForm.getGetAmountSize());
+        	cartRepo.saveAndFlush(cart);        	
+        	//商品テーブルの商品ストックから-1する
+        	int newItemSize = ItemSize - amountForm.getGetAmountSize();
+    		item.setStock(newItemSize);
+    		itemRepo.saveAndFlush(item);
+    	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
+        } else if (ItemSize == 0) {
+        	redirectAttributes.addFlashAttribute(
+					"You don't buy a item. Sorry...",
+	        		"在庫がありません。");
+        } 
+		return "redirect:/cart/"+ user.getId();
+	}	
+		
+		
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
@@ -153,27 +188,5 @@ public class CartController {
 	        model.addAttribute("user", user);
 	        return "carts/purchased";  	    	
 	    }
-	    
-	    
-	    //商品数選択(余力があればカートページからプルダウンで数量変更ができるようにしたい！！岩井)
-		
-	    /*@PostMapping("/amountSize/{cartId}")    
-	    public String amountSize(
-	        @ModelAttribute("amountForm") AmountForm amountForm,
-	        @PathVariable("cartId")  Integer id,
-	        @AuthenticationPrincipal(expression = "user") User user,
-	        RedirectAttributes redirectAttributes,
-	        Model model
-	        ) {
-			model.addAttribute("user", user);//ログインユーザの取得
-			int amountSize = cartService.getAmountSize(id);
-			System.out.println(amountSize);
-			cartService.register(
-		            user,
-		            item,
-		            amountSize
-		        );		        
-			int total = itemService.getPrice(id)*amountSize;
-			return "redirect:/cart/"+ user.getId();   
-	    }*/
+	
 }
