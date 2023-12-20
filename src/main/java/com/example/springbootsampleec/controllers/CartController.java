@@ -83,8 +83,8 @@ public class CartController {
 		//カートから商品が削除されたら、商品ストックに増やされる	    	
     	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
     	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
-    	Item itemId = cart.getItem();
-    	int checkStock = itemId.getStock();//現在の商品在庫数
+    	Item item = cart.getItem();
+    	int checkStock = item.getStock();//現在の商品在庫数
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
     	//商品在庫がある時
     	if (checkStock > 0) {
@@ -92,8 +92,8 @@ public class CartController {
         	cartRepo.saveAndFlush(cart);
         	//商品テーブルの商品ストックから購入商品数を減らす
         	int newItemSize = checkStock - selectedAmount;
-    		itemId.setStock(newItemSize);
-    		itemRepo.saveAndFlush(itemId);
+    		item.setStock(newItemSize);
+    		itemRepo.saveAndFlush(item);
     	}else if(checkStock == 0){
     		redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
