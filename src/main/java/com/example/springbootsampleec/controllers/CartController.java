@@ -80,6 +80,7 @@ public class CartController {
 	        BindingResult result,
 	        Model model
 	        ) {
+		model.addAttribute("amountForm",amountForm);
 		//カートから商品が削除されたら、商品ストックに増やされる	    	
     	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
     	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
