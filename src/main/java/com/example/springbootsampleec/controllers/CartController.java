@@ -75,9 +75,7 @@ public class CartController {
 	public String amountForm(
 	        @PathVariable("id") Integer id,
 	        RedirectAttributes redirectAttributes,
-	        @AuthenticationPrincipal(expression = "user") User user,
-	        //@ModelAttribute AmountForm amountForm,
-	        //BindingResult result,
+	        @AuthenticationPrincipal(expression = "user") User user,	       
 	        @ModelAttribute("amountForm") AmountForm amountForm, 
 	        BindingResult result,
 	        Model model
