@@ -45,7 +45,7 @@ public class User {
     private List<Cart> carts;
     
     //レビューと1:n の関係を定義
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Review> reviews;
     
     //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション

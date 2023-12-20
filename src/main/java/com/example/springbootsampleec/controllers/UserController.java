@@ -105,7 +105,7 @@ public class UserController {
     @GetMapping("/review/{id}")    
     public String review(
         @AuthenticationPrincipal(expression = "user") User user,
-        @PathVariable("id")  Integer id,
+        @PathVariable("id")  Long id,
         Model model
     ) {
     	Optional<User> refreshedUser = userService.findById(user.getId());
@@ -114,7 +114,7 @@ public class UserController {
         model.addAttribute("main", "users/review::main");
 
         // レビューを取得
-        List<Review> reviews = reviewService.findByItemIdOrderByCreatedAtDesc(user.getId());
+        List<Review> reviews = reviewService.findByUserIdOrderByCreatedAtDesc(id);
         model.addAttribute("reviews", reviews);
         
         return "layout/logged_in";    

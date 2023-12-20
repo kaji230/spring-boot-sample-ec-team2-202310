@@ -30,6 +30,12 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> findByItemIdOrderByCreatedAtDesc(Long itemId) {
         return reviewRepository.findByItemIdOrderByCreatedAtDesc(itemId);
     }
+    
+    @Transactional(readOnly = true)
+    @Override
+    public List<Review> findByUserIdOrderByCreatedAtDesc(Long userId) {
+        return reviewRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
 
     @Transactional
     @Override
