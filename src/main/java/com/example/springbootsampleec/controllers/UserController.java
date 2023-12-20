@@ -108,7 +108,7 @@ public class UserController {
         @PathVariable("id")  Long id,
         Model model
     ) {
-    	Optional<User> refreshedUser = userService.findById(user.getId());
+    	Optional<User> refreshedUser = userService.findById(id);
     	model.addAttribute("user", refreshedUser.orElseThrow());
         model.addAttribute("title", "レビュー一覧");
         model.addAttribute("main", "users/review::main");
@@ -117,6 +117,6 @@ public class UserController {
         List<Review> reviews = reviewService.findByUserIdOrderByCreatedAtDesc(id);
         model.addAttribute("reviews", reviews);
         
-        return "layout/logged_in";    
+        return "layout/logged_in_simple";    
     }
 }
