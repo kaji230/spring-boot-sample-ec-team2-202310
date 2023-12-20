@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
  
 <div th:fragment="pagination">
-    <div>
+    <div th:if="${page != null}">
         <ul>
             <li style="display:inline;">
                 <span th:if="${page.first}">←前</span>
