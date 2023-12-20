@@ -51,7 +51,6 @@ public class CartController {
 	@GetMapping("/{id}")
     public String index(
         @PathVariable("id")  Integer id,
-        //@Valid AmountForm amountForm,//数量追記
         //現在ログイン中のユーザー情報を取得
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
@@ -72,31 +71,31 @@ public class CartController {
     }
 	
 	//プルダウンから購入商品数選択
-	@PostMapping("/{itemId}/amountForm")
+	@PostMapping("/amountForm/{itemId}")
 	public String chooseAmountSize(
-	        @PathVariable("itemId") Integer itemId,
+	        @PathVariable("itemId") long itemid,
 	        RedirectAttributes redirectAttributes,
 	        @AuthenticationPrincipal(expression = "user") User user,
 	        @ModelAttribute AmountForm amountForm,
 	        BindingResult result,
 	        Model model
 	        ) {
+		Item item = itemService.findById(itemid).orElseThrow();
+        model.addAttribute("item", item);        
 		model.addAttribute("amountForm", amountForm);
-		 // amountForm.getAmountSize() を使用して選択された数値を取得
+		// amountForm.getAmountSize() を使用して選択された数値を取得
         int selectedAmount = amountForm.getAmountSize();
-		
-		//購入数を決める商品idを取得する
-        Item item = itemService.findById(itemId).orElseThrow();
-        model.addAttribute("item", item);   
-        int ItemSize = item.getStock();
-        //ログインユーザーが選択した商品がすでにカートにあるかをみる
+        System.out.println(selectedAmount);
+       //ログインユーザーが選択した商品がすでにカートにあるかをみる
         Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
+		//購入数を決める商品idを取得する
+        model.addAttribute("item", checkItems);   
+        int ItemSize = item.getStock();
         //ログインユーザーが選択した商品がすでにカートにあり、且つ在庫がある時
         if (ItemSize > 0) {
-        	//既存のエントリが存在する場合は数量+1する       	
+        	//既存のエントリが存在する場合は数量を取得する       	
         	Cart cart = checkItems.get();
-        	cart.setAmount(cart.getAmount() + selectedAmount);
-        	System.out.println(cart.getAmount() + selectedAmount);
+        	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);        	
         	//商品テーブルの商品ストックから-1する
         	int newItemSize = ItemSize - selectedAmount;
