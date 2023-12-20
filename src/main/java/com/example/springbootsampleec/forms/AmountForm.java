@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AmountForm {
-	private int getAmountSize;
+	private int amountSize;
 	
 	public int getAmountSize() {
-		return getAmountSize;
+		return amountSize;
 		}
 }

@@ -63,10 +63,10 @@ public class CartController {
 		for(Cart cartItem : userId.getCarts()) {
 		subtotal = (cartItem.getItem().getPrice() * cartItem.getAmount());
 		total += subtotal;
-		}
+		}		
 		model.addAttribute("total", total);		
 		model.addAttribute("user", userId);
-        model.addAttribute("main", "carts/cart::main");        
+        model.addAttribute("main", "carts/cart::main");
         return "layout/logged_in_simple";    
     }
 	
@@ -76,10 +76,12 @@ public class CartController {
 	        @PathVariable("id") Integer id,
 	        RedirectAttributes redirectAttributes,
 	        @AuthenticationPrincipal(expression = "user") User user,
-	        @ModelAttribute AmountForm amountForm,
+	        //@ModelAttribute AmountForm amountForm,
+	        //BindingResult result,
+	        @ModelAttribute("amountForm") AmountForm amountForm, 
 	        BindingResult result,
 	        Model model
-	        ) {
+	        ) {		
 		model.addAttribute("amountForm",amountForm);
 		//カートから商品が削除されたら、商品ストックに増やされる	    	
     	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
@@ -88,13 +90,23 @@ public class CartController {
     	int checkStock = item.getStock();//現在の商品在庫数
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
     	//商品在庫がある時
-    	if (checkStock > 0) {
+    	if (checkStock > 0 && presentAmountSize < selectedAmount) {
         	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
-        	//商品テーブルの商品ストックから購入商品数を減らす
-        	int newItemSize = checkStock - selectedAmount;
+        	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を増やす場合)
+        	int newItemSize = checkStock-(selectedAmount-presentAmountSize);
     		item.setStock(newItemSize);
     		itemRepo.saveAndFlush(item);
+    		System.out.println(newItemSize);
+    	}else if (checkStock > 0 && presentAmountSize > selectedAmount) {
+    		cart.setAmount(selectedAmount);
+        	cartRepo.saveAndFlush(cart);
+        	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を減らす場合)
+        	int newItemSize = checkStock+(presentAmountSize-selectedAmount);
+    		item.setStock(newItemSize);
+    		itemRepo.saveAndFlush(item);
+    		System.out.println(newItemSize);
+    	//商品在庫がない時
     	}else if(checkStock == 0){
     		redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
