@@ -71,45 +71,36 @@ public class CartController {
     }
 	
 	//プルダウンから購入商品数選択
-	@PostMapping("/amountForm/{itemId}")
+	@PostMapping("/{id}/amountForm")
 	public String amountForm(
-	        @PathVariable("itemId") Integer itemid,
+	        @PathVariable("id") Integer id,
 	        RedirectAttributes redirectAttributes,
 	        @AuthenticationPrincipal(expression = "user") User user,
 	        @ModelAttribute AmountForm amountForm,
 	        BindingResult result,
 	        Model model
 	        ) {
-		Item item = itemService.findById(itemid).orElseThrow();
-        model.addAttribute("item", item);        
-		model.addAttribute("amountForm", amountForm);
-		// amountForm.getAmountSize() を使用して選択された数値を取得
-        int selectedAmount = amountForm.getAmountSize();
-        System.out.println(selectedAmount);
-       //ログインユーザーが選択した商品がすでにカートにあるかをみる
-        Optional<Cart> checkItems = cartRepo.findByUserAndItem(user, item);
-		//購入数を決める商品idを取得する
-        model.addAttribute("item", checkItems);   
-        int ItemSize = item.getStock();
-        //ログインユーザーが選択した商品がすでにカートにあり、且つ在庫がある時
-        if (ItemSize > 0) {
-        	//既存のエントリが存在する場合は数量を取得する       	
-        	Cart cart = checkItems.get();
+		//カートから商品が削除されたら、商品ストックに増やされる	    	
+    	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
+    	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
+    	Item itemId = cart.getItem();
+    	int checkStock = itemId.getStock();//現在の商品在庫数
+    	int selectedAmount = amountForm.getAmountSize();//選択した商品数
+    	//商品在庫がある時
+    	if (checkStock > 0) {
         	cart.setAmount(selectedAmount);
-        	cartRepo.saveAndFlush(cart);        	
-        	//商品テーブルの商品ストックから-1する
-        	int newItemSize = ItemSize - selectedAmount;
-    		item.setStock(newItemSize);
-    		itemRepo.saveAndFlush(item);
-    	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
-        } else if (ItemSize == 0) {
-        	redirectAttributes.addFlashAttribute(
+        	cartRepo.saveAndFlush(cart);
+        	//商品テーブルの商品ストックから購入商品数を減らす
+        	int newItemSize = checkStock - selectedAmount;
+    		itemId.setStock(newItemSize);
+    		itemRepo.saveAndFlush(itemId);
+    	}else if(checkStock == 0){
+    		redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
 	        		"在庫がありません。");
         } 
 		return "redirect:/cart/"+ user.getId();
-	}	
-		
+    	}
 		
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
