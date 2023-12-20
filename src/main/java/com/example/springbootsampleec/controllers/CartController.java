@@ -72,8 +72,8 @@ public class CartController {
 	
 	//プルダウンから購入商品数選択
 	@PostMapping("/amountForm/{itemId}")
-	public String chooseAmountSize(
-	        @PathVariable("itemId") long itemid,
+	public String amountForm(
+	        @PathVariable("itemId") Integer itemid,
 	        RedirectAttributes redirectAttributes,
 	        @AuthenticationPrincipal(expression = "user") User user,
 	        @ModelAttribute AmountForm amountForm,

@@ -63,7 +63,7 @@
                 <td class="text-center align-middle">
 					[[ ${cart.amount} ]]
 					<form method="post" th:action="@{/cart/amountForm/{itemId}(itemId=${item.id})}" th:object="${amountForm}">
-					<select name="amountSize"　th:field="*{getAmountSize}">
+					<select name="getAmountSize"　th:field="*{getAmountSize}">
 						<option value=1>1</option>
 				  		<option value=2>2</option>
 				  		<option value=3>3</option>
@@ -74,7 +74,6 @@
 				  		<option value=8>8</option>
 				  		<option value=9>9</option>
 				  		<option value=10>10</option>
-				  		<button type="submit">Submit</button>
 					</select>
 					</form>
         			<br>    				
