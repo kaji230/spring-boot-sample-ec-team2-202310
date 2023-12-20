@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+	<h1>[[ ${title} ]]</h1>
+	<ul th:each="review : ${user.reviews}">
+		<li>
+			【[[ ${review.star}]]】 [[ ${review.comment}]]([[ ${#temporals.format(review.createdAt, 'yyyy/MM/dd')}]])
+		</li>
+	</ul>	
+</div>
+</html>

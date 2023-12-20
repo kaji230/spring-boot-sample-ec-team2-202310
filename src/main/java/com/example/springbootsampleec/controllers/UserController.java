@@ -1,34 +1,47 @@
 package com.example.springbootsampleec.controllers;
  
-import java.util.ArrayList;
 import java.util.List;
- 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Optional;
 
-import org.springframework.web.bind.annotation.ModelAttribute; 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.validation.BindingResult;
- 
-import com.example.springbootsampleec.services.UserService;
-import com.example.springbootsampleec.forms.SignUpForm;
- 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.springbootsampleec.entities.Item;
+import com.example.springbootsampleec.entities.Review;
+import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.forms.SignUpForm;
+import com.example.springbootsampleec.services.ItemService;
+import com.example.springbootsampleec.services.ReviewService;
+import com.example.springbootsampleec.services.ShopService;
+import com.example.springbootsampleec.services.UserService;
  
 @RequestMapping("/users")
 @Controller
 public class UserController { 
     // UserController 内で UserService を利用できるように
     private final UserService userService;
+    private final ItemService itemService;
+	private final ReviewService reviewService;
+	private final ShopService shopService;
     
-    public UserController(UserService userService) {
+    public UserController(
+    	UserService userService,
+    	ItemService itemService,
+        ReviewService reviewService,
+        ShopService shopService
+    ) {
         this.userService = userService;
+        this.itemService = itemService;
+        this.reviewService = reviewService;
+        this.shopService = shopService;
     }
     
     @GetMapping("/sign_up")    
@@ -86,6 +99,24 @@ public class UserController {
     public String edit(Model model) {
         model.addAttribute("title", "ユーザー情報を編集");
         model.addAttribute("main", "users/edit::main");
+        return "layout/logged_in";    
+    }
+    
+    @GetMapping("/review/{id}")    
+    public String review(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("id")  Integer id,
+        Model model
+    ) {
+    	Optional<User> refreshedUser = userService.findById(user.getId());
+    	model.addAttribute("user", refreshedUser.orElseThrow());
+        model.addAttribute("title", "レビュー一覧");
+        model.addAttribute("main", "users/review::main");
+
+        // レビューを取得
+        List<Review> reviews = reviewService.findByItemIdOrderByCreatedAtDesc(user.getId());
+        model.addAttribute("reviews", reviews);
+        
         return "layout/logged_in";    
     }
 }
