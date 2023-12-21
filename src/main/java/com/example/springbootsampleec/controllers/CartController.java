@@ -105,7 +105,7 @@ public class CartController {
     		itemRepo.saveAndFlush(item);
     		System.out.println(newItemSize);
     	//商品在庫がない時
-    	}else if(checkStock == 0){
+    	}else if(checkStock <= 0){
     		redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
 	        		"在庫がありません。");
@@ -137,7 +137,7 @@ public class CartController {
     		item.setStock(newItemSize);
     		itemRepo.saveAndFlush(item);
     	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
-        } else if (checkItems.isPresent() && ItemSize == 0) {
+        } else if (checkItems.isPresent() && ItemSize <= 0) {
         	redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
 	        		"在庫がありません。");
