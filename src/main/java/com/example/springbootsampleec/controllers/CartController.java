@@ -88,24 +88,27 @@ public class CartController {
     	int checkStock = item.getStock();//現在の商品在庫数
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
     	//商品在庫がある時
-    	if (checkStock > 0 && presentAmountSize < selectedAmount) {
+    	if (checkStock >= selectedAmount && presentAmountSize < selectedAmount) {
         	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
-        	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を増やす場合)
+        	//商品在庫から購入商品数を減らす(ユーザーが選択数量を増やした場合)
         	int newItemStock = checkStock-(selectedAmount-presentAmountSize);
-    		item.setStock(newItemStock);
-    		itemRepo.saveAndFlush(item);
-    		System.out.println(newItemStock);
+        	if(newItemStock >= 0) {//減らした在庫が0以上になる時
+        		item.setStock(newItemStock);
+        		itemRepo.saveAndFlush(item);
+        		}else {//減らした在庫が0より少なくなる時(マイナス値)は在庫0を記録する
+        		item.setStock(0);
+        		itemRepo.saveAndFlush(item);
+        		}
     	}else if (checkStock >= 0 && presentAmountSize > selectedAmount) {
     		cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
-        	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を減らす場合)
+        	//商品在庫から購入商品数を減らす(ユーザーが選択数量を減らした場合)
         	int newItemStock = checkStock+(presentAmountSize-selectedAmount);
     		item.setStock(newItemStock);
     		itemRepo.saveAndFlush(item);
-    		System.out.println(newItemStock);
     	//商品在庫がない時
-    	}else if(checkStock <= 0){
+    	}else if(checkStock == 0){
     		redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
 	        		"在庫がありません。");
