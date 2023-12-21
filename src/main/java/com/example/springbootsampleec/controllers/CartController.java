@@ -92,18 +92,18 @@ public class CartController {
         	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
         	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を増やす場合)
-        	int newItemSize = checkStock-(selectedAmount-presentAmountSize);
-    		item.setStock(newItemSize);
+        	int newItemStock = checkStock-(selectedAmount-presentAmountSize);
+    		item.setStock(newItemStock);
     		itemRepo.saveAndFlush(item);
-    		System.out.println(newItemSize);
-    	}else if (checkStock > 0 && presentAmountSize > selectedAmount) {
+    		System.out.println(newItemStock);
+    	}else if (checkStock >= 0 && presentAmountSize > selectedAmount) {
     		cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
         	//商品テーブルの商品ストックから購入商品数を減らす(選択数量を減らす場合)
-        	int newItemSize = checkStock+(presentAmountSize-selectedAmount);
-    		item.setStock(newItemSize);
+        	int newItemStock = checkStock+(presentAmountSize-selectedAmount);
+    		item.setStock(newItemStock);
     		itemRepo.saveAndFlush(item);
-    		System.out.println(newItemSize);
+    		System.out.println(newItemStock);
     	//商品在庫がない時
     	}else if(checkStock <= 0){
     		redirectAttributes.addFlashAttribute(
@@ -133,8 +133,8 @@ public class CartController {
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);        	
         	//商品テーブルの商品ストックから-1する
-        	int newItemSize = ItemSize - 1;
-    		item.setStock(newItemSize);
+        	int newItemStock = ItemSize - 1;
+    		item.setStock(newItemStock);
     		itemRepo.saveAndFlush(item);
     	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
         } else if (checkItems.isPresent() && ItemSize <= 0) {
