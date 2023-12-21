@@ -5,16 +5,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnEnW16j7tj70" crossorigin="anonymous">
 </head>
 
-<style>
-    /* モーダル内で表示される商品画像のCSS */
-    .cart-in-img-trim {
-        width: 100%; /* 画像の幅を100%に設定 */
-        height: 0; /* 高さを0に設定 */
-        padding-top: 100%; /* 上部の余白を100%に設定（これにより正方形になります） */
-        object-fit: cover; /* 画像が枠に収まるように調整 */
-    }
-</style>
-
 <body>
 <div th:fragment="main">
     <h1>[[ ${title} ]]</h1>    

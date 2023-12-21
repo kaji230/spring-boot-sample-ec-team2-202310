@@ -3,38 +3,26 @@
  
 <div th:fragment="pagination">
     <div th:if="${page != null}">
-        <ul>
-            <li style="display:inline;">
-                <span th:if="${page.first}">←前</span>
-                <a
-                th:if="${!page.first}"
-                th:href="@{/items/index(page = ${page.number} - 1)}"
-                >
-                    ←前
-                </a>
-            </li>
-            <li
-                th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
-                style="display:inline; margin-left:10px;"
-                >
-                <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
-                <a
-                    th:if="${i} != ${page.number}"
-                    th:href="@{/items/index(page = ${i})}"
-                    >
-                    <span th:text="${i+1}">1</span>
-                </a>
-            </li>
-            <li style="display:inline; margin-left:10px;">
-                <span th:if="${page.last}">次→</span>
-                <a
-                    th:if="${!page.last}"
-                    th:href="@{/items/index(page = (${page.number} + 1))}"
-                    >
-                    次→;
-                </a>
-            </li>
-        </ul>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li th:class="${page.first}? 'page-item disabled' : 'page-item'">
+                    <span th:if="${page.first}" class="page-link">&laquo;</span>
+                    <a th:if="${!page.first}" th:href="@{/items/index(page = ${page.number} - 1)}" class="page-link">
+                        &laquo;
+                    </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                    th:class="${i} == ${page.number}? 'page-item active' : 'page-item'">
+                    <a th:href="@{/items/index(page = ${i})}" class="page-link" th:text="${i + 1}"></a>
+                </li>
+                <li th:class="${page.last}? 'page-item disabled' : 'page-item'">
+                    <span th:if="${page.last}" class="page-link">&raquo;</span>
+                    <a th:if="${!page.last}" th:href="@{/items/index(page = (${page.number} + 1))}" class="page-link">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 </html>
