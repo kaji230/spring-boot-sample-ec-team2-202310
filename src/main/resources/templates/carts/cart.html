@@ -42,6 +42,7 @@
             <tr>
                 <th class="custom-bg-gray text-center">商品名</th>
                 <th class="custom-bg-gray text-center">販売価格</th>
+                <th class="custom-bg-gray text-center">購入数</th>
                 <th class="custom-bg-gray text-center">数量</th>
                 <th class="custom-bg-gray text-center">小計</th>
                 <th class="custom-bg-gray text-center">削除</th>
@@ -59,10 +60,13 @@
                 </td>
                 <!-- 販売価格 -->
                 <td class="text-right align-middle">[[ ${cart.item.price} ]]円</td>
-                <!-- 数量 -->
+                <!-- 購入数 -->
+                <td class="text-center align-middle">
+                [[ ${cart.amount} ]]
+                <!-- 数量選択 -->
                 <td class="text-center align-middle">
 					<div>
-					[[ ${cart.amount} ]]
+					
 						<form method="post" th:action="@{/cart/{id}/amountForm(id=${cart.id})}" th:object="${amountForm}">
 						<select name="amountSize">
 						<option value="1">1</option>
@@ -76,7 +80,7 @@
 				  		<option value="9">9</option>
 				  		<option value="10">10</option>
 					</select>
-					<button type="submit">数量変更</button>
+					<button type="submit">変更</button>
 					</form>
 					</div>
         			<br>    				
