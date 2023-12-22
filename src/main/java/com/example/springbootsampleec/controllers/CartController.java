@@ -87,19 +87,34 @@ public class CartController {
     	Item item = cart.getItem();
     	int checkStock = item.getStock();//現在の商品在庫数
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
-    	//商品在庫が希望購入数より多い時
+    	//在庫が希望購入数より多い時且つ、カートにある商品数より希望購入数が多い時
     	if (checkStock >= selectedAmount && presentAmountSize < selectedAmount) {
         	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
         	//商品在庫から購入商品数を減らす(ユーザーが選択数量を増やした場合)
         	int newItemStock = checkStock-(selectedAmount-presentAmountSize);
         	if(newItemStock >= 0) {//減らした在庫が0以上になる時
-        		item.setStock(newItemStock);
+        	item.setStock(newItemStock);
+        	itemRepo.saveAndFlush(item);
+        	}else {//減らした在庫が0より少なくなる時(マイナス値)は在庫0を記録する
+        	item.setStock(0);
+        	itemRepo.saveAndFlush(item);
+        	}
+        //在庫が希望購入数より少ない時
+    	}else if(checkStock <= selectedAmount && presentAmountSize < selectedAmount) {
+    		if(checkStock < selectedAmount) {
+    			cart.setAmount(checkStock);
+    			cartRepo.saveAndFlush(cart);
+    			item.setStock(0);
         		itemRepo.saveAndFlush(item);
-        		}else {//減らした在庫が0より少なくなる時(マイナス値)は在庫0を記録する
-        		item.setStock(0);
+    		}else if (checkStock == selectedAmount) {
+    			cart.setAmount(selectedAmount);
+    			cartRepo.saveAndFlush(cart);
+    			item.setStock(0);
         		itemRepo.saveAndFlush(item);
-        		}
+    		}
+    		
+        //在庫が希望購入数より少ない時且つ、カートにある数より希望購入数が少ない時
     	}else if (checkStock >= 0 && presentAmountSize > selectedAmount) {
     		cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
