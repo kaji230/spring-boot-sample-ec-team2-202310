@@ -8,6 +8,10 @@ import com.example.springbootsampleec.entities.User;
 
 public interface ReviewService {
 	List<Review> findByItemIdOrderByCreatedAtDesc(Long itemId);
+	
+	//ユーザーのレビュー一覧
+	List<Review> findByUserIdOrderByCreatedAtDesc(Long userId);
+	
 	// 削除
     void delete(int id);
     // 投稿の登録

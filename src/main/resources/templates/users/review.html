@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+	<body style="padding-top:163px; margin-bottom: 92px;">
+	<h1>[[ ${title} ]]</h1>
+	<tr th:each="review : ${reviews}">
+		<th>
+			[[ ${review.item.name}]] 
+		</th>
+		<td>
+			<img th:src="@{/images/{image} (image=${review.item.image})}"></img>
+		</td>
+		<td>
+			[[ ${review.star}]] [[ ${review.comment}]]([[ ${#temporals.format(review.createdAt, 'yyyy/MM/dd')}]])
+		</td>
+		<td><a href="#">編集</a></td><br><!-- とりあえずの改行 -->
+		
+	</tr>
+	</body>	
+</div>
+</html>
