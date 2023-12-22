@@ -44,6 +44,10 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Cart> carts;
     
+    //レビューと1:n の関係を定義
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Review> reviews;
+    
     //@ColumnはDBとJavaフィールドのカラムをマッピングしてくれるアノテーション
     //このアノテーションを付けない場合フィールド名そのままマッピングされる。
     
