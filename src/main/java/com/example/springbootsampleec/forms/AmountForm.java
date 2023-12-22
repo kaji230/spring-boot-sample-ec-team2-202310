@@ -2,9 +2,7 @@ package com.example.springbootsampleec.forms;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.example.springbootsampleec.entities.Shop;
+import com.example.springbootsampleec.entities.Cart;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AmountForm {
-	@NotNull
-    private int amount;
+	private int amountSize;
 	
-	//選択された商品数を取得する
-    public int getAmountSize() {
-        return amount;
-    }
-
+	public int getAmountSize() {
+		return amountSize;
+		}
 }

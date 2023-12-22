@@ -44,7 +44,6 @@
 			        SOLD OUT
 			    </div>
 			</div>
-			
                 <div class="row d-flex align-items-center ml-1">
 	                <!--ハートマーク-->
 	                <form method="post" class="like mt-3" th:action="@{/items/toggleLike/{id} (id=${item.id})}">
@@ -55,7 +54,6 @@
 						<p>クリックでお気に入りに登録</p>
 					</div>
 				</div>
-				
         		<!--カートに入れるボタン-->
 				<form method="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}" data-toggle="modal" data-target="#cart-in-modal">      
 				    <button type="button" class="btn btn-secondary btn-lg btn-block mt-5 mb-4" 
@@ -117,7 +115,7 @@
                                 <form method="post" th:action="@{/cart/inCart/{itemId}(itemId=${item.id})}">
 									<button type="submit" class="btn btn-lg" style="background-color: #e1dccb; color: #000;">カートに入れる</button>
 								</form>
-                            </div>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -179,6 +177,7 @@
     </footer>
 </div>
 <script src="/src/main/resources/static/JS/script.js"></script>
+
 
 </body>
 </html>

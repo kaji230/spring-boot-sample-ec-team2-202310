@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.springbootsampleec.entities.Cart;
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.User;
-//import com.example.springbootsampleec.forms.AmountForm;
+import com.example.springbootsampleec.forms.AmountForm;
 import com.example.springbootsampleec.repositories.CartRepository;
 import com.example.springbootsampleec.repositories.ItemRepository;
 import com.example.springbootsampleec.services.CartService;
@@ -49,7 +51,6 @@ public class CartController {
 	@GetMapping("/{id}")
     public String index(
         @PathVariable("id")  Integer id,
-        //@Valid AmountForm amountForm,//数量追記
         //現在ログイン中のユーザー情報を取得
         @AuthenticationPrincipal(expression = "user") User user,
         Model model) {
@@ -62,18 +63,78 @@ public class CartController {
 		for(Cart cartItem : userId.getCarts()) {
 		subtotal = (cartItem.getItem().getPrice() * cartItem.getAmount());
 		total += subtotal;
-		}
+		}		
 		model.addAttribute("total", total);		
 		model.addAttribute("user", userId);
-        model.addAttribute("main", "carts/cart::main");        
+        model.addAttribute("main", "carts/cart::main");
         return "layout/logged_in_simple";    
     }
 	
+	//プルダウンから購入商品数選択
+	@PostMapping("/{id}/amountForm")
+	public String amountForm(
+	        @PathVariable("id") Integer id,
+	        RedirectAttributes redirectAttributes,
+	        @AuthenticationPrincipal(expression = "user") User user,	       
+	        @ModelAttribute("amountForm") AmountForm amountForm, 
+	        BindingResult result,
+	        Model model
+	        ) {		
+		model.addAttribute("amountForm",amountForm);
+		//カートから商品が削除されたら、商品ストックに増やされる	    	
+    	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
+    	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
+    	Item item = cart.getItem();
+    	int checkStock = item.getStock();//現在の商品在庫数
+    	int selectedAmount = amountForm.getAmountSize();//選択した商品数
+    	//在庫が希望購入数より多い時且つ、カートにある商品数より希望購入数が多い時
+    	if (checkStock >= selectedAmount && presentAmountSize < selectedAmount) {
+        	cart.setAmount(selectedAmount);
+        	cartRepo.saveAndFlush(cart);
+        	//商品在庫から購入商品数を減らす(ユーザーが選択数量を増やした場合)
+        	int newItemStock = checkStock-(selectedAmount-presentAmountSize);
+        	if(newItemStock >= 0) {//減らした在庫が0以上になる時
+        	item.setStock(newItemStock);
+        	itemRepo.saveAndFlush(item);
+        	}else {//減らした在庫が0より少なくなる時(マイナス値)は在庫0を記録する
+        	item.setStock(0);
+        	itemRepo.saveAndFlush(item);
+        	}
+        //在庫が希望購入数より少ない時
+    	}else if(checkStock <= selectedAmount && presentAmountSize < selectedAmount) {
+    		if(checkStock < selectedAmount) {
+    			cart.setAmount(checkStock);
+    			cartRepo.saveAndFlush(cart);
+    			item.setStock(0);
+        		itemRepo.saveAndFlush(item);
+    		}else if (checkStock == selectedAmount) {
+    			cart.setAmount(selectedAmount);
+    			cartRepo.saveAndFlush(cart);
+    			item.setStock(0);
+        		itemRepo.saveAndFlush(item);
+    		}
+    		
+        //在庫が希望購入数より少ない時且つ、カートにある数より希望購入数が少ない時
+    	}else if (checkStock >= 0 && presentAmountSize > selectedAmount) {
+    		cart.setAmount(selectedAmount);
+        	cartRepo.saveAndFlush(cart);
+        	//商品在庫から購入商品数を減らす(ユーザーが選択数量を減らした場合)
+        	int newItemStock = checkStock+(presentAmountSize-selectedAmount);
+    		item.setStock(newItemStock);
+    		itemRepo.saveAndFlush(item);
+    	//商品在庫がない時
+    	}else if(checkStock == 0){
+    		redirectAttributes.addFlashAttribute(
+					"You don't buy a item. Sorry...",
+	        		"在庫がありません。");
+        } 
+		return "redirect:/cart/"+ user.getId();
+    	}
+		
 	//カートに入れる
 	@PostMapping("/inCart/{itemId}")    
     public String inCart(
-    	//@Valid AmountForm amountForm,//数量追記
-        @PathVariable("itemId") long itemId,
+        @PathVariable("itemId") Integer itemId,
         RedirectAttributes redirectAttributes,
         @AuthenticationPrincipal(expression = "user") User user,
         Model model
@@ -90,11 +151,11 @@ public class CartController {
         	cart.setAmount(cart.getAmount() + 1);
         	cartRepo.saveAndFlush(cart);        	
         	//商品テーブルの商品ストックから-1する
-        	int newItemSize = ItemSize - 1;
-    		item.setStock(newItemSize);
+        	int newItemStock = ItemSize - 1;
+    		item.setStock(newItemStock);
     		itemRepo.saveAndFlush(item);
     	//ログインユーザーが選択した商品がすでにカートにあるが在庫がない時
-        } else if (checkItems.isPresent() && ItemSize == 0) {
+        } else if (checkItems.isPresent() && ItemSize <= 0) {
         	redirectAttributes.addFlashAttribute(
 					"You don't buy a item. Sorry...",
 	        		"在庫がありません。");
@@ -152,27 +213,4 @@ public class CartController {
 	        model.addAttribute("user", user);
 	        return "carts/purchased";  	    	
 	    }
-	    
-	    
-	    //商品数選択(余力があればカートページからプルダウンで数量変更ができるようにしたい！！岩井)
-		
-	    /*@PostMapping("/amountSize/{cartId}")    
-	    public String amountSize(
-	        @ModelAttribute("amountForm") AmountForm amountForm,
-	        @PathVariable("cartId")  Integer id,
-	        @AuthenticationPrincipal(expression = "user") User user,
-	        RedirectAttributes redirectAttributes,
-	        Model model
-	        ) {
-			model.addAttribute("user", user);//ログインユーザの取得
-			int amountSize = cartService.getAmountSize(id);
-			System.out.println(amountSize);
-			cartService.register(
-		            user,
-		            item,
-		            amountSize
-		        );		        
-			int total = itemService.getPrice(id)*amountSize;
-			return "redirect:/cart/"+ user.getId();   
-	    }*/
 }
