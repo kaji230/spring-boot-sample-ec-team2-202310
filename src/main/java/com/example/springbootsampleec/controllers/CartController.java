@@ -87,7 +87,7 @@ public class CartController {
     	Item item = cart.getItem();
     	int checkStock = item.getStock();//現在の商品在庫数
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
-    	//商品在庫がある時
+    	//商品在庫が希望購入数より多い時
     	if (checkStock >= selectedAmount && presentAmountSize < selectedAmount) {
         	cart.setAmount(selectedAmount);
         	cartRepo.saveAndFlush(cart);
@@ -198,5 +198,4 @@ public class CartController {
 	        model.addAttribute("user", user);
 	        return "carts/purchased";  	    	
 	    }
-	
 }
