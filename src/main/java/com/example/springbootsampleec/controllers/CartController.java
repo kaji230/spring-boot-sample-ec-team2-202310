@@ -80,7 +80,7 @@ public class CartController {
 	        BindingResult result,
 	        Model model
 	        ) {
-		System.out.println("aaaaaaaaaaaaaaa");
+		//System.out.println("aaaaaaaaaaaaaaa");
 		model.addAttribute("amountForm",amountForm);		
 		//カートから商品が削除されたら、商品ストックに増やされる	    	
     	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
