@@ -3,9 +3,12 @@ package com.example.springbootsampleec.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.Review;
-import com.example.springbootsampleec.entities.Shop;
 import com.example.springbootsampleec.entities.User;
+import com.example.springbootsampleec.forms.ItemEditForm;
+import com.example.springbootsampleec.forms.ReviewEditForm;
 import com.example.springbootsampleec.forms.SignUpForm;
 import com.example.springbootsampleec.services.ItemService;
 import com.example.springbootsampleec.services.ReviewService;
@@ -111,12 +114,51 @@ public class UserController {
     	Optional<User> refreshedUser = userService.findById(id);
     	model.addAttribute("user", refreshedUser.orElseThrow());
         model.addAttribute("title", "レビュー一覧");
-        model.addAttribute("main", "users/review::main");
+        model.addAttribute("main", "reviews/review::main");
 
         // レビューを取得
         List<Review> reviews = reviewService.findByUserIdOrderByCreatedAtDesc(id);
         model.addAttribute("reviews", reviews);
         
         return "layout/logged_in_simple";    
+    }
+    
+    @GetMapping("/review/edit/{id}")    
+    public String reviewEdit(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @ModelAttribute("reviewEditForm") ReviewEditForm reviewEditForm,
+        @PathVariable("id")  Long id,
+        Model model) {
+    	Review review = reviewService.findById(id).orElseThrow();
+        
+        reviewEditForm.setStar(review.getStar());
+        reviewEditForm.setComment(review.getComment());
+        model.addAttribute("review", review);
+        model.addAttribute("user", user);
+        model.addAttribute("title", "商品の編集");
+        model.addAttribute("main", "reviews/review_edit::main");
+        return "layout/logged_in_simple";    
+    }
+    
+    @PostMapping("/review/update/{id}")    
+    public String update(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("id")  Long id,
+        @Valid ReviewEditForm reviewEditForm,
+        RedirectAttributes redirectAttributes,
+        BindingResult bindingResult,
+        Model model) {
+        if(bindingResult.hasErrors()){
+            return reviewEdit(user, reviewEditForm, id, model);
+        }
+        reviewService.updateReview(
+        		id,
+                reviewEditForm.getStar(),
+                reviewEditForm.getComment()
+        );  
+        redirectAttributes.addFlashAttribute(
+            "successMessage",
+            "レビューの更新が完了しました");
+        return "redirect:/users/review/{id}";
     }
 }
