@@ -102,17 +102,17 @@ public class CartController {
         	}
         //在庫が希望購入数より少ない時
     	}else if(checkStock <= selectedAmount && presentAmountSize < selectedAmount) {
-    		if(checkStock < selectedAmount) {
-    			cart.setAmount(checkStock);
+    		if(checkStock <= selectedAmount) {
+    			cart.setAmount(checkStock+presentAmountSize);
     			cartRepo.saveAndFlush(cart);
     			item.setStock(0);
         		itemRepo.saveAndFlush(item);
-    		}else if (checkStock == selectedAmount) {
+    		}/*else if (checkStock == selectedAmount) {
     			cart.setAmount(selectedAmount);
     			cartRepo.saveAndFlush(cart);
     			item.setStock(0);
         		itemRepo.saveAndFlush(item);
-    		}
+    		}*/
     		
         //在庫が希望購入数より少ない時且つ、カートにある数より希望購入数が少ない時
     	}else if (checkStock >= 0 && presentAmountSize > selectedAmount) {
