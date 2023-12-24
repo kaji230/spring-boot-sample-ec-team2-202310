@@ -79,16 +79,13 @@ public class CartController {
 	        @ModelAttribute("amountForm") AmountForm amountForm, 
 	        BindingResult result,
 	        Model model
-	        ) {
-		//System.out.println("aaaaaaaaaaaaaaa");
-		model.addAttribute("amountForm",amountForm);		
+	        ) {		
+		model.addAttribute("amountForm",amountForm);
 		//カートから商品が削除されたら、商品ストックに増やされる	    	
     	Cart cart = cartService.findById(id).orElseThrow();//ログインユーザーのカート情報を取得
     	int presentAmountSize = cart.getAmount();//購入済商品の現在カートに入れてる商品数
-    	Item item = cart.getItem();    	
+    	Item item = cart.getItem();
     	int checkStock = item.getStock();//現在の商品在庫数
-    	System.out.println(checkStock);
-    	//model.addAttribute("checkStock",Integer.valueOf(checkStock));
     	int selectedAmount = amountForm.getAmountSize();//選択した商品数
     	//在庫が希望購入数より多い時且つ、カートにある商品数より希望購入数が多い時
     	if (checkStock >= selectedAmount && presentAmountSize < selectedAmount) {
@@ -105,8 +102,8 @@ public class CartController {
         	}
         //在庫が希望購入数より少ない時
     	}else if(checkStock <= selectedAmount && presentAmountSize < selectedAmount) {
-    		if(checkStock <= selectedAmount) {
-    			cart.setAmount(checkStock+presentAmountSize);
+    		if(checkStock < selectedAmount) {
+    			cart.setAmount(checkStock);
     			cartRepo.saveAndFlush(cart);
     			item.setStock(0);
         		itemRepo.saveAndFlush(item);

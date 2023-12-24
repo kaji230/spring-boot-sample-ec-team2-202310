@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<body>
-	<div th:fragment="main" style="padding-top:163px; margin-bottom: 92px;">
+<div th:fragment="main">
+	<body style="padding-top:163px; margin-bottom: 92px;">
 	<h1>[[ ${title} ]]</h1>
 	<tr th:each="review : ${reviews}">
 		<th>
@@ -13,9 +13,9 @@
 		<td>
 			[[ ${review.star}]] [[ ${review.comment}]]([[ ${#temporals.format(review.createdAt, 'yyyy/MM/dd')}]])
 		</td>
-		<td><a th:href="@{/users/review/edit/{id} (id=${review.id})}">編集</a></td><br><!-- とりあえずの改行 -->
+		<td><a href="#">編集</a></td><br><!-- とりあえずの改行 -->
 		
 	</tr>
-	</div>
 	</body>	
+</div>
 </html>

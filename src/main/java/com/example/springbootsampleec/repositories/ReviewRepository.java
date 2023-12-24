@@ -1,7 +1,6 @@
 package com.example.springbootsampleec.repositories;
  
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,9 +13,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	List<Review> findByItemIdOrderByCreatedAtDesc(Long itemId);
 	//ユーザーのレビュー一覧に使用
 	List<Review> findByUserIdOrderByCreatedAtDesc(Long userId);
-	
-	//Idでレビューを取得
-	Optional<Review> findById(int id);
 	
 	
 }

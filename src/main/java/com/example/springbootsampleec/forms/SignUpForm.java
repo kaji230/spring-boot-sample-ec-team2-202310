@@ -1,25 +1,25 @@
 package com.example.springbootsampleec.forms;
  
-import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+ 
+import javax.validation.constraints.NotNull;
  
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpForm {
-	@NotBlank
+    @NotNull
     private String email;
-	@NotBlank
+    @NotNull
     private String password;
-    @NotBlank
+    @NotNull
     private String user_name;//name→user_name
-    @NotBlank
+    @NotNull
     private String phone_number;//追加
-    @NotBlank
+    @NotNull
     private String full_name;//追加
-    @NotBlank
+    @NotNull
     private String user_address;//追加 
 }

@@ -209,7 +209,7 @@ public class ItemController {
     	model.addAttribute("user", user);
     	model.addAttribute("reviewCreateForm", reviewCreateForm);
     	model.addAttribute("main", "items/create_review::main");
-    	return "layout/logged_in_simple";
+    	return "layout/logged_in";
     }
     
     @GetMapping("/detail/{id}")    
@@ -266,7 +266,7 @@ public class ItemController {
         itemEditForm.setDescription(item.getDescription());
         model.addAttribute("item", item);
         model.addAttribute("user", user);
-        model.addAttribute("title", "商品の編集");
+        model.addAttribute("title", "投稿の編集");
         model.addAttribute("main", "items/edit::main");
         return "layout/logged_in_simple";    
     }
