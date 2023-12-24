@@ -45,26 +45,23 @@
     <div class="container-fluid" style="background:#fdf7ef; padding-top:20px; padding-bottom:20px;">
         <div class="text-center">
             <h3 class="subheading">新着アイテム</h3>
-                <div class="row d-flex justify-content-center">
-					<div class="row">
-						<tr　th:each="newItem : ${newItems}">
-                        	<th scope="row">
-								<a th:href="@{/items/detail/{id} (id=${newItem.id})}">
-									<div class="overlay-container top-custom-img">
-										<img class="thumbnail-trim" th:src="@{/images/{image} (image=${newItem.image})}"></img>
-										<div class="overlay"></div>
-										<div class="overlay-text">
-			                                <h6>[[ ${newItem.name} ]]</h6>
-			                                <p class="text-right">￥[[ ${newItem.price} ]]</p>
-			                            </div>
-									</div>
-								</a>	
-							</th>
-                    	</tr>
-                    </div>
+            <div class="row d-flex justify-content-center">
+				<div class="row">
+					<tr　th:each="newItem : ${newItems}">
+                    	<th scope="row">
+							<a th:href="@{/items/detail/{id} (id=${newItem.id})}">
+								<div class="overlay-container top-custom-img">
+									<img class="thumbnail-trim" th:src="@{/images/{image} (image=${newItem.image})}"></img>
+									<div class="overlay"></div>
+									<div class="overlay-text">
+		                                <h6>[[ ${newItem.name} ]]</h6>
+		                                <p class="text-right">￥[[ ${newItem.price} ]]</p>
+		                            </div>
+								</div>
+							</a>	
+						</th>
+                	</tr>
                 </div>
-            <div class="col-12 text-center" style="padding-top:10px; padding-bottom:10px;">
-                <a href="/items/index/" class="btn btn-lg btn-outline-secondary">もっと見る</a>
             </div>
         </div>
     </div>
