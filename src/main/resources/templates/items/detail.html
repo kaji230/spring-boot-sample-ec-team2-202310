@@ -44,7 +44,10 @@
 
 	        <!--左カラム-->
             <div class="col-6">
-                <img class="main-img" th:src="@{/images/{image} (image=${item.image})}"></img>
+                <img class="main-img" th:src="@{/images/{image} (image=${item.image})}" alt="Sub Image 1" 
+     onclick="openModal('@{/images/{image} (image=${item.image})}')"
+     data-toggle="modal" 
+     data-target="#imageModal"></img>
                 <div class="d-flex justify-content-between pt-3" style="max-width:450px;">
 	           		<!--メイン画像を4枚の小さい画像一番左に表示-->
 	           		<img class="sub-img" th:src="@{/images/{image} (image=${item.image})}" alt="Sub Image 1" onclick="openModal('@{/images/{image} (image=${item.image})}')" data-toggle="modal" data-target="#imageModal"></img>
