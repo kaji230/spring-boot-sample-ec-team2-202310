@@ -29,15 +29,15 @@
         <div class="container justify-content-center d-flex align-items-center">
             
             <!--ロゴマーク-->
-            <div class>
+            <div class="col-4">
                 <a class="navbar-brand" href="/items/"><img class="img-fluid" src="/images/logo321px.png" alt="TOSAMONロゴマーク"></img></a>
             </div>
             
             <!--検索フォーム-->
-            <div class="col-6 d-flex justify-content-center">
+            <div class="col-5 d-flex justify-content-center">
                 <form th:action="@{/items/search/{keyword}}" method="get" class="custom-form form-inline">
                     <div class="form-group">
-                      <input type="text" name="keyword" placeholder="何をお探しですか？">
+                      <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="何をお探しですか？">
                     </div>
                     <button type="submit" class="btn btn-outline-secondary">検索</button>
                 </form>
