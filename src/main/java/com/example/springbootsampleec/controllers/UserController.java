@@ -2,9 +2,11 @@ package com.example.springbootsampleec.controllers;
  
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springbootsampleec.entities.Review;
@@ -60,9 +64,13 @@ public class UserController {
     // サインアップフォーム投稿時の処理を追記
     @PostMapping("/sign_up")
     public String signUpProcess(
-        @ModelAttribute("sign_up") SignUpForm signUpForm,
+        @ModelAttribute("sign_up") @Valid SignUpForm signUpForm,
         RedirectAttributes redirectAttributes,
+        BindingResult bindingResult,
         Model model){
+    		if(bindingResult.hasErrors()) {
+    			return signUp(signUpForm, model);
+    		}
         String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
         userService.register(
         		signUpForm.getUser_name(),//変更
