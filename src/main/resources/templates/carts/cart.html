@@ -50,7 +50,7 @@
         </thead>
         <tbody>
             <!-- データベースから取得した商品リストを反復処理 -->
-            <!-- カートの中身1 -->
+            <!-- カートの中身 -->
 				<tr th:each="cart : ${user.carts}">
                 <!-- 商品名 -->
                 <td class="align-middle">                    
@@ -65,11 +65,11 @@
                 [[ ${cart.amount} ]]
                 <!-- 数量選択 -->
                 <td class="text-center align-middle">
-					<div>
-					
+					<div>					
 						<form method="post" th:action="@{/cart/{id}/amountForm(id=${cart.id})}" th:object="${amountForm}">
 						<select name="amountSize">
-						<option value="0"></option>
+						<optgroup label="希望購入数を選んでください">-->
+						<!--<option th:each="stock : ${#numbers.sequence(0,checkStock)}" th:value="${stock}" th:text="${stock}"></option>-->
 						<option value="1">1</option>
 				  		<option value="2">2</option>
 				  		<option value="3">3</option>
@@ -80,6 +80,17 @@
 				  		<option value="8">8</option>
 				  		<option value="9">9</option>
 				  		<option value="10">10</option>
+				  		<option value="11">11</option>
+				  		<option value="12">12</option>
+				  		<option value="13">13</option>
+				  		<option value="14">14</option>
+				  		<option value="15">15</option>
+				  		<option value="16">16</option>
+				  		<option value="17">17</option>
+				  		<option value="18">18</option>
+				  		<option value="19">19</option>
+				  		<option value="20">20</option>
+				  		</optgroup>
 					</select>
 					<button type="submit">変更</button>
 					</form>
