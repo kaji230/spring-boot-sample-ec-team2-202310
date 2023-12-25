@@ -1,6 +1,7 @@
 package com.example.springbootsampleec.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -47,6 +48,12 @@ public class ReviewServiceImpl implements ReviewService {
     public void register(String comment, String star, Item item, User user) {
     	Review review = new Review(null, item, user, comment, star, null, null);
     	reviewRepository.save(review);
+    }
+    
+    @Transactional
+    @Override
+  	public Optional<Review> findById(Long id){
+    	return reviewRepository.findById(id);
     }
     
     // レビューを更新
