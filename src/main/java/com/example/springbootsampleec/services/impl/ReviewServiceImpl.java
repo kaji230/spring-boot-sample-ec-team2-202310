@@ -50,6 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
     	reviewRepository.save(review);
     }
     
+    //Idでレビューを取得
     @Transactional
     @Override
   	public Optional<Review> findById(Long id){
