@@ -48,4 +48,15 @@ public class ReviewServiceImpl implements ReviewService {
     	Review review = new Review(null, item, user, comment, star, null, null);
     	reviewRepository.save(review);
     }
+    
+    // レビューを更新
+    @Transactional
+    @Override
+    public void updateReview(long id, String star, String comment) {
+    	Review review =  findById(id).orElseThrow();
+        review.setStar(star);
+        review.setComment(comment);
+        reviewRepository.saveAndFlush(review);
+       
+    }
 }
