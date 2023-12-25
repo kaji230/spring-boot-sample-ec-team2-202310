@@ -161,4 +161,18 @@ public class UserController {
             "レビューの更新が完了しました");
         return "redirect:/users/review/{id}";
     }
+    
+    @GetMapping("/review/delete/{id}")    
+    public String delete(
+    	@AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("id")  Long id,
+        RedirectAttributes redirectAttributes,
+        Model model) {
+    	
+       reviewService.delete(id);
+        redirectAttributes.addFlashAttribute(
+            "successMessage",
+            "投稿の削除が完了しました");
+        return "redirect:/users/review/" + user.getId();  
+    }
 }

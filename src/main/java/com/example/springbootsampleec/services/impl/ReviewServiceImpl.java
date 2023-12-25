@@ -40,7 +40,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
+    	Review review = findById(id).orElseThrow();
+        reviewRepository.delete(review);
     }
 
     @Transactional

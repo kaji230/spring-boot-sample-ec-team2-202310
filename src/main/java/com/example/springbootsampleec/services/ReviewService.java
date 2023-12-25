@@ -17,7 +17,7 @@ public interface ReviewService {
 	Optional<Review> findById(Long id);
 	
 	// 削除
-    void delete(int id);
+    void delete(Long id);
     // 投稿の登録
     void register(String comment, String star, Item item, User user);
     //　投稿の更新
