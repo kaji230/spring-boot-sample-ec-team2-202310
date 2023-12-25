@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>投稿の編集</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
+
+    </head>
+
+    <body>
+        <!--レビュー編集フォーム-->
+        <div th:fragment="main" class="container text-secondary">
+            <div class"row">
+                <div class="col text-center">
+                    <h4 style="letter-spacing:0.2em; margin-top:3em; margin-bottom:1.6em;">投稿の編集</h4>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-7">
+                    <form method="POST" enctype="multipart/form-data" th:action="@{/users/review/update/{id} (id=${review.id})}" th:object="${reviewEditForm}">
+                        <ul>
+                            <li th:each="error : ${#fields.detailedErrors()}">
+                			<span th:text="${error.message}"></span>
+           				 </li>
+        			</ul>
+                    <table class="table table-borderless text-nowrap">
+                        <tbody>
+                            <!--商品名-->
+                            <tr>
+                                <td><label for="name">商品名:</label></td>
+                                <td>[[ ${review.item.name}]]</td>
+                            </tr>
+                            <!--評価-->
+                            <tr>
+                                <td><label for="star">評価:</label></td>
+                                <td>
+									<select class="form-control" id="star" th:field="*{star}">
+        		  						<option value=⭐⭐⭐⭐⭐>⭐⭐⭐⭐⭐</option>
+        		  						<option value=⭐⭐⭐⭐>⭐⭐⭐⭐</option>
+        		 						<option value=⭐⭐⭐>⭐⭐⭐</option>
+        		 						<option value=⭐⭐>⭐⭐</option>
+        		 						<option value=⭐>⭐</option>
+									</select>
+								</td>
+                            </tr>
+                            <!--レビュー本文-->
+                            <tr>
+                                <td><label for="comment">レビュー:</label></td>
+                                <td><textarea type="text" class="form-control" id="comment" th:field="*{comment}" placeholder="レビューを入力してください。" row="8" autofocus="autofocus" style="height: 150px;"></textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--更新ボタン-->
+                    <div class="row" style="margin-top:1.6em; margin-bottom:5em;">
+                        <div class="col-8 mx-auto">
+                            <button class="btn btn-warning btn-block">更新</button>
+                        </div>
+                    </div>
+                  </form>
+                        <!--戻るボタン-->
+                        <div class="col-12 text-center text-muted" style="margin-top:20px;">
+                            <a th:href="@{/users/review/{id} (id=${user.id})}" class="text-reset" style="text-decoration: underline">＜戻る</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <!--フッター-->
+    <footer class="footer fixed-bottom">
+      <nav class="nav justify-content-center d-flex align-items-center" style="background:#e1dccb;height:92px;">
+        <span class="text-muted"><small>&copy;team2</small></span>
+      </nav>
+    </footer>
+ 
+    <!-- 以下にBootstrapに必要なJavaScriptを記述します -->
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+ 
+  </body>
+</div>
+</html>

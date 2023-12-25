@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>レビューの管理</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .custom-bg-gray {
+            background-color: gray;
+            color: white;
+        }
+
+        .text-center a,
+        .text-right a {
+            color: inherit; /* 現在の要素の親からの継承された色を使用 */
+            text-decoration: underline; /* リンクに下線を追加 */
+            cursor: pointer; /* マウスをホバーするとポインターになるように */
+        }
+    </style>
+</head>
+<body>
+    <div th:fragment="main" class="row justify-content-center text-secondary">
+    <div class="col-12" style="padding-top:163px; margin-bottom: 92px;">
+
+    <!--投稿したレビューの管理-->
+    <h4 class="text-center justify-content-center" style="margin:1.6em;">投稿したレビューの管理</h4>
+    <table class="table table-bordered justify-content-center">
+        <thead>
+            <tr>
+                <th class="custom-bg-gray text-center">商品</th>
+                <th class="custom-bg-gray text-center">評価</th>
+                <th class="custom-bg-gray text-center">レビュー</th>
+                <th class="custom-bg-gray text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- データベースから取得したレビューを反復処理 -->
+            <!-- レビュー1 -->
+				<tr th:each="review : ${reviews}">
+                <!-- 商品 -->
+                <td class="align-middle">                    
+                    <!-- 商品画像-->
+                    <img th:src="@{/images/{image} (image=${review.item.image})}" style="width: 100px; height:100px;">
+		            <!-- 商品名 -->
+		           [[ ${review.item.name} ]]
+                </td>
+                <!-- 評価 -->
+                <td class="text-left align-middle">[[ ${review.star}]]</td>
+                <!-- レビュー -->
+                <td class="text-left align-middle">[[ ${review.comment}]]([[ ${#temporals.format(review.createdAt, 'yyyy/MM/dd')}]])</td>
+                <!-- 操作 -->
+                <td class="text-right align-middle">
+                    <div class="d-flex justify-content-center">
+                    <!-- 編集ボタン -->
+                    <a th:href="@{/users/review/edit/{id} (id=${review.id})}" style="text-decoration: underline">編集</a>
+                    <!-- 削除ボタン -->
+                    <form method="POST" th:action="@{/review/delete/{id} (id=${review.id})}">
+                        <a th:href="" style="text-decoration: underline" class="ml-3">削除</a>
+			        </form>
+			        </div>
+				</td>
+            </tr>
+        </tbody>
+    </table>
+                
+    <!--戻るボタン-->
+    <div class="text-center mt-5 mb-5">
+        <a th:href="@{/items/}" style="text-decoration: underline"> ＜ 戻る</a>
+    </div>
+    </div>
+      
+    <!--フッター-->
+    <footer class="footer fixed-bottom">
+      <nav class="nav justify-content-center d-flex align-items-center" style="background:#e1dccb; height:163px;">
+        <span class="text-muted"><small>&copy;team2</small></span>
+      </nav>
+    </footer>
+ 
+    <!-- 以下にBootstrapに必要なJavaScriptを記述します -->
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+ 
+  </body>
+  </div>
+</html>
