@@ -111,7 +111,7 @@ public class UserController {
     	Optional<User> refreshedUser = userService.findById(id);
     	model.addAttribute("user", refreshedUser.orElseThrow());
         model.addAttribute("title", "レビュー一覧");
-        model.addAttribute("main", "users/review::main");
+        model.addAttribute("main", "reviews/review::main");
 
         // レビューを取得
         List<Review> reviews = reviewService.findByUserIdOrderByCreatedAtDesc(id);
