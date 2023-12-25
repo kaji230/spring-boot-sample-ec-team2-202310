@@ -117,6 +117,46 @@ public class UserController {
         List<Review> reviews = reviewService.findByUserIdOrderByCreatedAtDesc(id);
         model.addAttribute("reviews", reviews);
         
+        return "layout/logged_in_simple";  
+       
+    }
+    
+    @GetMapping("/review/edit/{id}")    
+    public String reviewEdit(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @ModelAttribute("reviewEditForm") ReviewEditForm reviewEditForm,
+        @PathVariable("id")  Long id,
+        Model model) {
+    	Review review = reviewService.findById(id).orElseThrow();
+        
+        reviewEditForm.setStar(review.getStar());
+        reviewEditForm.setComment(review.getComment());
+        model.addAttribute("review", review);
+        model.addAttribute("user", user);
+        model.addAttribute("title", "商品の編集");
+        model.addAttribute("main", "reviews/review_edit::main");
         return "layout/logged_in_simple";    
+    }
+    
+    @PostMapping("/review/update/{id}")    
+    public String update(
+        @AuthenticationPrincipal(expression = "user") User user,
+        @PathVariable("id")  Long id,
+        @Valid ReviewEditForm reviewEditForm,
+        RedirectAttributes redirectAttributes,
+        BindingResult bindingResult,
+        Model model) {
+        if(bindingResult.hasErrors()){
+            return reviewEdit(user, reviewEditForm, id, model);
+        }
+        reviewService.updateReview(
+        		id,
+                reviewEditForm.getStar(),
+                reviewEditForm.getComment()
+        );  
+        redirectAttributes.addFlashAttribute(
+            "successMessage",
+            "レビューの更新が完了しました");
+        return "redirect:/users/review/{id}";
     }
 }
