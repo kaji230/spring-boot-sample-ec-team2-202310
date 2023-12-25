@@ -16,4 +16,6 @@ public interface ReviewService {
     void delete(int id);
     // 投稿の登録
     void register(String comment, String star, Item item, User user);
+    //　投稿の更新
+    void updateReview(long id, String star, String comment);
 };
