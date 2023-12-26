@@ -18,6 +18,7 @@ public class ItemEditForm {
     private String name;
     
     @NotNull
+    @Size(min=1)
     private int price;
     
     @NotNull
