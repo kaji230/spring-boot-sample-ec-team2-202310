@@ -1,6 +1,7 @@
 package com.example.springbootsampleec.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.springbootsampleec.entities.Item;
 import com.example.springbootsampleec.entities.Review;
@@ -12,8 +13,13 @@ public interface ReviewService {
 	//ユーザーのレビュー一覧
 	List<Review> findByUserIdOrderByCreatedAtDesc(Long userId);
 	
+	//Idでレビューを取得
+	Optional<Review> findById(Long id);
+	
 	// 削除
-    void delete(int id);
+    void delete(Long id);
     // 投稿の登録
     void register(String comment, String star, Item item, User user);
+    //　投稿の更新
+    void updateReview(long id, String star, String comment);
 };
