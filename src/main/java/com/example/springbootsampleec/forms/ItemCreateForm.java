@@ -23,12 +23,15 @@ public class ItemCreateForm {
     private String name;
     
     @NotNull
+    @Size(min=1)
     private int price;
     
     @NotNull
+    @Size(min=1)
     private int stock;
     
     @NotNull
+    @Size(min=1, max=10)
     private int type;
     
     @NotNull
