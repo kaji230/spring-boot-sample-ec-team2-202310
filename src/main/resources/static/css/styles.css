@@ -36,7 +36,7 @@ body {
   flex: 1; /* コンテンツが残りの領域を占めるようにする */
   }
 
-footer {
+.footer {
   background-color: #e1dccb;
   height: 92px;
   margin-top: auto; /* フッターを下に押し下げる */
@@ -96,6 +96,9 @@ svg {
   top: 81%;
   padding: 0 10px;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .thumbnail-trim {
