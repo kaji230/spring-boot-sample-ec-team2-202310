@@ -1,5 +1,7 @@
 package com.example.springbootsampleec.forms;
  
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,15 +25,16 @@ public class ItemCreateForm {
     private String name;
     
     @NotNull
-    @Size(min=1)
+    @Min(value=1)
     private int price;
     
     @NotNull
-    @Size(min=1)
+    @Min(value=1)
     private int stock;
     
     @NotNull
-    @Size(min=1, max=10)
+    @Min(value=1)
+    @Max(value=10)
     private int type;
     
     @NotNull

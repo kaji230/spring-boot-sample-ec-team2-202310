@@ -159,7 +159,7 @@ public class UserController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "レビューの更新が完了しました");
-        return "redirect:/users/review/{id}";
+        return "redirect:/users/review/" + user.getId();
     }
     
     @GetMapping("/review/delete/{id}")    
