@@ -234,7 +234,7 @@
                 </div>
             </div>
             <div class="my-3 d-flex justify-content-center">
-                <a href="#" class="btn btn-lg btn-secondary">レビューを投稿する</a>
+                <a th:href="@{/items/detail/{id}/create_review (id=${item.id})}" class="btn btn-lg btn-secondary">レビューを投稿する</a>
             </div>
         </div>
 	</div>
