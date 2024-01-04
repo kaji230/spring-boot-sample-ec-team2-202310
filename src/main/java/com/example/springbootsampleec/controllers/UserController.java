@@ -59,7 +59,7 @@ public class UserController {
     // サインアップフォーム投稿時の処理を追記
     @PostMapping("/sign_up")
     public String signUpProcess(
-        @ModelAttribute("sign_up") SignUpForm signUpForm,
+        @ModelAttribute("sign_up") @Valid SignUpForm signUpForm,
         RedirectAttributes redirectAttributes,
         Model model){
         String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
