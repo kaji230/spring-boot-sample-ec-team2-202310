@@ -1,4 +1,4 @@
-INSERT INTO spring_boot_ec_202310.shop (`id`, `shop_account`, `shop_name`, `shop_address`, `shop_description`, `shop_icon`) VALUES
+INSERT INTO spring_boot_ec_202401.shop (`id`, `shop_account`, `shop_name`, `shop_address`, `shop_description`, `shop_icon`) VALUES
 (1, 'tosasoap', '土佐石鹸工房', '高知県香美市土佐山田町宮ノ口', 'はじめまして♪土佐山田に工房を構える小さな石鹸屋です。高知産の天然由来100%成分を目標に作ってます。ぜひお試しください。','shop_icon_tosasoap.jpeg'),
 (2, 'wood_tanaka', '木の香り工房たなか', '高知県安芸郡馬路村魚梁瀬', '高知県馬路村魚梁瀬杉を使用した、自然な香りと職人技が織りなす木製品。豊かな木の香りをお楽しみください。','shop_icon_wood_tanaka.jpeg'),
 (3, 'flower_iwai', 'IwaiFlowerGarden', '高知県安芸市矢ノ丸１丁目4-40', '高知県安芸市矢ノ丸にある小さな花屋です。当店では、四季折々の美しい花々を取り揃えております。お気軽にお立ち寄りいただき、心躍る花々と共に素敵なひとときをお過ごしください。','shop_icon_flower_iwai.jpeg'),
@@ -10,7 +10,7 @@ INSERT INTO spring_boot_ec_202310.shop (`id`, `shop_account`, `shop_name`, `shop
 (9, 'cloth_cross', 'クロス・クロス', '高知県南国市大そね甲2301', '「クロス・クロス」では、お客様の希望に合わせてオーダーメイドの布バッグや小物の注文も承ります。お気に入りの素材やデザインを選んで、自分だけの特別な一品を手に入れましょう。','shop_icon_tosamon.jpeg');
 
 itemのインサート文
-INSERT INTO spring_boot_ec_202310.item (`id`, `shop_id`, `name`, `price`, `stock`, `type`, `description`, `main_img`, `img_1`, `img_2`, `img_3`) VALUES
+INSERT INTO spring_boot_ec_202401.item (`id`, `shop_id`, `name`, `price`, `stock`, `type`, `description`, `main_img`, `img_1`, `img_2`, `img_3`) VALUES
 (1, 1, '天然由来の手づくり石鹸', 1600, 6, 4, '天然成分100%の、素肌に優しい石鹸です。高知産の文旦なども使用したオリジナルのフレーバーも楽しめます。', 'soap_main.jpeg', 'soap_1.jpeg', 'soap_2.jpeg', 'soap_3.jpeg'),
 (2, 2, '馬路村産・やなせ杉のペン立て', 2500, 7, 2, '魚梁瀬杉を使用したペン立てです。触り心地にもこだわりました。', 'woody_penstand_main.jpg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg', 'icon_tosamon.jpeg'),
 (3, 3, '自家栽培のドライフラワー', 3000, 15, 3, '美しいドライフラワーアレンジメントで、自宅を花で彩りませんか？ギフトにもおすすめです。', 'dried_flower_main.jpeg', 'dried_flower_1.jpeg', 'dried_flower_2.jpeg', 'dried_flower_3.jpeg'),
